@@ -52,11 +52,11 @@ export default function ContactPage() {
       <div className="text-center max-w-3xl mx-auto mb-12">
         <h1 className="text-4xl md:text-5xl font-bold">Get in Touch</h1>
         <p className="mt-4 text-lg text-muted-foreground">
-          Have questions? We&apos;re here to help. Reach out to us through any of our channels, or send us a message using the form below.
+          Have questions? We're here to help. Reach out to us through any of our channels, or send us a message using the form below.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16 items-center">
         {contactMethods.map((method) => (
           <Card key={method.name} className="text-center flex flex-col">
             <CardHeader className="items-center">
