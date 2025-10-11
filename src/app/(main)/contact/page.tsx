@@ -78,37 +78,6 @@ export default function ContactPage() {
           </Card>
         ))}
       </div>
-
-       <Card className="max-w-4xl mx-auto">
-        <CardHeader>
-          <CardTitle className="text-2xl text-center">Send Us a Message</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
-                <Input id="name" placeholder="John Doe" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
-                <Input id="email" type="email" placeholder="you@example.com" />
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="subject">Subject</Label>
-              <Input id="subject" placeholder="e.g., Question about visa support" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="message">Your Message</Label>
-              <Textarea id="message" rows={6} placeholder="Please describe your inquiry in detail..." />
-            </div>
-            <div className="text-center">
-              <Button type="submit" size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">Send Message</Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
     </div>
   );
 }
