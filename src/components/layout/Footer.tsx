@@ -47,7 +47,6 @@ export function Footer() {
                 <li><Link href="/services" className="text-muted-foreground hover:text-primary">Services</Link></li>
                 <li><Link href="/blog" className="text-muted-foreground hover:text-primary">Blog</Link></li>
                 <li><Link href="/contact" className="text-muted-foreground hover:text-primary">Contact</Link></li>
-                <li><Link href="/dashboard" className="text-muted-foreground hover:text-primary">Student Portal</Link></li>
             </ul>
           </div>
         </div>

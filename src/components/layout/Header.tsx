@@ -46,9 +46,7 @@ export function Header() {
         </nav>
 
         <div className="flex flex-1 items-center justify-end space-x-4">
-          <Button asChild>
-            <Link href="/dashboard">Student Portal</Link>
-          </Button>
+          
           <button
             className="md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
