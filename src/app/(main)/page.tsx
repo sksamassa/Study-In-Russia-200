@@ -38,7 +38,7 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative h-screen w-full flex items-center justify-center text-white">
+      <section className="relative h-screen w-full flex items-center justify-center text-white overflow-hidden">
         <video
           autoPlay
           loop
