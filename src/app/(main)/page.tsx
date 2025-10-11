@@ -73,7 +73,7 @@ export default function Home() {
               We handle every detail of your journey, ensuring a seamless and stress-free experience.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-center">
             {services.map((service) => (
               <Card key={service.title} className="text-center">
                 <CardHeader>
@@ -100,7 +100,7 @@ export default function Home() {
                       We are proud of the results we deliver and the students we've helped.
                   </p>
               </div>
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center justify-center">
                   {metrics.map((metric) => (
                       <div key={metric.label}>
                           <p className="text-5xl font-bold text-primary">{metric.value}</p>
