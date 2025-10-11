@@ -121,9 +121,6 @@ export default function Home() {
             Let us be your guide on the path to a world-class education in Russia. Create your account and begin your application today.
           </p>
           <div className="mt-8 flex justify-center gap-4">
-            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link href="/dashboard/apply">Apply Now</Link>
-            </Button>
             <Button asChild size="lg" variant="outline">
               <Link href="/contact">Contact Us</Link>
             </Button>
