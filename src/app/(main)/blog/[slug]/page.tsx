@@ -68,7 +68,6 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
       <div
         className="prose dark:prose-invert max-w-none mx-auto text-foreground/90
-                   prose-p:text-center prose-headings:text-center
                    prose-headings:font-headline prose-headings:text-foreground
                    prose-p:font-body
                    prose-a:text-primary prose-a:transition-colors hover:prose-a:text-primary/80

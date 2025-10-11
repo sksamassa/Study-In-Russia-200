@@ -31,8 +31,8 @@ export default function BlogPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {blogPosts.map((post) => (
-          <Card key={post.slug} className="flex flex-col">
-            <CardHeader className="p-0">
+          <Card key={post.slug} className="flex flex-col justify-between h-full">
+            <CardHeader className="p-0 w-full">
               <Link href={`/blog/${post.slug}`}>
                 <Image
                   src={post.image.imageUrl}
@@ -44,8 +44,8 @@ export default function BlogPage() {
                 />
               </Link>
             </CardHeader>
-            <CardContent className="flex-grow p-6">
-              <CardTitle className="text-xl leading-snug">
+            <CardContent className="flex-grow p-6 flex flex-col justify-center">
+              <CardTitle className="text-xl leading-snug text-center">
                 <Link
                   href={`/blog/${post.slug}`}
                   className="hover:text-primary transition-colors"
@@ -53,7 +53,7 @@ export default function BlogPage() {
                   {post.title}
                 </Link>
               </CardTitle>
-              <CardDescription className="mt-3">{post.description}</CardDescription>
+              <CardDescription className="mt-3 text-center">{post.description}</CardDescription>
             </CardContent>
             <CardFooter className="p-6 pt-0 flex justify-between items-center text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
