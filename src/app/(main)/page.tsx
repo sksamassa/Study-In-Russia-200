@@ -39,19 +39,17 @@ export default function Home() {
     <div className="flex flex-col">
       {/* Hero Section */}
       <section className="relative h-screen w-full flex items-center justify-center text-white overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover"
-              key="hero-video"
-            >
-              <source src="https://videos.pexels.com/video-files/853878/853878-hd.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-        </div>
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute top-0 left-0 w-full h-full object-cover"
+          key="hero-video"
+        >
+          <source src="https://videos.pexels.com/video-files/853878/853878-hd.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
         <div className="absolute top-0 left-0 z-10 w-full h-full bg-black/60"></div>
         <div className="z-20 text-center px-4">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight">
@@ -62,7 +60,7 @@ export default function Home() {
           </p>
           <div className="mt-8">
             <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link href="/dashboard/apply">Start Your Application</Link>
+              <a href="https://t.me/studyinrussia200" target="_blank" rel="noopener noreferrer">Start Your Application</a>
             </Button>
           </div>
         </div>
