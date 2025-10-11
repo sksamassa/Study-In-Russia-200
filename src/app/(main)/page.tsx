@@ -44,10 +44,11 @@ export default function Home() {
           loop
           muted
           playsInline
+          preload="auto"
           className="absolute top-0 left-0 w-full h-full object-cover"
           key="hero-video"
         >
-          <source src="https://videos.pexels.com/video-files/853878/853878-hd.mp4" type="video/mp4" />
+          <source src="https://videos.pexels.com/video-files/5943809/5943809-hd.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <div className="absolute top-0 left-0 z-10 w-full h-full bg-black/60"></div>
