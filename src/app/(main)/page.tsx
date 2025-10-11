@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCircle, Plane, FileText, School, BarChart, Bot } from 'lucide-react';
+import { School, FileText, Plane, Bot } from 'lucide-react';
 
 const services = [
   {
@@ -39,16 +39,19 @@ export default function Home() {
     <div className="flex flex-col">
       {/* Hero Section */}
       <section className="relative h-screen w-full flex items-center justify-center text-white overflow-hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute top-0 left-0 z-0 w-full h-full object-cover"
-        >
-          <source src="https://videos.pexels.com/video-files/853878/853878-hd.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        <div className="absolute top-0 left-0 w-full h-full">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+              key="hero-video"
+            >
+              <source src="https://videos.pexels.com/video-files/853878/853878-hd.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+        </div>
         <div className="absolute top-0 left-0 z-10 w-full h-full bg-black/60"></div>
         <div className="z-20 text-center px-4">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight">
