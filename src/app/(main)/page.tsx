@@ -112,21 +112,6 @@ export default function Home() {
               </div>
           </div>
       </section>
-
-      {/* CTA Section */}
-      <section className="py-16 lg:py-24 bg-background">
-        <div className="container text-center">
-          <h2 className="text-3xl md:text-4xl font-bold">Ready to Start Your Adventure?</h2>
-          <p className="mt-4 max-w-xl mx-auto text-muted-foreground">
-            Let us be your guide on the path to a world-class education in Russia. Create your account and begin your application today.
-          </p>
-          <div className="mt-8 flex justify-center gap-4">
-            <Button asChild size="lg" variant="outline">
-              <Link href="/contact">Contact Us</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
