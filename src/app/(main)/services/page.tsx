@@ -61,15 +61,15 @@ export default function ServicesPage() {
             <div className="grid gap-8">
                 {services.map((service, index) => (
                     <Card key={index} className="overflow-hidden">
-                        <div className="grid md:grid-cols-5 items-center">
-                            <div className="md:col-span-2 p-8 bg-primary/5 h-full flex flex-col justify-center items-center text-center">
+                        <div className="grid md:grid-cols-2 items-center">
+                            <div className="p-8 bg-primary/5 h-full flex flex-col justify-center items-center text-center">
                                 <div className="bg-primary/10 rounded-full p-4 mb-4">
                                   <service.icon className="h-12 w-12 text-primary" />
                                 </div>
                                 <CardTitle className="text-2xl">{service.title}</CardTitle>
-                                <CardDescription className="mt-2">{service.description}</CardDescription>
+                                <CardDescription className="mt-2 max-w-md mx-auto">{service.description}</CardDescription>
                             </div>
-                            <div className="md:col-span-3 p-8">
+                            <div className="p-8">
                                 <h4 className="font-semibold text-lg mb-4">What&apos;s Included:</h4>
                                 <ul className="space-y-3">
                                     {service.details.map((detail, i) => (
