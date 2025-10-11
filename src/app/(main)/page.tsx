@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCircle, Plane, FileText, School, BarChart } from 'lucide-react';
+import { CheckCircle, Plane, FileText, School, BarChart, Bot } from 'lucide-react';
 
 const services = [
   {
@@ -15,7 +15,7 @@ const services = [
     description: 'Our experts guide you through the complex student visa application, ensuring all forms are correctly filled and submitted.',
   },
   {
-    icon: CheckCircle,
+    icon: Bot,
     title: 'Document Assistance',
     description: 'From translation to legalization, we help you prepare and verify all required documents to meet university standards.',
   },
