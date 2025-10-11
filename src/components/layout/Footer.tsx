@@ -29,7 +29,7 @@ export function Footer() {
   return (
     <footer className="border-t bg-card">
       <div className="container py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left md:text-left">
           {/* Column 1: Logo & Description */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
