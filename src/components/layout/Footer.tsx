@@ -11,7 +11,7 @@ export function Footer() {
   return (
     <footer className="border-t bg-card">
       <div className="container py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:text-left">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="space-y-4 flex flex-col items-start">
             <Link href="/" className="flex items-center space-x-2">
               <GraduationCap className="h-8 w-8 text-primary" />
