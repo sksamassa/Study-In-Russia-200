@@ -103,7 +103,7 @@ export function Footer() {
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-primary"
                   >
-                    <item.icon className="h-5 w-5" />
+                    <item.icon className="h-6 w-6" />
                     {item.value}
                   </a>
                 </li>
