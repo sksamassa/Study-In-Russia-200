@@ -1,37 +1,36 @@
 import Link from 'next/link';
 import { GraduationCap, Mail, Phone, Send } from 'lucide-react';
 
-const contactInfo = {
-  social: [
-    {
-      icon: Send,
-      value: '@studyinrussia200',
-      href: 'https://t.me/studyinrussia200',
-      label: 'Telegram',
-    },
-  ],
-  whatsapp: [
-    { value: '+7 (919) 126-77-67', href: 'https://wa.me/79191267767' },
-    { value: '+7 (999) 126-77-67', href: 'https://wa.me/79991267767' },
-  ],
-  phone: [
-    { value: '+7 (919) 126-77-67', href: 'tel:+79191267767' },
-    { value: '+7 (999) 126-77-67', href: 'tel:+79991267767' },
-  ],
-  email: [
-    {
-      value: 'studyinrussia200@gmail.com',
-      href: 'mailto:studyinrussia200@gmail.com',
-    },
-  ],
-};
+const contactMethods = [
+  {
+    icon: Send,
+    value: '@studyinrussia200',
+    href: 'https://t.me/studyinrussia200',
+  },
+  {
+    icon: Phone,
+    value: '+79191267767',
+    href: 'tel:+79191267767',
+  },
+  {
+    icon: Mail,
+    value: 'studyinrussia200@gmail.com',
+    href: 'mailto:studyinrussia200@gmail.com',
+  },
+];
+
+const quickLinks = [
+    { href: '/services', label: 'Services' },
+    { href: '/blog', label: 'Blog' },
+    { href: '/contact', label: 'Contact' },
+];
 
 export function Footer() {
   return (
     <footer className="border-t bg-card">
-      <div className="container py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Column 1: Logo & Social */}
+      <div className="container py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Column 1: Logo & Description */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
               <GraduationCap className="h-8 w-8 text-primary" />
@@ -43,29 +42,15 @@ export function Footer() {
               Your trusted partner in securing admission to top Russian
               universities.
             </p>
-            <div className="flex space-x-4">
-              {contactInfo.social.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary"
-                >
-                  <item.icon className="h-6 w-6" />
-                  <span className="sr-only">{item.label}</span>
-                </a>
-              ))}
-            </div>
           </div>
 
-          {/* Column 2: WhatsApp */}
+          {/* Column 2: Contact Us */}
           <div className="space-y-4">
             <h3 className="font-semibold tracking-wider uppercase">
-              WhatsApp
+              Contact Us
             </h3>
             <ul className="space-y-2">
-              {contactInfo.whatsapp.map((item) => (
+              {contactMethods.map((item) => (
                 <li key={item.href}>
                   <a
                     href={item.href}
@@ -73,6 +58,7 @@ export function Footer() {
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-primary"
                   >
+                    <item.icon className="h-4 w-4" />
                     {item.value}
                   </a>
                 </li>
@@ -80,39 +66,19 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Telephone */}
+          {/* Column 3: Quick Links */}
           <div className="space-y-4">
             <h3 className="font-semibold tracking-wider uppercase">
-              Telephone
+              Quick Links
             </h3>
             <ul className="space-y-2 text-sm">
-              {contactInfo.phone.map((item) => (
-                <li key={item.href}>
-                  <a
-                    href={item.href}
-                    className="text-muted-foreground hover:text-primary"
-                  >
-                    {item.value}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 4: Email */}
-          <div className="space-y-4">
-            <h3 className="font-semibold tracking-wider uppercase">Email</h3>
-            <ul className="space-y-2 text-sm">
-              {contactInfo.email.map((item) => (
-                <li key={item.href}>
-                  <a
-                    href={item.href}
-                    className="text-muted-foreground hover:text-primary"
-                  >
-                    {item.value}
-                  </a>
-                </li>
-              ))}
+                {quickLinks.map(link => (
+                    <li key={link.href}>
+                        <Link href={link.href} className="text-muted-foreground hover:text-primary">
+                            {link.label}
+                        </Link>
+                    </li>
+                ))}
             </ul>
           </div>
         </div>
