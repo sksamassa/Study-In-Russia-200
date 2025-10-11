@@ -40,7 +40,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     <article className="container max-w-4xl py-12 md:py-20">
       <div className="space-y-4 text-center">
         <h1 className="text-3xl md:text-5xl font-bold">{post.title}</h1>
-        <div className="flex justify-center items-center gap-8 text-muted-foreground">
+        <div className="flex justify-center items-center gap-4 text-muted-foreground">
             <div className="flex items-center gap-2">
                 <Avatar className="h-8 w-8">
                     <AvatarFallback>{post.author.charAt(0)}</AvatarFallback>
