@@ -68,7 +68,7 @@ export default function Home() {
 
       {/* Services Section */}
       <section id="services" className="py-16 lg:py-24 bg-background">
-        <div className="container">
+        <div className="container px-4 md:px-6">
           <div className="text-center space-y-4 mb-12">
             <h2 className="text-3xl md:text-4xl font-bold">Our Comprehensive Services</h2>
             <p className="max-w-2xl mx-auto text-muted-foreground">
