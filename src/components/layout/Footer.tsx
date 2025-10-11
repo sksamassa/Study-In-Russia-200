@@ -1,5 +1,22 @@
 import Link from 'next/link';
-import { GraduationCap, Mail, Phone, Send } from 'lucide-react';
+import { GraduationCap } from 'lucide-react';
+
+const TelegramIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+        <path d="M15 10l-4 4 6 6 4-16-18 7 4 2 2 6 3-4z"></path>
+    </svg>
+);
 
 const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -18,10 +35,28 @@ const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
+const MailIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg
+        {...props}
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+    >
+        <rect width="20" height="16" x="2" y="4" rx="2" />
+        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+    </svg>
+);
+
 
 const contactMethods = [
   {
-    icon: Send,
+    icon: TelegramIcon,
     value: '@studyinrussia200',
     href: 'https://t.me/studyinrussia200',
   },
@@ -31,7 +66,7 @@ const contactMethods = [
     href: 'https://wa.me/79191267767',
   },
   {
-    icon: Mail,
+    icon: MailIcon,
     value: 'studyinrussia200@gmail.com',
     href: 'mailto:studyinrussia200@gmail.com',
   },
@@ -47,7 +82,7 @@ export function Footer() {
   return (
     <footer className="border-t bg-card">
       <div className="container py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left md:text-left">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
           {/* Column 1: Logo & Description */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
