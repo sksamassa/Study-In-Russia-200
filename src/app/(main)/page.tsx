@@ -203,7 +203,7 @@ export default function Home() {
       <section id="faq" className="py-16 lg:py-24 bg-background">
         <div className="container">
           <Tabs defaultValue="education" className="grid grid-cols-1 md:grid-cols-3 gap-0 relative">
-            <div className="col-span-1 bg-gradient-to-br from-primary to-blue-800 text-primary-foreground p-8 rounded-l-lg">
+            <div className="col-span-1 bg-gradient-to-br from-primary to-blue-800 text-primary-foreground p-8 rounded-l-lg z-0">
                 <h2 className="text-3xl font-bold mb-6">Frequently Asked Questions</h2>
                 <TabsList className="flex flex-col h-auto bg-transparent items-start p-0">
                 {faqData.map((category) => (
@@ -218,14 +218,14 @@ export default function Home() {
                 </TabsList>
             </div>
 
-            <div className="col-span-2 bg-card p-8 rounded-r-lg relative -ml-2 shadow-lg">
+            <div className="col-span-2 bg-card p-8 rounded-r-lg relative -ml-2 z-10 shadow-lg">
                  <svg
                     className="absolute top-0 -left-[1px] h-full w-8 text-card"
                     viewBox="0 0 32 100"
                     preserveAspectRatio="none"
                     fill="currentColor"
                 >
-                    <path d="M0 0 C32 0 32 0 32 20 L32 80 C32 100 32 100 0 100 Z" />
+                    <path d="M0 0 H32 V100 H0 C0 100 32 100 32 80 V20 C32 0 0 0 0 0 Z" />
                 </svg>
                  <svg
                     className="absolute -top-px left-0 w-8 h-8 text-primary-foreground/90"
