@@ -227,13 +227,6 @@ export default function Home() {
                 >
                     <path d="M0 0 H32 V100 H0 C0 100 32 100 32 80 V20 C32 0 0 0 0 0 Z" />
                 </svg>
-                 <svg
-                    className="absolute -top-px left-0 w-8 h-8 text-primary-foreground/90"
-                    viewBox="0 0 32 32"
-                    fill="currentColor"
-                >
-                    <path d="M32 32 C0 32 0 0 0 0 H32 V32Z" />
-                </svg>
                  <div className="pl-6">
                 {faqData.map((category) => (
                     <TabsContent key={category.value} value={category.value}>
