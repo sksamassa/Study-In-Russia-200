@@ -16,6 +16,7 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs';
+import { Step1Icon, Step2Icon, Step3Icon, Step4Icon } from '@/components/icons/steps';
 
 const services = [
   {
@@ -44,18 +45,22 @@ const processSteps = [
     {
         title: 'Choose an educational program',
         description: 'We offer education in more than 1,200 programs in Medicine, Engineering, Economics and Humanities.',
+        icon: Step1Icon,
     },
     {
         title: 'Submit the required documents and receive an Admission letter',
         description: 'With the Admission letter you will get an invoice for payment for the 1st year of your studies.',
+        icon: Step2Icon,
     },
     {
         title: 'Receive an invitation to study in Russia',
         description: 'After receiving an invitation to study, contact the Consular Department of Russian Embassy in order to get your visa.',
+        icon: Step3Icon,
     },
     {
         title: 'Get a student visa and come to study in Russia',
         description: 'Once you receive a student visa, you can plan your arrival to the university.',
+        icon: Step4Icon,
     },
 ];
 
@@ -215,11 +220,13 @@ export default function Home() {
                       {processSteps.map((step, index) => (
                           <div
                               key={index}
-                              className="sticky p-8 bg-card rounded-lg shadow-md border"
+                              className="sticky p-8 bg-card rounded-lg shadow-md border grid grid-cols-2 grid-rows-2 gap-x-8"
                               style={{ top: `${(index + 1) * 2}rem` }}
                           >
-                              <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-                              <p className="text-muted-foreground">{step.description}</p>
+                            <h3 className="text-xl font-bold col-span-1 row-span-1">{step.title}</h3>
+                            <div className="text-6xl font-bold text-destructive/80 col-span-1 row-span-1 justify-self-end">0{index+1}</div>
+                            <p className="text-muted-foreground col-span-1 row-span-1 self-end">{step.description}</p>
+                            <div className="col-span-1 row-span-1 flex justify-end items-end"><step.icon className="h-24 w-24 text-primary" /></div>
                           </div>
                       ))}
                   </div>
@@ -291,4 +298,3 @@ export default function Home() {
     </div>
   );
 }
-
