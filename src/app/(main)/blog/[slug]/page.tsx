@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   }
 
   return {
-    title: `${post.title} - Global Pathways Hub`,
+    title: `${post.title} - Study In Russia 200`,
     description: post.description,
   };
 }

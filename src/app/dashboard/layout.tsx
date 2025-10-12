@@ -68,7 +68,7 @@ export default function DashboardLayout({
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
                 <GraduationCap className="h-5 w-5" />
             </div>
-            <span className="text-lg font-headline font-semibold">GPH</span>
+            <span className="text-lg font-headline font-semibold">SIR</span>
             <div className="flex-1" />
             <SidebarTrigger className="hidden md:flex" />
           </div>

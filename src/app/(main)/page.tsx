@@ -48,7 +48,7 @@ export default function Home() {
           className="absolute top-0 left-0 w-full h-full object-cover"
           key="hero-video"
         >
-          <source src="https://videos.pexels.com/video-files/5943809/5943809-hd.mp4" type="video/mp4" />
+          <source src="https://videos.pexels.com/video-files/853878/853878-hd.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <div className="absolute top-0 left-0 z-10 w-full h-full bg-black/60"></div>
@@ -57,7 +57,7 @@ export default function Home() {
             Your Journey to a Russian University Begins Here
           </h1>
           <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-neutral-200">
-            Global Pathways Hub provides comprehensive support for international students, from application to arrival.
+            Study In Russia 200 provides comprehensive support for international students, from application to arrival.
           </p>
           <div className="mt-8">
             <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">

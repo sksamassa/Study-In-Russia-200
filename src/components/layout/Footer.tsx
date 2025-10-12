@@ -5,8 +5,8 @@ const TelegramIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg
       {...props}
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
+      width="32"
+      height="32"
       viewBox="0 0 24 24"
       fill="#24A1DE"
     >
@@ -18,8 +18,8 @@ const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     {...props}
     xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
+    width="32"
+    height="32"
     viewBox="0 0 24 24"
     fill="#25D366"
   >
@@ -31,17 +31,12 @@ const MailIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg
         {...props}
         xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
+        width="32"
+        height="32"
         viewBox="0 0 24 24"
-        fill="none"
-        stroke="hsl(var(--foreground))"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        fill="#EA4335"
     >
-        <rect width="20" height="16" x="2" y="4" rx="2" />
-        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z"/>
     </svg>
 );
 
@@ -80,7 +75,7 @@ export function Footer() {
             <Link href="/" className="flex items-center space-x-2">
               <GraduationCap className="h-8 w-8 text-primary" />
               <span className="text-xl font-bold font-headline">
-                Global Pathways Hub
+                Study In Russia 200
               </span>
             </Link>
             <p className="text-sm text-muted-foreground max-w-xs">
@@ -129,7 +124,7 @@ export function Footer() {
         </div>
         <div className="mt-8 border-t pt-4 text-center text-sm text-muted-foreground">
           <p>
-            &copy; {new Date().getFullYear()} Global Pathways Hub. All rights
+            &copy; {new Date().getFullYear()} Study In Russia 200. All rights
             reserved.
           </p>
         </div>

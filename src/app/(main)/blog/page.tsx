@@ -14,7 +14,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { CalendarIcon } from 'lucide-react';
 
 export const metadata = {
-  title: 'Blog - Global Pathways Hub',
+  title: 'Blog - Study In Russia 200',
   description: 'Articles and news about studying in Russia for international students.',
 };
 
