@@ -200,46 +200,46 @@ export default function Home() {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-16 lg:py-24 bg-background">
-        <div className="container">
-          <Tabs defaultValue="education" className="grid grid-cols-1 md:grid-cols-3 gap-0 relative">
-            <div className="col-span-1 bg-gradient-to-br from-primary to-blue-800 text-primary-foreground p-8 z-0">
-                <h2 className="text-3xl font-bold mb-6">Frequently Asked Questions</h2>
-                <TabsList className="flex flex-col h-auto bg-transparent items-start p-0">
-                {faqData.map((category) => (
-                    <TabsTrigger
-                    key={category.value}
-                    value={category.value}
-                    className="w-full text-left justify-start p-4 rounded-md text-base data-[state=active]:bg-primary-foreground/90 data-[state=active]:text-primary data-[state=inactive]:hover:bg-primary-foreground/10 data-[state=inactive]:text-primary-foreground/80"
-                    >
-                    {category.title}
-                    </TabsTrigger>
-                ))}
-                </TabsList>
-            </div>
+<section id="faq" className="min-h-screen flex items-stretch bg-background">
+  <div className="container flex-1 py-16 lg:py-24">
+    <Tabs defaultValue="education" className="h-full grid grid-cols-1 md:grid-cols-3 gap-0 relative">
+      <div className="col-span-1 bg-gradient-to-br from-primary to-blue-800 text-primary-foreground p-8 z-0 h-full">
+          <h2 className="text-3xl font-bold mb-6">Frequently Asked Questions</h2>
+          <TabsList className="flex flex-col h-auto bg-transparent items-start p-0">
+          {faqData.map((category) => (
+              <TabsTrigger
+              key={category.value}
+              value={category.value}
+              className="w-full text-left justify-start p-4 rounded-md text-base data-[state=active]:bg-card data-[state=inactive]:hover:bg-primary-foreground/10 data-[state=inactive]:text-primary-foreground/80"
+              >
+              {category.title}
+              </TabsTrigger>
+          ))}
+          </TabsList>
+      </div>
 
-            <div className="col-span-2 bg-card p-8 rounded-l-3xl relative -ml-2 z-10 shadow-lg">
-                 <div className="pl-6">
-                {faqData.map((category) => (
-                    <TabsContent key={category.value} value={category.value}>
-                        <h3 className="text-2xl font-bold mb-4">{category.title}</h3>
-                        <Accordion type="single" collapsible className="w-full">
-                            {category.questions.map((item, index) => (
-                                <AccordionItem key={index} value={`item-${index}`} className="border-b">
-                                <AccordionTrigger className="text-left hover:no-underline">{item.question}</AccordionTrigger>
-                                <AccordionContent className="text-muted-foreground">
-                                    {item.answer}
-                                </AccordionContent>
-                                </AccordionItem>
-                            ))}
-                        </Accordion>
-                    </TabsContent>
-                ))}
-                </div>
-            </div>
-          </Tabs>
-        </div>
-      </section>
+      <div className="col-span-2 bg-card p-8 rounded-l-3xl relative -ml-10 z-10 h-full">
+           <div className="pl-6 h-full">
+          {faqData.map((category) => (
+              <TabsContent key={category.value} value={category.value} className="h-full">
+                  <h3 className="text-2xl font-bold mb-4">{category.title}</h3>
+                  <Accordion type="single" collapsible className="w-full h-[calc(100%-3rem)]">
+                      {category.questions.map((item, index) => (
+                          <AccordionItem key={index} value={`item-${index}`} className="border-b">
+                          <AccordionTrigger className="text-left hover:no-underline">{item.question}</AccordionTrigger>
+                          <AccordionContent className="text-muted-foreground">
+                              {item.answer}
+                          </AccordionContent>
+                          </AccordionItem>
+                      ))}
+                  </Accordion>
+              </TabsContent>
+          ))}
+          </div>
+      </div>
+    </Tabs>
+  </div>
+</section>
     </div>
   );
 }
