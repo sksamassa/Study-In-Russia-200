@@ -168,11 +168,6 @@ export default function Home() {
           <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-neutral-200">
             Study In Russia 200 provides comprehensive support for international students, from application to arrival.
           </p>
-          <div className="mt-8">
-            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-              <a href="https://t.me/studyinrussia200" target="_blank" rel="noopener noreferrer">Start Your Application</a>
-            </Button>
-          </div>
         </div>
       </section>
 
@@ -211,9 +206,6 @@ export default function Home() {
                   <p className="text-muted-foreground text-lg mb-6">
                       Our streamlined process makes it simple to start your academic journey in Russia. Follow these steps to begin.
                   </p>
-                  <Button size="lg" asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
-                      <Link href="/dashboard/apply">Submit an application</Link>
-                  </Button>
               </div>
               <div className="relative">
                   <div className="space-y-4 py-8 md:py-24">
