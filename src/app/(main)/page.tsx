@@ -204,8 +204,8 @@ export default function Home() {
       </section>
 
       {/* 4 Steps Section */}
-      <section className="py-16 lg:py-24 bg-secondary">
-          <div className="container grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <section className="mx-auto bg-secondary">
+          <div className="container h-full grid grid-cols-1 lg:grid-cols-2 gap-12 p-16 lg:p-24">
               <div className="lg:pr-8">
                   <h2 className="text-3xl md:text-4xl font-bold mb-4">4 easy steps to study in Russia</h2>
                   <p className="text-muted-foreground text-lg mb-6">
@@ -215,12 +215,12 @@ export default function Home() {
                       <Link href="/dashboard/apply">Submit an application</Link>
                   </Button>
               </div>
-              <div className="relative h-[48rem] overflow-y-auto no-scrollbar">
-                  <div className="space-y-4 pt-16 pb-96">
+              <div className="relative">
+                  <div className="space-y-4 py-8 md:py-24">
                       {processSteps.map((step, index) => (
                           <div
                               key={index}
-                              className="sticky p-8 bg-card rounded-lg shadow-md border grid grid-cols-2 grid-rows-2 gap-x-8"
+                              className="sticky p-8 bg-card rounded-xl shadow-md border grid grid-cols-2 grid-rows-2 gap-x-8"
                               style={{ top: `${(index + 1) * 2}rem` }}
                           >
                             <h3 className="text-xl font-bold col-span-1 row-span-1">{step.title}</h3>
