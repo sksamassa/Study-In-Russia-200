@@ -218,9 +218,9 @@ export default function Home() {
                 </TabsList>
             </div>
 
-            <div className="col-span-2 bg-card p-8 rounded-r-lg relative -ml-2 z-10 shadow-lg">
+            <div className="col-span-2 bg-card p-8 rounded-r-lg relative -ml-2 z-10 shadow-lg rounded-tl-none rounded-bl-none">
                  <svg
-                    className="absolute top-0 -left-[1px] h-full w-8 text-card"
+                    className="absolute top-0 -left-px h-full w-8 text-card"
                     viewBox="0 0 32 100"
                     preserveAspectRatio="none"
                     fill="currentColor"
