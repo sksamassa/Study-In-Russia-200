@@ -40,6 +40,25 @@ const services = [
   },
 ];
 
+const processSteps = [
+    {
+        title: 'Choose an educational program',
+        description: 'We offer education in more than 1,200 programs in Medicine, Engineering, Economics and Humanities.',
+    },
+    {
+        title: 'Submit the required documents and receive an Admission letter',
+        description: 'With the Admission letter you will get an invoice for payment for the 1st year of your studies.',
+    },
+    {
+        title: 'Receive an invitation to study in Russia',
+        description: 'After receiving an invitation to study, contact the Consular Department of Russian Embassy in order to get your visa.',
+    },
+    {
+        title: 'Get a student visa and come to study in Russia',
+        description: 'Once you receive a student visa, you can plan your arrival to the university.',
+    },
+];
+
 const metrics = [
     { value: "98%", label: "Visa Success Rate" },
     { value: "500+", label: "Students Enrolled" },
@@ -179,8 +198,37 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Success Metrics Section */}
+      {/* 4 Steps Section */}
       <section className="py-16 lg:py-24 bg-secondary">
+          <div className="container grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="lg:pr-8">
+                  <h2 className="text-3xl md:text-4xl font-bold mb-4">4 easy steps to study in Russia</h2>
+                  <p className="text-muted-foreground text-lg mb-6">
+                      Our streamlined process makes it simple to start your academic journey in Russia. Follow these steps to begin.
+                  </p>
+                  <Button size="lg" asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
+                      <Link href="/dashboard/apply">Submit an application</Link>
+                  </Button>
+              </div>
+              <div className="relative h-[48rem] overflow-y-auto no-scrollbar">
+                  <div className="space-y-4 pt-16 pb-96">
+                      {processSteps.map((step, index) => (
+                          <div
+                              key={index}
+                              className="sticky p-8 bg-card rounded-lg shadow-md border"
+                              style={{ top: `${(index + 1) * 2}rem` }}
+                          >
+                              <h3 className="text-xl font-bold mb-2">{step.title}</h3>
+                              <p className="text-muted-foreground">{step.description}</p>
+                          </div>
+                      ))}
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      {/* Success Metrics Section */}
+      <section className="py-16 lg:py-24 bg-background">
           <div className="container">
               <div className="text-center space-y-4 mb-12">
                   <h2 className="text-3xl md:text-4xl font-bold">Our Track Record of Success</h2>
@@ -243,3 +291,4 @@ export default function Home() {
     </div>
   );
 }
+
