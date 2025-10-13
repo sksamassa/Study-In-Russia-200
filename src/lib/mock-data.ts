@@ -35,7 +35,7 @@ export const blogPosts: Post[] = [
     title: 'Top 5 Reasons to Choose Russia for Your Higher Education',
     description:
       'From world-renowned universities to rich cultural experiences, discover the top reasons why Russia is an excellent destination for international students.',
-    image: PlaceHolderImages.find((img) => img.id === 'blog-2')!,
+    image: PlaceHolderImages.find((img) => img.id === 'blog-4')!,
     author: 'Admin',
     date: 'July 28, 2024',
     content: `<p>Russia has a long-standing tradition of high-quality education, especially in the fields of science, technology, engineering, and mathematics (STEM). Here are five compelling reasons to consider Russia for your academic journey:</p>
@@ -67,7 +67,7 @@ export const blogPosts: Post[] = [
     title: 'Preparing Your Documents for Russian University Admission',
     description:
       'A complete checklist of the documents you will need to prepare for your application to a Russian university, including tips on translation and legalization.',
-    image: PlaceHolderImages.find((img) => img.id === 'blog-4')!,
+    image: PlaceHolderImages.find((img) => img.id === 'blog-6')!,
     author: 'Admin',
     date: 'June 25, 2024',
     content: `<p>Proper document preparation is critical for a successful university application. Our AI-powered verification tool can help, but it's essential to start with the correct documents, properly formatted and legalized. Here's what you'll typically need:</p>

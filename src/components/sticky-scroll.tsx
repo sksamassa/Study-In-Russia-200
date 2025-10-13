@@ -68,14 +68,14 @@ const StickyCard = ({
   return (
     <div
       ref={container}
-      className="sticky top-0 flex h-screen items-center justify-center"
+      className="sticky top-0 flex items-center justify-center"
     >
       <motion.div
         style={{
           scale,
-          top: `calc(-5vh + ${i * 20}px)`,
+          top: `calc(-5vh + ${i * 20 + 250}px)`,
         }}
-        className="relative -top-1/4 flex h-auto max-h-[500px] w-[550px] origin-top flex-col overflow-hidden rounded-2xl bg-card p-8 shadow-2xl"
+        className="relative -top-1/4 flex h-auto max-h-[500px] w-[550px] origin-top flex-col overflow-hidden rounded-2xl bg-card p-8 shadow-2xl bg-card"
       >
         <div className="flex items-center gap-4 mb-6">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground text-xl font-bold">
@@ -110,7 +110,7 @@ export const StickyScroll = () => {
         ref={container}
         className="relative flex w-full flex-col items-center justify-center pb-[100vh] pt-[50vh] bg-background"
       >
-        <div className="absolute left-1/2 top-[10%] z-10 grid -translate-x-1/2 content-start justify-items-center gap-6 text-center">
+        <div className="absolute left-1/2 top-[10%] grid -translate-x-1/2 content-start justify-items-center gap-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold">4 Easy Steps to Study in Russia</h2>
           <span className="after:from-background after:to-foreground/60 relative max-w-[20ch] text-xs uppercase leading-tight opacity-60 after:absolute after:left-1/2 after:top-full after:h-16 after:w-px after:bg-gradient-to-b after:content-['']">
             Your journey, simplified
@@ -119,7 +119,7 @@ export const StickyScroll = () => {
         {projects.map((project, i) => {
           const targetScale = Math.max(
             0.5,
-            1 - (projects.length - i - 1) * 0.05,
+            1 - (projects.length - i - 1) * 0.1,
           );
           return (
             <StickyCard

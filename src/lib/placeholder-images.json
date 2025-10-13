@@ -2,9 +2,9 @@
   "placeholderImages": [
     {
       "id": "blog-1",
-      "description": "Students walking on a university campus.",
-      "imageUrl": "https://picsum.photos/seed/blog1/800/600",
-      "imageHint": "university campus"
+      "description": "Passport and documents for visa application",
+      "imageUrl": "https://picsum.photos/seed/visa/800/600",
+      "imageHint": "visa documents"
     },
     {
       "id": "blog-2",
