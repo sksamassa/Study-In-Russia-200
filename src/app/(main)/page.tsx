@@ -16,6 +16,7 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs';
+import { StickyScroll } from '@/components/sticky-scroll';
 
 
 const services = [
@@ -174,6 +175,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <StickyScroll />
 
       {/* Success Metrics Section */}
       <section className="py-16 lg:py-24 bg-background">
