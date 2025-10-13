@@ -37,7 +37,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   return (
-    <main className="flex-1">
+    <main className="flex flex-col items-center justify-center">
       <article className="container max-w-4xl py-12 md:py-20">
         <div className="space-y-4 text-center">
           <h1 className="text-3xl md:text-5xl font-bold">{post.title}</h1>
