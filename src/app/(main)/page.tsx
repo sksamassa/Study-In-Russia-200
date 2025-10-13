@@ -1,5 +1,6 @@
 
 
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -199,26 +200,29 @@ export default function Home() {
       </section>
 
       {/* 4 Steps Section */}
-      <section className="mx-auto bg-secondary">
-          <div className="container h-full grid grid-cols-1 lg:grid-cols-2 gap-12 p-16 lg:p-24">
-              <div className="lg:pr-8">
+      <section className="bg-secondary">
+          <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start py-16 lg:py-24">
+              <div className="lg:sticky top-24 lg:pr-8">
                   <h2 className="text-3xl md:text-4xl font-bold mb-4">4 easy steps to study in Russia</h2>
                   <p className="text-muted-foreground text-lg mb-6">
                       Our streamlined process makes it simple to start your academic journey in Russia. Follow these steps to begin.
                   </p>
               </div>
-              <div className="relative">
-                  <div className="space-y-4 py-8 md:py-24">
+              <div className="relative h-[120vh] -mt-16">
+                  <div className="space-y-4 py-8 md:py-16 h-full">
                       {processSteps.map((step, index) => (
                           <div
                               key={index}
-                              className="sticky p-8 bg-card rounded-xl shadow-md border grid grid-cols-2 grid-rows-2 gap-x-8"
-                              style={{ top: `${(index + 1) * 2}rem` }}
+                              className="sticky p-8 bg-card rounded-xl shadow-md border grid grid-cols-[1fr,auto] grid-rows-2 gap-x-8"
+                              style={{ 
+                                top: `${(index + 1) * 2}rem`, 
+                                zIndex: processSteps.length - index,
+                              }}
                           >
                             <h3 className="text-xl font-bold col-span-1 row-span-1">{step.title}</h3>
-                            <div className="text-6xl font-bold text-destructive/80 col-span-1 row-span-1 justify-self-end">0{index+1}</div>
+                            <div className="text-6xl font-bold text-destructive/80 col-span-1 row-span-2 justify-self-end self-center">0{index+1}</div>
                             <p className="text-muted-foreground col-span-1 row-span-1 self-end">{step.description}</p>
-                            <div className="col-span-1 row-span-1 flex justify-end items-end"><step.icon className="h-24 w-24 text-primary" /></div>
+                            <div className="col-span-1 row-span-2 flex justify-end items-end self-center"><step.icon className="h-24 w-24 text-primary" /></div>
                           </div>
                       ))}
                   </div>
