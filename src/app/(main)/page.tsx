@@ -1,6 +1,4 @@
 
-
-
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -17,7 +15,6 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs';
-import { Step1Icon, Step2Icon, Step3Icon, Step4Icon } from '@/components/icons/steps';
 
 const services = [
   {
@@ -40,29 +37,6 @@ const services = [
     title: 'Airport Reception',
     description: 'A warm welcome awaits you. We arrange for your pickup from the airport and transfer to your accommodation.',
   },
-];
-
-const processSteps = [
-    {
-        title: 'Choose an educational program',
-        description: 'We offer education in more than 1,200 programs in Medicine, Engineering, Economics and Humanities.',
-        icon: Step1Icon,
-    },
-    {
-        title: 'Submit the required documents and receive an Admission letter',
-        description: 'With the Admission letter you will get an invoice for payment for the 1st year of your studies.',
-        icon: Step2Icon,
-    },
-    {
-        title: 'Receive an invitation to study in Russia',
-        description: 'After receiving an invitation to study, contact the Consular Department of Russian Embassy in order to get your visa.',
-        icon: Step3Icon,
-    },
-    {
-        title: 'Get a student visa and come to study in Russia',
-        description: 'Once you receive a student visa, you can plan your arrival to the university.',
-        icon: Step4Icon,
-    },
 ];
 
 const metrics = [
@@ -197,37 +171,6 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
-
-      {/* 4 Steps Section */}
-      <section className="bg-secondary">
-          <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start py-16 lg:py-24">
-              <div className="lg:sticky top-24 lg:pr-8">
-                  <h2 className="text-3xl md:text-4xl font-bold mb-4">4 easy steps to study in Russia</h2>
-                  <p className="text-muted-foreground text-lg mb-6">
-                      Our streamlined process makes it simple to start your academic journey in Russia. Follow these steps to begin.
-                  </p>
-              </div>
-              <div className="relative h-[120vh] -mt-16">
-                  <div className="space-y-4 py-8 md:py-16 h-full">
-                      {processSteps.map((step, index) => (
-                          <div
-                              key={index}
-                              className="sticky p-8 bg-card rounded-xl shadow-md border grid grid-cols-[1fr,auto] grid-rows-2 gap-x-8"
-                              style={{ 
-                                top: `${(index + 1) * 2}rem`, 
-                                zIndex: processSteps.length - index,
-                              }}
-                          >
-                            <h3 className="text-xl font-bold col-span-1 row-span-1">{step.title}</h3>
-                            <div className="text-6xl font-bold text-destructive/80 col-span-1 row-span-2 justify-self-end self-center">0{index+1}</div>
-                            <p className="text-muted-foreground col-span-1 row-span-1 self-end">{step.description}</p>
-                            <div className="col-span-1 row-span-2 flex justify-end items-end self-center"><step.icon className="h-24 w-24 text-primary" /></div>
-                          </div>
-                      ))}
-                  </div>
-              </div>
-          </div>
       </section>
 
       {/* Success Metrics Section */}
