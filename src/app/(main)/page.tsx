@@ -16,7 +16,6 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs';
-import { Step01Icon, Step02Icon, Step03Icon, Step04Icon } from '@/components/icons/steps';
 
 
 const services = [
@@ -120,33 +119,6 @@ const faqData = [
   },
 ];
 
-const steps = [
-  {
-    step: "01",
-    title: "Submit your documents for verification",
-    description: "Fill out the application form and upload your documents. Our AI will verify them and we will contact you.",
-    icon: Step01Icon,
-  },
-  {
-    step: "02",
-    title: "Receive an invitation to study in Russia",
-    description: "After successful verification, we will send you an official invitation from the university.",
-    icon: Step02Icon,
-  },
-  {
-    step: "03",
-    title: "Get a student visa and come to study in Russia",
-    description: "With the invitation, you can apply for a student visa at the Russian embassy in your country.",
-    icon: Step03Icon,
-  },
-  {
-    step: "04",
-    title: "Start your studies and enjoy your new life",
-    description: "Once you receive a student visa, you can plan your arrival to the university. We will meet you at the airport.",
-    icon: Step04Icon,
-  },
-];
-
 
 export default function Home() {
   return (
@@ -196,45 +168,6 @@ export default function Home() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">{service.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Steps Section */}
-      <section className="py-16 lg:py-24 bg-background">
-        <div className="container grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className="space-y-4">
-            <h2 className="text-4xl md:text-5xl font-bold">4 easy steps to study in Russia</h2>
-            <p className="text-lg text-muted-foreground">Take the first step towards your dream</p>
-            <Button asChild size="lg" className='bg-red-500 hover:bg-red-600'>
-              <a href="https://t.me/studyinrussia200" target="_blank" rel="noopener noreferrer">
-                Submit an application
-              </a>
-            </Button>
-          </div>
-          <div className="relative h-[600px]">
-            {steps.map((step, index) => (
-              <Card 
-                key={step.step}
-                className="absolute w-full p-6 transition-all duration-300 ease-in-out"
-                style={{
-                  top: `${index * 20}px`,
-                  zIndex: steps.length - index,
-                  transform: `scale(${1 - index * 0.05})`,
-                }}
-              >
-                <CardContent className="grid grid-cols-3 gap-4 items-start p-0">
-                  <div className="col-span-2 space-y-2">
-                    <h3 className="text-xl font-bold">{step.title}</h3>
-                    <p className="text-muted-foreground text-sm">{step.description}</p>
-                  </div>
-                  <div className="relative flex justify-end items-start">
-                    <p className="text-6xl font-bold text-red-500/20">{step.step}</p>
-                    <step.icon className="absolute -top-2 -right-2 h-16 w-16 text-red-500" />
-                  </div>
                 </CardContent>
               </Card>
             ))}
