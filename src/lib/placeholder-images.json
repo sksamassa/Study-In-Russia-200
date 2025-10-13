@@ -3,37 +3,37 @@
     {
       "id": "blog-1",
       "description": "A person holding a passport, symbolizing the visa application process.",
-      "imageUrl": "https://images.unsplash.com/photo-1590650454042-563c1a35a01a?q=80&w=800&h=600&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "/images/passport travel.jpeg",
       "imageHint": "passport travel"
     },
     {
       "id": "blog-2",
       "description": "A student studying in a library.",
-      "imageUrl": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&h=600&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "/images/student library.jpeg",
       "imageHint": "student library"
     },
     {
       "id": "blog-3",
       "description": "A view of Saint Basil's Cathedral in Moscow's Red Square.",
-      "imageUrl": "https://images.unsplash.com/photo-1567634354734-71c43335b7e2?q=80&w=800&h=600&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "/images/moscow cathedral.jpeg",
       "imageHint": "moscow cathedral"
     },
     {
       "id": "blog-4",
       "description": "The main building of Lomonosov Moscow State University.",
-      "imageUrl": "https://images.unsplash.com/photo-1582221649931-d8a433e15077?q=80&w=800&h=600&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "/images/moscow university.jpeg",
       "imageHint": "moscow university"
     },
     {
       "id": "blog-5",
       "description": "A person receiving a diploma at graduation.",
-      "imageUrl": "https://images.unsplash.com/photo-1599494482667-9d78903527a2?q=80&w=800&h=600&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "/images/graduation diploma.jpeg",
       "imageHint": "graduation diploma"
     },
     {
       "id": "blog-6",
       "description": "Stack of documents or books.",
-      "imageUrl": "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?q=80&w=800&h=600&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "/images/documents books.jpeg",
       "imageHint": "documents books"
     }
   ]

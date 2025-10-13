@@ -135,7 +135,7 @@ export default function Home() {
           className="absolute top-0 left-0 w-full h-full object-cover"
           key="hero-video"
         >
-          <source src="https://videos.pexels.com/video-files/3843431/3843431-hd_1920_1080_25fps.mp4" type="video/mp4" />
+          <source src="/videos/St Basil Cathedral in Russia - Free Stock Video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <div className="absolute top-0 left-0 z-10 w-full h-full bg-black/60"></div>
