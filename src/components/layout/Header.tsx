@@ -28,7 +28,7 @@ export function Header() {
               <span className="font-bold font-headline text-lg">
                 Study In Russia 200
               </span>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-muted-foreground whitespace-nowrap">
                 Your Gateway to Russian Higher Education
               </p>
             </div>
