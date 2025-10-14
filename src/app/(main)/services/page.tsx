@@ -70,7 +70,7 @@ export default function ServicesPage() {
                                 <CardDescription className="mt-2 max-w-md mx-auto">{service.description}</CardDescription>
                             </div>
                             <div className="p-8">
-                                <h4 className="font-semibold text-lg mb-4">What&apos;s Included:</h4>
+                                <h4 className="font-semibold text-lg mb-4">What's Included:</h4>
                                 <ul className="space-y-3">
                                     {service.details.map((detail, i) => (
                                         <li key={i} className="flex items-start">
