@@ -37,13 +37,10 @@ export function Header() {
           </button>
           <Link href="/" className="flex items-center space-x-2">
             <GraduationCap className="h-6 w-6 text-primary" />
-            <span className="font-bold font-headline sm:inline-block">
-              Study In Russia 200
-            </span>
           </Link>
         </div>
 
-        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+        <div className="flex flex-1 items-center justify-end space-x-2">
           <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
             {navLinks.map((link) => (
               <Link
@@ -62,6 +59,9 @@ export function Header() {
           </nav>
           <div className="flex items-center">
             <ThemeToggle />
+            <Button asChild className="ml-2">
+              <Link href="/dashboard">Student Portal</Link>
+            </Button>
           </div>
         </div>
       </div>
@@ -84,6 +84,9 @@ export function Header() {
                   {link.label}
                 </Link>
               ))}
+               <Button asChild className="w-full">
+                  <Link href="/dashboard">Student Portal</Link>
+                </Button>
             </nav>
           </div>
         </div>
