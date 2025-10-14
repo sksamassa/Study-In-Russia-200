@@ -9,7 +9,6 @@ import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '../theme-toggle';
 
 const navLinks = [
-  { href: '/', label: 'Home' },
   { href: '/services', label: 'Services' },
   { href: '/blog', label: 'Blog' },
   { href: '/contact', label: 'Contact' },
@@ -63,9 +62,6 @@ export function Header() {
           </nav>
           <div className="flex items-center">
             <ThemeToggle />
-            <Button asChild className="ml-2">
-              <Link href="/dashboard">Student Portal</Link>
-            </Button>
           </div>
         </div>
       </div>
@@ -88,9 +84,6 @@ export function Header() {
                   {link.label}
                 </Link>
               ))}
-               <Button asChild className="w-full">
-                <Link href="/dashboard">Student Portal</Link>
-              </Button>
             </nav>
           </div>
         </div>
