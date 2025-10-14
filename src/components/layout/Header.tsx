@@ -20,23 +20,31 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center">
+      <div className="container flex h-16 items-center">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="flex items-center space-x-2">
-            <GraduationCap className="h-6 w-6 text-primary" />
-            <span className="font-bold font-headline sm:inline-block">
-              Study In Russia 200
-            </span>
+            <GraduationCap className="h-8 w-8 text-primary" />
+            <div>
+              <span className="font-bold font-headline text-lg">
+                Study In Russia 200
+              </span>
+              <p className="text-xs text-muted-foreground">
+                Your Gateway to Russian Higher Education
+              </p>
+            </div>
           </Link>
         </div>
 
         <div className="flex items-center md:hidden">
-          <button className="mr-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <button
+            className="mr-2 rounded-md p-2"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             <span className="sr-only">Toggle menu</span>
           </button>
           <Link href="/" className="flex items-center space-x-2">
-            <GraduationCap className="h-6 w-6 text-primary" />
+            <GraduationCap className="h-7 w-7 text-primary" />
           </Link>
         </div>
 
@@ -49,7 +57,7 @@ export function Header() {
                 className={cn(
                   'transition-colors hover:text-primary',
                   pathname === link.href
-                    ? 'text-primary'
+                    ? 'text-foreground font-semibold'
                     : 'text-muted-foreground'
                 )}
               >
@@ -84,9 +92,9 @@ export function Header() {
                   {link.label}
                 </Link>
               ))}
-               <Button asChild className="w-full">
-                  <Link href="/dashboard">Student Portal</Link>
-                </Button>
+              <Button asChild className="w-full">
+                <Link href="/dashboard">Student Portal</Link>
+              </Button>
             </nav>
           </div>
         </div>
