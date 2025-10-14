@@ -1,7 +1,5 @@
 import Link from 'next/link';
 import { GraduationCap } from 'lucide-react';
-import { getDictionary } from '@/i18n/get-dictionary';
-
 
 const TelegramIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg
@@ -67,11 +65,7 @@ const quickLinks = [
     { href: '/contact', label: 'Contact' },
 ];
 
-export function Footer({
-  dictionary,
-}: {
-  dictionary: Awaited<ReturnType<typeof getDictionary>>['Footer'];
-}) {
+export function Footer() {
   return (
     <footer className="border-t bg-card">
       <div className="container py-12">
@@ -85,14 +79,14 @@ export function Footer({
               </span>
             </Link>
             <p className="text-sm text-muted-foreground max-w-xs">
-              {dictionary.description}
+              Your trusted partner in securing admission to top Russian universities.
             </p>
           </div>
 
           {/* Column 2: Contact Us */}
           <div className="space-y-4">
             <h3 className="font-semibold tracking-wider uppercase">
-              {dictionary.contactUs}
+              Contact Us
             </h3>
             <ul className="space-y-2">
               {contactMethods.map((item) => (
@@ -114,7 +108,7 @@ export function Footer({
           {/* Column 3: Quick Links */}
           <div className="space-y-4">
             <h3 className="font-semibold tracking-wider uppercase">
-              {dictionary.quickLinks}
+              Quick Links
             </h3>
             <ul className="space-y-2 text-sm">
                 {quickLinks.map(link => (
