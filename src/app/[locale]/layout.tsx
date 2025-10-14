@@ -1,7 +1,9 @@
-import { getMessages, getTranslations } from 'next-intl/server';
+import { getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/theme-provider';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
 
 type Props = {
   children: React.ReactNode;
@@ -26,7 +28,11 @@ export default async function LocaleLayout({
         enableSystem
         disableTransitionOnChange
       >
-        {children}
+        <div className="flex min-h-screen flex-col">
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </div>
         <Toaster />
       </ThemeProvider>
     </NextIntlClientProvider>
