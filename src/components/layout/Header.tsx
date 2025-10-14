@@ -7,14 +7,15 @@ import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '../theme-toggle';
-
-const navLinks = [
-  { href: '/services', label: 'Services' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/contact', label: 'Contact' },
-];
+import { useTranslations } from 'next-intl';
 
 export function Header() {
+  const t = useTranslations('Navigation');
+  const navLinks = [
+    { href: '/services', label: t('services') },
+    { href: '/blog', label: t('blog') },
+    { href: '/contact', label: t('contact') },
+  ];
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -55,7 +56,7 @@ export function Header() {
                 href={link.href}
                 className={cn(
                     'transition-colors hover:text-primary',
-                    pathname === link.href ? 'text-primary' : 'text-muted-foreground'
+                    pathname.endsWith(link.href) ? 'text-primary' : 'text-muted-foreground'
                 )}
                 >
                 {link.label}
@@ -80,7 +81,7 @@ export function Header() {
                   onClick={() => setIsMenuOpen(false)}
                   className={cn(
                     'block rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground',
-                    pathname === link.href
+                    pathname.endsWith(link.href)
                       ? 'bg-accent text-accent-foreground'
                       : 'text-muted-foreground'
                   )}
