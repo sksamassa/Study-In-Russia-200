@@ -1,21 +1,21 @@
-import type { Metadata } from 'next';
+
+'use client';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-
-export const metadata: Metadata = {
-  title: 'Study In Russia 200',
-  description: 'Your gateway to studying in the Russian Federation.',
-};
+import { usePathname } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
+import { SmoothScroll } from '@/components/smooth-scroll';
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -37,14 +37,29 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex min-h-screen flex-col">
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
-          <Toaster />
+          <SmoothScroll>
+            <div className="flex min-h-screen flex-col">
+              <Header />
+                <AnimatePresence mode="wait">
+                  <motion.main
+                    key={pathname}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex-1"
+                  >
+                    {children}
+                  </motion.main>
+                </AnimatePresence>
+              <Footer />
+            </div>
+            <Toaster />
+          </SmoothScroll>
         </ThemeProvider>
       </body>
     </html>
   );
 }
+
+    

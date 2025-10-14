@@ -1,3 +1,6 @@
+
+'use client';
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -16,6 +19,9 @@ import {
 } from '@/components/ui/tabs';
 import { StickyScroll } from '@/components/sticky-scroll';
 import { RussianCities } from '@/components/russian-cities';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
+import { CountUp } from '@/components/count-up';
 
 
 const services = [
@@ -42,10 +48,10 @@ const services = [
 ];
 
 const metrics = [
-    { value: "98%", label: "Visa Success Rate" },
-    { value: "500+", label: "Students Enrolled" },
-    { value: "50+", label: "Partner Universities" },
-    { value: "100%", label: "Airport Receptions" },
+    { value: 98, label: "Visa Success Rate", suffix: "%" },
+    { value: 500, label: "Students Enrolled", suffix: "+" },
+    { value: 50, label: "Partner Universities", suffix: "+" },
+    { value: 100, label: "Airport Receptions", suffix: "%" },
 ];
 
 const faqData = [
@@ -121,8 +127,42 @@ const faqData = [
 
 
 export default function Home() {
+  const servicesRef = useRef(null);
+  const servicesInView = useInView(servicesRef, { once: true, amount: 0.2 });
+
+  const metricsRef = useRef(null);
+  const metricsInView = useInView(metricsRef, { once: true, amount: 0.3 });
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 100,
+      },
+    },
+  };
+
+
   return (
-    <div className="flex flex-col">
+    <motion.div 
+      className="flex flex-col"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       {/* Hero Section */}
       <section className="relative h-screen w-full flex items-center justify-center text-white overflow-hidden">
         <video
@@ -138,14 +178,19 @@ export default function Home() {
           Your browser does not support the video tag.
         </video>
         <div className="absolute top-0 left-0 z-10 w-full h-full bg-black/60"></div>
-        <div className="z-20 text-center px-4">
+        <motion.div 
+          className="z-20 text-center px-4"
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight">
             Your Journey to a Russian University Begins Here
           </h1>
           <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-neutral-200">
             Study In Russia 200 provides comprehensive support for international students, from application to arrival.
           </p>
-        </div>
+        </motion.div>
       </section>
 
       {/* Services Section */}
@@ -157,9 +202,20 @@ export default function Home() {
               We handle every detail of your journey, ensuring a seamless and stress-free experience.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+            ref={servicesRef}
+            variants={containerVariants}
+            initial="hidden"
+            animate={servicesInView ? "visible" : "hidden"}
+          >
             {services.map((service) => (
-              <Card key={service.title} className="text-center">
+              <motion.div
+                key={service.title}
+                variants={itemVariants}
+                whileHover={{ scale: 1.05, y: -5, transition: { type: 'spring', stiffness: 300 } }}
+              >
+              <Card className="text-center h-full">
                 <CardHeader>
                   <div className="mx-auto bg-primary/10 rounded-full p-3 w-fit">
                     <service.icon className="h-8 w-8 text-primary" />
@@ -170,8 +226,9 @@ export default function Home() {
                   <p className="text-muted-foreground">{service.description}</p>
                 </CardContent>
               </Card>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -186,14 +243,27 @@ export default function Home() {
                       We are proud of the results we deliver and the students we've helped.
                   </p>
               </div>
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+              <motion.div 
+                className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center"
+                ref={metricsRef}
+                variants={containerVariants}
+                initial="hidden"
+                animate={metricsInView ? "visible" : "hidden"}
+              >
                   {metrics.map((metric) => (
-                      <div key={metric.label}>
-                          <p className="text-5xl font-bold text-primary">{metric.value}</p>
+                      <motion.div key={metric.label} variants={itemVariants}>
+                          <div className="text-5xl font-bold text-primary">
+                            <CountUp 
+                              start={0}
+                              end={metricsInView ? metric.value : 0}
+                              duration={2}
+                              suffix={metric.suffix}
+                            />
+                          </div>
                           <p className="mt-2 text-muted-foreground">{metric.label}</p>
-                      </div>
+                      </motion.div>
                   ))}
-              </div>
+              </motion.div>
           </div>
       </section>
       
@@ -240,6 +310,8 @@ export default function Home() {
     </Tabs>
   </div>
 </section>
-    </div>
+    </motion.div>
   );
 }
+
+    
