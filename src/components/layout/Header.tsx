@@ -68,7 +68,7 @@ export function Header() {
           <div className="flex items-center">
             <ThemeToggle />
             <Button asChild className="ml-2">
-              <Link href="/dashboard">Student Portal</Link>
+              <Link href="/dashboard/apply">Apply Now</Link>
             </Button>
           </div>
         </div>
@@ -93,7 +93,7 @@ export function Header() {
                 </Link>
               ))}
               <Button asChild className="w-full">
-                <Link href="/dashboard">Student Portal</Link>
+                <Link href="/dashboard/apply">Apply Now</Link>
               </Button>
             </nav>
           </div>
