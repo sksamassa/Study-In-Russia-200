@@ -73,7 +73,7 @@ export function RussianCities() {
                         data-ai-hint={city.imageHint}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-4 flex flex-col justify-end">
-                      <h3 className="absolute bottom-4 left-4 text-2xl font-bold text-white">
+                      <h3 className="text-2xl font-bold text-white">
                           {city.name}
                       </h3>
                       <p className="text-white/90 text-sm mt-1">{city.description}</p>
