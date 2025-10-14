@@ -38,38 +38,38 @@
     },
     {
       "id": "city-moscow",
-      "description": "A vibrant cityscape of Moscow at dusk.",
-      "imageUrl": "https://picsum.photos/seed/city-moscow/600/400",
+      "description": "Russia's vibrant capital, known for its iconic Red Square and rich history.",
+      "imageUrl": "https://images.unsplash.com/photo-1513326738677-b964603b136d?w=600",
       "imageHint": "Moscow russia"
     },
     {
       "id": "city-st-petersburg",
-      "description": "The picturesque canals and architecture of Saint Petersburg.",
-      "imageUrl": "https://picsum.photos/seed/city-st-petersburg/600/400",
+      "description": "The cultural heart of Russia, famous for its canals and the Hermitage Museum.",
+      "imageUrl": "https://images.unsplash.com/photo-1567425934275-c9a831b34371?w=600",
       "imageHint": "petersburg russia"
     },
     {
       "id": "city-kazan",
-      "description": "The stunning Kazan Kremlin overlooking the river.",
-      "imageUrl": "https://picsum.photos/seed/city-kazan/600/400",
+      "description": "A unique blend of Tatar and Russian cultures with a stunning Kremlin.",
+      "imageUrl": "https://images.unsplash.com/photo-1628105739227-a0684784d16d?w=600",
       "imageHint": "kazan russia"
     },
     {
       "id": "city-novosibirsk",
-      "description": "A modern view of Novosibirsk, a major Siberian city.",
-      "imageUrl": "https://picsum.photos/seed/city-novosibirsk/600/400",
+      "description": "A major Siberian hub of science, culture, and arts.",
+      "imageUrl": "https://images.unsplash.com/photo-1634538883718-d7351703130d?w=600",
       "imageHint": "novosibirsk siberia"
     },
     {
       "id": "city-yekaterinburg",
-      "description": "The skyline of Yekaterinburg, a city on the border of Europe and Asia.",
-      "imageUrl": "https://picsum.photos/seed/city-yekaterinburg/600/400",
+      "description": "A dynamic city on the border of Europe and Asia.",
+      "imageUrl": "https://images.unsplash.com/photo-1593925761492-3868299b925b?w=600",
       "imageHint": "city russia"
     },
     {
       "id": "city-sochi",
-      "description": "A scenic view of the coastal city of Sochi.",
-      "imageUrl": "https://picsum.photos/seed/city-sochi/600/400",
+      "description": "A popular Black Sea resort city, known for its beaches and mountains.",
+      "imageUrl": "https://images.unsplash.com/photo-1629272379328-b5e3962649b3?w=600",
       "imageHint": "sochi coast"
     }
   ]

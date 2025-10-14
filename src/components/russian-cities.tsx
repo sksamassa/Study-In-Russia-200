@@ -43,7 +43,7 @@ export function RussianCities() {
         <ul className="flex items-center justify-center md:justify-start [&_li]:mx-4 [&_img]:max-w-none animate-infinite-scroll">
           {cityData.map((city, index) => (
             <li key={`${city.name}-${index}`}>
-                <div className="relative w-[400px] h-[250px] rounded-lg overflow-hidden shadow-lg">
+                <div className="relative w-[400px] h-[300px] rounded-lg overflow-hidden shadow-lg">
                     <Image 
                         src={city.imageUrl!} 
                         alt={`A view of ${city.name}`}
@@ -51,10 +51,12 @@ export function RussianCities() {
                         className="object-cover"
                         data-ai-hint={city.imageHint}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                    <h3 className="absolute bottom-4 left-4 text-2xl font-bold text-white">
-                        {city.name}
-                    </h3>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-4 flex flex-col justify-end">
+                      <h3 className="text-2xl font-bold text-white">
+                          {city.name}
+                      </h3>
+                      <p className="text-white/90 text-sm mt-1">{city.description}</p>
+                    </div>
                 </div>
             </li>
           ))}
@@ -62,7 +64,7 @@ export function RussianCities() {
         <ul className="flex items-center justify-center md:justify-start [&_li]:mx-4 [&_img]:max-w-none animate-infinite-scroll" aria-hidden="true">
           {cityData.map((city, index) => (
              <li key={`${city.name}-${index}-2`}>
-                <div className="relative w-[400px] h-[250px] rounded-lg overflow-hidden shadow-lg">
+                <div className="relative w-[400px] h-[300px] rounded-lg overflow-hidden shadow-lg">
                     <Image 
                         src={city.imageUrl!} 
                         alt={`A view of ${city.name}`}
@@ -70,10 +72,12 @@ export function RussianCities() {
                         className="object-cover"
                         data-ai-hint={city.imageHint}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                    <h3 className="absolute bottom-4 left-4 text-2xl font-bold text-white">
-                        {city.name}
-                    </h3>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-4 flex flex-col justify-end">
+                      <h3 className="absolute bottom-4 left-4 text-2xl font-bold text-white">
+                          {city.name}
+                      </h3>
+                      <p className="text-white/90 text-sm mt-1">{city.description}</p>
+                    </div>
                 </div>
             </li>
           ))}
