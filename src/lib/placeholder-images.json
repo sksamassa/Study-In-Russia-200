@@ -35,6 +35,42 @@
       "description": "Stack of documents or books.",
       "imageUrl": "/images/documents books.jpeg",
       "imageHint": "documents books"
+    },
+    {
+      "id": "city-moscow",
+      "description": "A vibrant cityscape of Moscow at dusk.",
+      "imageUrl": "https://picsum.photos/seed/city-moscow/600/400",
+      "imageHint": "Moscow russia"
+    },
+    {
+      "id": "city-st-petersburg",
+      "description": "The picturesque canals and architecture of Saint Petersburg.",
+      "imageUrl": "https://picsum.photos/seed/city-st-petersburg/600/400",
+      "imageHint": "petersburg russia"
+    },
+    {
+      "id": "city-kazan",
+      "description": "The stunning Kazan Kremlin overlooking the river.",
+      "imageUrl": "https://picsum.photos/seed/city-kazan/600/400",
+      "imageHint": "kazan russia"
+    },
+    {
+      "id": "city-novosibirsk",
+      "description": "A modern view of Novosibirsk, a major Siberian city.",
+      "imageUrl": "https://picsum.photos/seed/city-novosibirsk/600/400",
+      "imageHint": "novosibirsk siberia"
+    },
+    {
+      "id": "city-yekaterinburg",
+      "description": "The skyline of Yekaterinburg, a city on the border of Europe and Asia.",
+      "imageUrl": "https://picsum.photos/seed/city-yekaterinburg/600/400",
+      "imageHint": "city russia"
+    },
+    {
+      "id": "city-sochi",
+      "description": "A scenic view of the coastal city of Sochi.",
+      "imageUrl": "https://picsum.photos/seed/city-sochi/600/400",
+      "imageHint": "sochi coast"
     }
   ]
 }

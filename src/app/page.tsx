@@ -15,6 +15,7 @@ import {
   TabsTrigger,
 } from '@/components/ui/tabs';
 import { StickyScroll } from '@/components/sticky-scroll';
+import { RussianCities } from '@/components/russian-cities';
 
 
 const services = [
@@ -195,6 +196,8 @@ export default function Home() {
               </div>
           </div>
       </section>
+      
+      <RussianCities />
 
       {/* FAQ Section */}
 <section id="faq" className="min-h-screen flex items-stretch bg-background">
