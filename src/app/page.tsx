@@ -48,10 +48,10 @@ const services = [
 ];
 
 const metrics = [
-    { value: 98, label: "Visa Success Rate", suffix: "%" },
-    { value: 500, label: "Students Enrolled", suffix: "+" },
-    { value: 50, label: "Partner Universities", suffix: "+" },
-    { value: 100, label: "Airport Receptions", suffix: "%" },
+    { value: "98", label: "Visa Success Rate", suffix: "%" },
+    { value: "500", label: "Students Enrolled", suffix: "+" },
+    { value: "50", label: "Partner Universities", suffix: "+" },
+    { value: "100", label: "Airport Receptions", suffix: "%" },
 ];
 
 const faqData = [
@@ -254,8 +254,7 @@ export default function Home() {
                       <motion.div key={metric.label} variants={itemVariants}>
                           <div className="text-5xl font-bold text-primary">
                             <CountUp 
-                              start={0}
-                              end={metricsInView ? metric.value : 0}
+                              to={metricsInView ? metric.value : '0'}
                               duration={2}
                               suffix={metric.suffix}
                             />
@@ -313,5 +312,3 @@ export default function Home() {
     </motion.div>
   );
 }
-
-    
