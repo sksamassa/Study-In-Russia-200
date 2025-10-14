@@ -1,23 +1,33 @@
 import type { Metadata } from 'next';
-import './globals.css';
+import '../globals.css';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { getDictionary } from '@/i18n/get-dictionary';
+import { Locale, i18n } from '@/i18n/i18n-config';
+
+export async function generateStaticParams() {
+  return i18n.locales.map((locale) => ({ lang: locale }));
+}
 
 export const metadata: Metadata = {
   title: 'Study In Russia 200',
   description: 'Your gateway to studying in the Russian Federation.',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: { locale: Locale };
 }>) {
+  const dictionary = await getDictionary(params.locale);
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={params.locale} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -38,9 +48,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="flex min-h-screen flex-col">
-            <Header />
+            <Header dictionary={dictionary.Header} />
             <main className="flex-1">{children}</main>
-            <Footer />
+            <Footer dictionary={dictionary.Footer} />
           </div>
           <Toaster />
         </ThemeProvider>

@@ -1,0 +1,24 @@
+{
+  "Header": {
+    "title": "Study In Russia 200",
+    "services": "服务",
+    "blog": "博客",
+    "contact": "联系"
+  },
+  "Footer": {
+    "description": "您值得信赖的合作伙伴，确保您被顶尖的俄罗斯大学录取。",
+    "contactUs": "联系我们",
+    "quickLinks": "快速链接"
+  },
+  "LanguageSwitcher": {
+    "toggle": "切换语言",
+    "languages": {
+      "en": "English",
+      "fr": "Français",
+      "ar": "العربية",
+      "es": "Español",
+      "pt": "Português",
+      "zh": "中文"
+    }
+  }
+}

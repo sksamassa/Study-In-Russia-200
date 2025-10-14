@@ -1,0 +1,24 @@
+{
+  "Header": {
+    "title": "Study In Russia 200",
+    "services": "Services",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "Footer": {
+    "description": "Your trusted partner in securing admission to top Russian universities.",
+    "contactUs": "Contact Us",
+    "quickLinks": "Quick Links"
+  },
+  "LanguageSwitcher": {
+    "toggle": "Change language",
+    "languages": {
+      "en": "English",
+      "fr": "Français",
+      "ar": "العربية",
+      "es": "Español",
+      "pt": "Português",
+      "zh": "中文"
+    }
+  }
+}
