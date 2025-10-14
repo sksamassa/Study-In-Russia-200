@@ -55,8 +55,10 @@ const menuItems = [
 
 export default function DashboardLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: { locale: string };
 }) {
   const pathname = usePathname();
 
@@ -77,9 +79,9 @@ export default function DashboardLayout({
           <SidebarMenu>
             {menuItems.map((item) => (
               <SidebarMenuItem key={item.href}>
-                <Link href={item.href}>
+                <Link href={`/${params.locale}${item.href}`}>
                   <SidebarMenuButton
-                    isActive={pathname === item.href}
+                    isActive={pathname === `/${params.locale}${item.href}`}
                     tooltip={item.label}
                   >
                     <item.icon />
