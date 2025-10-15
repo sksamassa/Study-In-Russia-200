@@ -266,21 +266,19 @@ export function ApplicationForm() {
 
       <div className="space-y-4">
         <h3 className="text-lg font-medium text-foreground">Personal Information</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="space-y-2">
-                <Label htmlFor="firstName">First Name*</Label>
-                <Input id="firstName" name="firstName" placeholder="Your first name" required />
-                {state.errors?.firstName && <p className="text-sm text-destructive">{state.errors.firstName[0]}</p>}
-            </div>
-            <div className="space-y-2">
-                <Label htmlFor="middleName">Middle Name</Label>
-                <Input id="middleName" name="middleName" placeholder="Optional" />
-            </div>
-            <div className="space-y-2">
-                <Label htmlFor="lastName">Last Name*</Label>
-                <Input id="lastName" name="lastName" placeholder="Your last name" required />
-                {state.errors?.lastName && <p className="text-sm text-destructive">{state.errors.lastName[0]}</p>}
-            </div>
+        <div className="space-y-2">
+            <Label htmlFor="firstName">First Name*</Label>
+            <Input id="firstName" name="firstName" placeholder="Your first name" required />
+            {state.errors?.firstName && <p className="text-sm text-destructive">{state.errors.firstName[0]}</p>}
+        </div>
+        <div className="space-y-2">
+            <Label htmlFor="middleName">Middle Name</Label>
+            <Input id="middleName" name="middleName" placeholder="Optional" />
+        </div>
+        <div className="space-y-2">
+            <Label htmlFor="lastName">Last Name*</Label>
+            <Input id="lastName" name="lastName" placeholder="Your last name" required />
+            {state.errors?.lastName && <p className="text-sm text-destructive">{state.errors.lastName[0]}</p>}
         </div>
         <div className="space-y-2">
             <Label htmlFor="citizenship">Citizenship*</Label>
@@ -291,17 +289,15 @@ export function ApplicationForm() {
       
       <div className="space-y-4">
         <h3 className="text-lg font-medium text-foreground">Contact Information</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-                <Label htmlFor="email">Email*</Label>
-                <Input id="email" name="email" type="email" placeholder="you@example.com" required />
-                {state.errors?.email && <p className="text-sm text-destructive">{state.errors.email[0]}</p>}
-            </div>
-            <div className="space-y-2">
-                <Label htmlFor="phone">Telegram/WhatsApp Number*</Label>
-                <Input id="phone" name="phone" placeholder="+1234567890" required />
-                {state.errors?.phone && <p className="text-sm text-destructive">{state.errors.phone[0]}</p>}
-            </div>
+        <div className="space-y-2">
+            <Label htmlFor="email">Email*</Label>
+            <Input id="email" name="email" type="email" placeholder="you@example.com" required />
+            {state.errors?.email && <p className="text-sm text-destructive">{state.errors.email[0]}</p>}
+        </div>
+        <div className="space-y-2">
+            <Label htmlFor="phone">Telegram/WhatsApp Number*</Label>
+            <Input id="phone" name="phone" placeholder="+1234567890" required />
+            {state.errors?.phone && <p className="text-sm text-destructive">{state.errors.phone[0]}</p>}
         </div>
       </div>
 
