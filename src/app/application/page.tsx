@@ -18,7 +18,7 @@ export default function ApplicationPage() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                         <div className="max-h-[80vh] overflow-y-auto p-1 pr-4">
+                         <div className="p-1 pr-4">
                             <ApplicationForm />
                         </div>
                     </CardContent>
