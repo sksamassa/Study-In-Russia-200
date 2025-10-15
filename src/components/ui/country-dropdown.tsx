@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useState } from "react";
 
@@ -84,7 +83,7 @@ export const CountryDropdown = ({ value, onChange, disabled }: CountryDropdownPr
             <CommandGroup>
               {countryOptions.map((country) => (
                 <CommandItem
-                  key={country.alpha3}
+                  key={country.alpha3 || country.alpha2 || country.name}
                   value={country.name}
                   onSelect={() => {
                     onChange(country);
@@ -95,7 +94,7 @@ export const CountryDropdown = ({ value, onChange, disabled }: CountryDropdownPr
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      value?.alpha3 === country.alpha3 ? "opacity-100" : "opacity-0"
+                      value?.name === country.name ? "opacity-100" : "opacity-0"
                     )}
                   />
                   <div className="flex items-center gap-2">
