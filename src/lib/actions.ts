@@ -22,7 +22,6 @@ const applicationSchema = z.object({
   citizenship: z.string().min(1, 'Citizenship is required'),
   email: z.string().email('Invalid email address'),
   phone: z.string().min(1, 'Phone number is required'),
-  // File validation will be done manually
 });
 
 export interface ApplicationState {
@@ -65,25 +64,19 @@ async function sendEmail(subject: string, htmlBody: string) {
     console.log("-------------------------------------------------");
 }
 
-function formatApplicationForNotification(applicationData: z.infer<typeof applicationSchema> & { passport: File, education: File[] }, veracityResult: DocumentVeracityCheckOutput, extractionResult: any) {
-    const data = {
-        ...applicationData,
-        passport: applicationData.passport.name,
-        education: applicationData.education.map(f => f.name),
-    };
-
+function formatApplicationForNotification(applicationData: z.infer<typeof applicationSchema>, passportFileName: string, educationFileNames: string[], veracityResult: DocumentVeracityCheckOutput, extractionResult: any) {
     const text = `
 New University Application:
 
 Personal Info:
-- Name: ${data.firstName} ${data.middleName || ''} ${data.lastName}
-- Citizenship: ${data.citizenship}
-- Email: ${data.email}
-- Phone: ${data.phone}
+- Name: ${applicationData.firstName} ${applicationData.middleName || ''} ${applicationData.lastName}
+- Citizenship: ${applicationData.citizenship}
+- Email: ${applicationData.email}
+- Phone: ${applicationData.phone}
 
 Documents:
-- Passport: ${data.passport}
-- Education Docs: ${data.education.join(', ')}
+- Passport: ${passportFileName}
+- Education Docs: ${educationFileNames.join(', ')}
 
 AI Verification:
 - Authentic: ${veracityResult.isAuthentic}
@@ -101,15 +94,15 @@ ${JSON.stringify(extractionResult, null, 2)}
     <h1>New University Application</h1>
     <h2>Personal Information</h2>
     <ul>
-        <li><strong>Name:</strong> ${data.firstName} ${data.middleName || ''} ${data.lastName}</li>
-        <li><strong>Citizenship:</strong> ${data.citizenship}</li>
-        <li><strong>Email:</strong> ${data.email}</li>
-        <li><strong>Phone:</strong> ${data.phone}</li>
+        <li><strong>Name:</strong> ${applicationData.firstName} ${applicationData.middleName || ''} ${applicationData.lastName}</li>
+        <li><strong>Citizenship:</strong> ${applicationData.citizenship}</li>
+        <li><strong>Email:</strong> ${applicationData.email}</li>
+        <li><strong>Phone:</strong> ${applicationData.phone}</li>
     </ul>
     <h2>Documents Submitted</h2>
     <ul>
-        <li><strong>Passport:</strong> ${data.passport}</li>
-        <li><strong>Education Docs:</strong> ${data.education.join(', ')}</li>
+        <li><strong>Passport:</strong> ${passportFileName}</li>
+        <li><strong>Education Docs:</strong> ${educationFileNames.join(', ')}</li>
     </ul>
     <h2>AI Verification Results</h2>
     <ul>
@@ -193,6 +186,11 @@ export async function handleApplicationSubmit(
     const base64 = Buffer.from(buffer).toString('base64');
     const dataUri = `data:${passportFile!.type};base64,${base64}`;
 
+    // --- Prepare data for notifications before consuming file buffers ---
+    const passportFileName = passportFile!.name;
+    const educationFileNames = educationFiles.map(f => f.name);
+    // ------------------------------------------------------------------
+
     const veracityResult = await documentVeracityCheck({
       documentDataUri: dataUri,
       universityRequirements: requirements,
@@ -215,15 +213,11 @@ export async function handleApplicationSubmit(
       documentDescription: `Passport for ${validatedFields.data.firstName} ${validatedFields.data.lastName}`,
     });
     
-    const fullApplicationData = {
-        ...validatedFields.data,
-        passport: passportFile!,
-        education: educationFiles,
-    };
-
     // --- Send Notifications ---
     const { text, html } = formatApplicationForNotification(
-      fullApplicationData,
+      validatedFields.data,
+      passportFileName,
+      educationFileNames,
       veracityResult,
       extractionResult.extractedInformation
     );
