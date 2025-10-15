@@ -19,13 +19,13 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4">
       <div className="container flex h-16 items-center">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="flex items-center space-x-2">
             <GraduationCap className="h-8 w-8 text-primary" />
             <div>
-              <span className="font-bold font-headline text-lg">
+              <span className="font-bold font-headline text-2xl">
                 Study In Russia 200
               </span>
               <p className="text-xs text-muted-foreground whitespace-nowrap">
@@ -49,7 +49,7 @@ export function Header() {
         </div>
 
         <div className="flex flex-1 items-center justify-end space-x-2">
-          <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
+          <nav className="hidden items-center space-x-6 text-lg font-medium md:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -67,9 +67,7 @@ export function Header() {
           </nav>
           <div className="flex items-center">
             <ThemeToggle />
-            <Button asChild className="ml-2">
-              <Link href="/dashboard/apply">Apply Now</Link>
-            </Button>
+            
           </div>
         </div>
       </div>
@@ -92,9 +90,7 @@ export function Header() {
                   {link.label}
                 </Link>
               ))}
-              <Button asChild className="w-full">
-                <Link href="/dashboard/apply">Apply Now</Link>
-              </Button>
+              
             </nav>
           </div>
         </div>

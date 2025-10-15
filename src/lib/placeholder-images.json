@@ -39,37 +39,37 @@
     {
       "id": "city-moscow",
       "description": "Russia's vibrant capital, known for its iconic Red Square and rich history.",
-      "imageUrl": "https://picsum.photos/seed/1/400/300",
+      "imageUrl": "/images/moscow red square.jpeg",
       "imageHint": "Moscow russia"
     },
     {
       "id": "city-st-petersburg",
       "description": "The cultural heart of Russia, famous for its canals and the Hermitage Museum.",
-      "imageUrl": "https://picsum.photos/seed/2/400/300",
+      "imageUrl": "/images/Saint Petersburg.jpeg",
       "imageHint": "petersburg russia"
     },
     {
       "id": "city-kazan",
       "description": "A unique blend of Tatar and Russian cultures with a stunning Kremlin.",
-      "imageUrl": "https://picsum.photos/seed/3/400/300",
+      "imageUrl": "/images/Kazan.jpeg",
       "imageHint": "kazan russia"
     },
     {
       "id": "city-novosibirsk",
       "description": "A major Siberian hub of science, culture, and arts.",
-      "imageUrl": "https://picsum.photos/seed/4/400/300",
+      "imageUrl": "/images/Novosibirsk.jpeg",
       "imageHint": "novosibirsk siberia"
     },
     {
       "id": "city-yekaterinburg",
       "description": "A dynamic city on the border of Europe and Asia.",
-      "imageUrl": "https://picsum.photos/seed/5/400/300",
+      "imageUrl": "/images/Yekaterinburg.jpeg",
       "imageHint": "city russia"
     },
     {
       "id": "city-sochi",
       "description": "A popular Black Sea resort city, known for its beaches and mountains.",
-      "imageUrl": "https://picsum.photos/seed/6/400/300",
+      "imageUrl": "/images/sochi.jpeg",
       "imageHint": "sochi coast"
     }
   ]

@@ -74,7 +74,7 @@ export function Footer() {
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
               <GraduationCap className="h-8 w-8 text-primary" />
-              <span className="text-xl font-bold font-headline">
+              <span className="text-2xl font-bold font-headline">
                 Study In Russia 200
               </span>
             </Link>
@@ -95,7 +95,7 @@ export function Footer() {
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-primary"
+                    className="flex items-center gap-3 text-lg text-muted-foreground transition-colors hover:text-primary"
                   >
                     <item.icon className="h-6 w-6" />
                     {item.value}
@@ -110,7 +110,7 @@ export function Footer() {
             <h3 className="font-semibold tracking-wider uppercase">
               Quick Links
             </h3>
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-2 text-lg">
                 {quickLinks.map(link => (
                     <li key={link.href}>
                         <Link href={link.href} className="text-muted-foreground hover:text-primary">

@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { School, FileText, CheckCircle, Plane, Bot } from 'lucide-react';
+import { School, FileText, CheckCircle, Plane, Bot, DollarSign, Banknote, Bitcoin } from 'lucide-react';
 
 const services = [
     {
@@ -58,7 +58,7 @@ export default function ServicesPage() {
                 </p>
             </div>
 
-            <div className="grid gap-8">
+            <div className="grid gap-8 mb-8">
                 {services.map((service, index) => (
                     <Card key={index} className="overflow-hidden">
                         <div className="grid md:grid-cols-2 items-center">
@@ -84,6 +84,51 @@ export default function ServicesPage() {
                     </Card>
                 ))}
             </div>
+
+            <Card className="overflow-hidden">
+                <div className="grid md:grid-cols-2 items-center">
+                    <div className="p-8 bg-accent/5 h-full flex flex-col justify-center items-center text-center">
+                        <div className="bg-accent/10 rounded-full p-4 mb-4">
+                            <DollarSign className="h-12 w-12 text-accent" />
+                        </div>
+                        <CardTitle className="text-2xl">Fees and Additional Expenses</CardTitle>
+                        <CardDescription className="mt-2 text-2xl font-bold text-accent">USD $500.00</CardDescription>
+                    </div>
+                    <div className="p-8 grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 className="font-semibold text-lg mb-4">This total includes:</h4>
+                            <ul className="space-y-3">
+                                <li className="flex items-start">
+                                    <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                                    <span className="text-muted-foreground">Invitation Letter Fee</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                                    <span className="text-muted-foreground">Visa Confirmation Letter (We will send you the visa application form)</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                                    <span className="text-muted-foreground">Courier and Postage Fees</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="font-semibold text-lg mb-4">Payment Methods:</h4>
+                            <ul className="space-y-3">
+                                <li className="flex items-center">
+                                    <Banknote className="h-5 w-5 text-primary mr-3" />
+                                    <span className="text-muted-foreground">Bank Transfer</span>
+                                </li>
+                                <li className="flex items-center">
+                                    <Bitcoin className="h-5 w-5 text-primary mr-3" />
+                                    <span className="text-muted-foreground">Cryptocurrency Deposit</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </Card>
+
         </div>
     );
 }
