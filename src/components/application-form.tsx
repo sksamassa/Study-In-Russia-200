@@ -32,6 +32,7 @@ import {
 } from './ui/card';
 import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
+import { Country } from './ui/country-dropdown';
 
 const initialState: ApplicationState = {
   status: 'idle',
@@ -160,6 +161,7 @@ function FileUploadField({
 
 export function ApplicationForm() {
   const [state, formAction] = useActionState(handleApplicationSubmit, initialState);
+  const [selectedCountry, setSelectedCountry] = useState<Country | undefined>(undefined);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -283,7 +285,11 @@ export function ApplicationForm() {
         </div>
         <div className="space-y-2">
             <Label htmlFor="citizenship">Citizenship*</Label>
-            <CountryDropdown />
+            <CountryDropdown
+                value={selectedCountry}
+                onChange={setSelectedCountry}
+            />
+            <input type="hidden" name="citizenship" value={selectedCountry?.name ?? ''} />
             {state.errors?.citizenship && <p className="text-sm text-destructive">{state.errors.citizenship[0]}</p>}
         </div>
       </div>
@@ -330,5 +336,3 @@ export function ApplicationForm() {
     </form>
   );
 }
-
-    
