@@ -17,8 +17,14 @@ const ACCEPTED_FILE_TYPES = ['image/jpeg', 'image/png', 'application/pdf'];
 
 // More robust file schema for server actions
 const fileSchema = z
-  .any()
-  .refine((file) => file && typeof file.size === 'number' && file.size > 0, 'File is required and cannot be empty.')
+  .object({
+    name: z.string(),
+    size: z.number(),
+    type: z.string(),
+    // The arrayBuffer function is part of the File object's prototype, not a direct property for validation.
+    // We only need to validate the properties we can access directly.
+  })
+  .refine((file) => file.size > 0, 'File is required and cannot be empty.')
   .refine(
     (file) => file.size <= MAX_FILE_SIZE,
     `File size must be less than 5MB.`
@@ -146,7 +152,8 @@ export async function handleApplicationSubmit(
   formData: FormData
 ): Promise<ApplicationState> {
 
-  const educationFiles = formData.getAll('education').filter(f => (f as File).size > 0);
+  const passportFile = formData.get('passport') as File | null;
+  const educationFiles = formData.getAll('education').filter(f => (f instanceof File && f.size > 0)) as File[];
   
   const validatedFields = applicationSchema.safeParse({
     firstName: formData.get('firstName'),
@@ -155,7 +162,7 @@ export async function handleApplicationSubmit(
     citizenship: formData.get('citizenship'),
     email: formData.get('email'),
     phone: formData.get('phone'),
-    passport: formData.get('passport'),
+    passport: passportFile,
     education: educationFiles,
   });
   
