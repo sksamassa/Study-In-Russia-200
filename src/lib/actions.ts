@@ -18,7 +18,7 @@ const ACCEPTED_FILE_TYPES = ['image/jpeg', 'image/png', 'application/pdf'];
 // More robust file schema for server actions
 const fileSchema = z
   .any()
-  .refine((file): file is File => file instanceof File && file.size > 0, 'File is required and cannot be empty.')
+  .refine((file) => file && typeof file.size === 'number' && file.size > 0, 'File is required and cannot be empty.')
   .refine(
     (file) => file.size <= MAX_FILE_SIZE,
     `File size must be less than 5MB.`
@@ -146,7 +146,7 @@ export async function handleApplicationSubmit(
   formData: FormData
 ): Promise<ApplicationState> {
 
-  const educationFiles = formData.getAll('education').filter(f => f instanceof File && f.size > 0);
+  const educationFiles = formData.getAll('education').filter(f => (f as File).size > 0);
   
   const validatedFields = applicationSchema.safeParse({
     firstName: formData.get('firstName'),
