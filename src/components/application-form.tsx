@@ -1,7 +1,8 @@
 
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
+import { useActionState, useEffect, useState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { handleApplicationSubmit, ApplicationState } from '@/lib/actions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,7 +13,6 @@ import {
   AlertDescription,
   AlertTitle,
 } from '@/components/ui/alert';
-import { useEffect, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import {
   CheckCircle,
@@ -159,7 +159,7 @@ function FileUploadField({
 }
 
 export function ApplicationForm() {
-  const [state, formAction] = useFormState(handleApplicationSubmit, initialState);
+  const [state, formAction] = useActionState(handleApplicationSubmit, initialState);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -330,3 +330,5 @@ export function ApplicationForm() {
     </form>
   );
 }
+
+    
