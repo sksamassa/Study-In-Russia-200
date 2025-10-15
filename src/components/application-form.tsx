@@ -1,23 +1,17 @@
+
 'use client';
 
 import { useFormState, useFormStatus } from 'react-dom';
 import { handleApplicationSubmit, ApplicationState } from '@/lib/actions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import {
   Alert,
   AlertDescription,
   AlertTitle,
 } from '@/components/ui/alert';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import {
   CheckCircle,
@@ -25,6 +19,8 @@ import {
   Loader2,
   AlertCircle,
   Upload,
+  File as FileIcon,
+  Info,
 } from 'lucide-react';
 import {
   Card,
@@ -33,7 +29,8 @@ import {
   CardHeader,
   CardTitle,
 } from './ui/card';
-import { universities, universityRequirements } from '@/lib/university-data';
+import { cn } from '@/lib/utils';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
 
 const initialState: ApplicationState = {
   status: 'idle',
@@ -46,11 +43,11 @@ function SubmitButton() {
     <Button type="submit" disabled={pending} className="w-full">
       {pending ? (
         <>
-          <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Verifying Document...
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Verifying & Submitting...
         </>
       ) : (
         <>
-          <Upload className="mr-2 h-4 w-4" /> Submit & Verify
+          <Upload className="mr-2 h-4 w-4" /> Submit Application
         </>
       )}
     </Button>
@@ -59,16 +56,105 @@ function SubmitButton() {
 
 function ResultCard({ title, icon: Icon, success, children }: { title: string; icon: React.ElementType, success: boolean; children: React.ReactNode }) {
     return (
-        <div className={`p-4 rounded-lg border ${success ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
+        <div className={cn("p-4 rounded-lg border", success ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200')}>
             <div className="flex items-center gap-3">
-                <Icon className={`h-5 w-5 ${success ? 'text-green-600' : 'text-red-600'}`} />
-                <h3 className={`font-semibold ${success ? 'text-green-800' : 'text-red-800'}`}>{title}</h3>
+                <Icon className={cn("h-5 w-5", success ? 'text-green-600' : 'text-red-600')} />
+                <h3 className={cn("font-semibold", success ? 'text-green-800' : 'text-red-800')}>{title}</h3>
             </div>
             <div className="mt-2 pl-8 text-sm text-muted-foreground">
                 {children}
             </div>
         </div>
     )
+}
+
+function FileUploadField({
+    name,
+    label,
+    description,
+    tooltip,
+    error,
+    multiple = false
+} : {
+    name: string,
+    label: string,
+    description: string,
+    tooltip: string,
+    error?: string,
+    multiple?: boolean
+}) {
+  const [files, setFiles] = useState<File[]>([]);
+  const id = `file-upload-${name}`;
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files) {
+        if (multiple) {
+            setFiles(prev => [...prev, ...Array.from(e.target.files!)]);
+        } else {
+            setFiles(Array.from(e.target.files));
+        }
+      }
+  }
+
+  const handleRemoveFile = (index: number) => {
+      setFiles(prev => prev.filter((_, i) => i !== index));
+  }
+
+  return (
+      <div className="p-4 border rounded-lg">
+          <div className="flex justify-between items-center">
+              <div>
+                  <h4 className="font-medium flex items-center gap-2">
+                      {label}
+                      <TooltipProvider>
+                          <Tooltip>
+                              <TooltipTrigger asChild>
+                                  <Info className="h-4 w-4 text-muted-foreground cursor-pointer" />
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                  <p>{tooltip}</p>
+                              </TooltipContent>
+                          </Tooltip>
+                      </TooltipProvider>
+                  </h4>
+                  <p className="text-sm text-muted-foreground">{description}</p>
+              </div>
+              <Button asChild variant="ghost" size="sm">
+                  <label htmlFor={id} className="cursor-pointer flex items-center gap-2">
+                      <Upload className="h-4 w-4" /> Upload a file
+                  </label>
+              </Button>
+              <input 
+                id={id} 
+                name={name} 
+                type="file" 
+                className="hidden" 
+                onChange={handleFileChange}
+                multiple={multiple} 
+                accept=".pdf,.jpg,.jpeg,.png"
+              />
+          </div>
+
+          {files.length > 0 && (
+              <div className="mt-4 space-y-2">
+                  {files.map((file, index) => (
+                      <div key={index} className="flex items-center justify-between p-2 bg-secondary/50 rounded-md">
+                          <div className="flex items-center gap-2 text-sm">
+                            <FileIcon className="h-4 w-4 text-primary" />
+                            <span className="font-medium">{file.name}</span>
+                            <span className="text-muted-foreground">({(file.size / 1024).toFixed(1)} KB)</span>
+                          </div>
+                          <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleRemoveFile(index)}>
+                              <XCircle className="h-4 w-4 text-red-500" />
+                          </Button>
+                      </div>
+                  ))}
+              </div>
+          )}
+          
+           {error && <p className="text-sm text-destructive mt-2">{error}</p>}
+      </div>
+  )
 }
 
 export function ApplicationForm() {
@@ -177,49 +263,70 @@ export function ApplicationForm() {
           </AlertDescription>
         </Alert>
       )}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="space-y-2">
-          <Label htmlFor="fullName">Full Name</Label>
-          <Input id="fullName" name="fullName" placeholder="As on passport" required />
-          {state.errors?.fullName && (
-            <p className="text-sm text-destructive">{state.errors.fullName[0]}</p>
-          )}
+
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium text-foreground">Personal Information</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="space-y-2">
+                <Label htmlFor="firstName">First Name*</Label>
+                <Input id="firstName" name="firstName" placeholder="Your first name" required />
+                {state.errors?.firstName && <p className="text-sm text-destructive">{state.errors.firstName[0]}</p>}
+            </div>
+            <div className="space-y-2">
+                <Label htmlFor="middleName">Middle Name</Label>
+                <Input id="middleName" name="middleName" placeholder="Optional" />
+            </div>
+            <div className="space-y-2">
+                <Label htmlFor="lastName">Last Name*</Label>
+                <Input id="lastName" name="lastName" placeholder="Your last name" required />
+                {state.errors?.lastName && <p className="text-sm text-destructive">{state.errors.lastName[0]}</p>}
+            </div>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="email">Email Address</Label>
-          <Input id="email" name="email" type="email" placeholder="you@example.com" required />
-           {state.errors?.email && (
-            <p className="text-sm text-destructive">{state.errors.email[0]}</p>
-          )}
+            <Label htmlFor="citizenship">Citizenship*</Label>
+            <Input id="citizenship" name="citizenship" placeholder="Your country of citizenship" required />
+            {state.errors?.citizenship && <p className="text-sm text-destructive">{state.errors.citizenship[0]}</p>}
+        </div>
+      </div>
+      
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium text-foreground">Contact Information</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+                <Label htmlFor="email">Email*</Label>
+                <Input id="email" name="email" type="email" placeholder="you@example.com" required />
+                {state.errors?.email && <p className="text-sm text-destructive">{state.errors.email[0]}</p>}
+            </div>
+            <div className="space-y-2">
+                <Label htmlFor="phone">Telegram/WhatsApp Number*</Label>
+                <Input id="phone" name="phone" placeholder="+1234567890" required />
+                {state.errors?.phone && <p className="text-sm text-destructive">{state.errors.phone[0]}</p>}
+            </div>
         </div>
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="university">Select University</Label>
-        <Select name="university" required>
-          <SelectTrigger>
-            <SelectValue placeholder="Choose a university" />
-          </SelectTrigger>
-          <SelectContent>
-            {universities.map((uni) => (
-              <SelectItem key={uni} value={uni}>
-                {uni}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        {state.errors?.university && (
-            <p className="text-sm text-destructive">{state.errors.university[0]}</p>
-        )}
-      </div>
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium text-foreground">Documents</h3>
+        <FileUploadField 
+            name="passport"
+            label="Passport (original)*"
+            description="Scanned Copy of the Original Document"
+            tooltip="Please upload a clear, full-page color scan of your passport's bio-data page."
+            error={state.errors?.passport?.[0]}
+        />
+         <div className="mt-2 flex items-start text-xs text-muted-foreground bg-secondary/50 p-2 rounded-lg">
+            <Info className="h-4 w-4 text-primary mr-2 mt-0.5 flex-shrink-0" />
+            <p>Please note: Your study invitation will be issued and sent upon receipt of payment.</p>
+        </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="document">Upload Document (e.g., Transcript)</Label>
-        <Input id="document" name="document" type="file" required className="pt-2 h-auto" />
-        <p className="text-xs text-muted-foreground">PDF, JPG, PNG. Max 5MB.</p>
-        {state.errors?.document && (
-            <p className="text-sm text-destructive">{state.errors.document[0]}</p>
-        )}
+        <FileUploadField 
+            name="education"
+            label="Educational degree (original)*"
+            description="Scanned Copy of the Original Document(s)"
+            tooltip="Upload your high school diploma, bachelor's degree, or any relevant academic certificates."
+            error={state.errors?.education?.[0]}
+            multiple
+        />
       </div>
 
       <SubmitButton />

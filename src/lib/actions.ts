@@ -1,3 +1,4 @@
+
 'use server';
 
 import {
@@ -11,15 +12,30 @@ import {
   universityRequirements,
 } from '@/lib/university-data';
 
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const ACCEPTED_FILE_TYPES = ['image/jpeg', 'image/png', 'application/pdf'];
+
+const fileSchema = z
+  .instanceof(File, { message: 'File is required.' })
+  .refine((file) => file.size > 0, 'File cannot be empty.')
+  .refine(
+    (file) => file.size <= MAX_FILE_SIZE,
+    `File size must be less than 5MB.`
+  )
+  .refine(
+    (file) => ACCEPTED_FILE_TYPES.includes(file.type),
+    'Invalid file type. Only JPG, PNG, and PDF are allowed.'
+  );
+
 const applicationSchema = z.object({
-  fullName: z.string().min(1, 'Full name is required'),
+  firstName: z.string().min(1, 'First name is required'),
+  middleName: z.string().optional(),
+  lastName: z.string().min(1, 'Last name is required'),
+  citizenship: z.string().min(1, 'Citizenship is required'),
   email: z.string().email('Invalid email address'),
-  university: z.enum(universities, {
-    errorMap: () => ({ message: 'Please select a university' }),
-  }),
-  document: z
-    .instanceof(File, { message: 'Document is required' })
-    .refine((file) => file.size > 0, 'Document cannot be empty'),
+  phone: z.string().min(1, 'Phone number is required'),
+  passport: fileSchema,
+  education: z.array(fileSchema).min(1, 'At least one educational document is required.'),
 });
 
 export interface ApplicationState {
@@ -30,10 +46,14 @@ export interface ApplicationState {
     extraction?: Record<string, any>;
   } | null;
   errors?: {
-    fullName?: string[];
+    firstName?: string[];
+    middleName?: string[];
+    lastName?: string[];
+    citizenship?: string[];
     email?: string[];
-    university?: string[];
-    document?: string[];
+    phone?: string[];
+    passport?: string[];
+    education?: string[];
   } | null;
 }
 
@@ -41,11 +61,16 @@ export async function handleApplicationSubmit(
   prevState: ApplicationState,
   formData: FormData
 ): Promise<ApplicationState> {
+  // Use a single document for AI verification for now. We'll use the passport.
   const validatedFields = applicationSchema.safeParse({
-    fullName: formData.get('fullName'),
+    firstName: formData.get('firstName'),
+    middleName: formData.get('middleName'),
+    lastName: formData.get('lastName'),
+    citizenship: formData.get('citizenship'),
     email: formData.get('email'),
-    university: formData.get('university'),
-    document: formData.get('document'),
+    phone: formData.get('phone'),
+    passport: formData.get('passport'),
+    education: formData.getAll('education'),
   });
 
   if (!validatedFields.success) {
@@ -55,19 +80,22 @@ export async function handleApplicationSubmit(
       errors: validatedFields.error.flatten().fieldErrors,
     };
   }
-
-  const { document, university } = validatedFields.data;
+  
+  // For demonstration, we'll verify the passport.
+  // In a real app, you might verify multiple documents or choose the most important one.
+  const { passport, email } = validatedFields.data;
+  
+  // For now, we are not using a specific university's requirements, but this could be added back.
+  const university = 'Lomonosov Moscow State University';
+  const requirements = universityRequirements[university as keyof typeof universityRequirements];
 
   try {
-    const buffer = await document.arrayBuffer();
+    const buffer = await passport.arrayBuffer();
     const base64 = Buffer.from(buffer).toString('base64');
-    const dataUri = `data:${document.type};base64,${base64}`;
+    const dataUri = `data:${passport.type};base64,${base64}`;
 
-    const requirements =
-      universityRequirements[
-        university as keyof typeof universityRequirements
-      ];
-
+    // The AI flows are called here.
+    // In a real app you might want to run these in parallel
     const veracityResult = await documentVeracityCheck({
       documentDataUri: dataUri,
       universityRequirements: requirements,
@@ -87,15 +115,28 @@ export async function handleApplicationSubmit(
 
     const extractionResult = await extractAdditionalInfo({
       documentDataUri: dataUri,
-      documentDescription: 'Student academic transcript for university application.',
+      documentDescription: `Passport for ${validatedFields.data.firstName} ${validatedFields.data.lastName}`,
     });
 
-    // In a real application, you would save this data to your database
-    console.log('Extracted Information:', extractionResult.extractedInformation);
+    // In a real application, you would send this data to your backend,
+    // email, and Telegram.
+    console.log('Application Data to be sent:');
+    console.log({
+        ...validatedFields.data,
+        passport: validatedFields.data.passport.name,
+        education: validatedFields.data.education.map(f => f.name),
+        veracityResult,
+        extractionResult
+    });
+
+
+    // Simulate sending email and telegram message
+    console.log(`Sending application details to studyinrussia200@gmail.com and @studyinrussia200 on Telegram.`);
+
 
     return {
       status: 'success',
-      message: 'Application processed successfully!',
+      message: 'Application submitted and verified successfully!',
       data: {
         veracity: veracityResult,
         extraction: extractionResult.extractedInformation,
@@ -103,9 +144,10 @@ export async function handleApplicationSubmit(
     };
   } catch (error) {
     console.error(error);
+    const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred.';
     return {
       status: 'error',
-      message: 'An unexpected error occurred while processing the document.',
+      message: `An error occurred during AI processing: ${errorMessage}`,
     };
   }
 }

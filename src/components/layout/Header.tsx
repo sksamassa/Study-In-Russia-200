@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -7,6 +8,9 @@ import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '../theme-toggle';
+import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { ApplicationForm } from '../application-form';
+
 
 const navLinks = [
   { href: '/services', label: 'Services' },
@@ -67,7 +71,22 @@ export function Header() {
           </nav>
           <div className="flex items-center">
             <ThemeToggle />
-            
+             <Dialog>
+              <DialogTrigger asChild>
+                 <Button className="ml-4">Apply Now</Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-3xl">
+                <DialogHeader>
+                  <DialogTitle className="text-2xl">University Application</DialogTitle>
+                  <DialogDescription>
+                    Fill out the form below to start your application. Our team will verify your documents using AI.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="max-h-[70vh] overflow-y-auto p-1 pr-4">
+                  <ApplicationForm />
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </div>
@@ -90,7 +109,22 @@ export function Header() {
                   {link.label}
                 </Link>
               ))}
-              
+              <Dialog>
+              <DialogTrigger asChild>
+                 <Button className="w-full">Apply Now</Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-3xl">
+                <DialogHeader>
+                  <DialogTitle className="text-2xl">University Application</DialogTitle>
+                  <DialogDescription>
+                    Fill out the form below to start your application. Our team will verify your documents using AI.
+                  </DialogDescription>
+                </DialogHeader>
+                 <div className="max-h-[80vh] overflow-y-auto p-1 pr-4">
+                  <ApplicationForm />
+                </div>
+              </DialogContent>
+            </Dialog>
             </nav>
           </div>
         </div>
