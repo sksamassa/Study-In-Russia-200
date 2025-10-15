@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { School, FileText, CheckCircle, Plane, Bot, DollarSign, Banknote, Bitcoin } from 'lucide-react';
+import { School, FileText, CheckCircle, Plane, Bot, DollarSign, Banknote, Bitcoin, Info } from 'lucide-react';
 
 const services = [
     {
@@ -92,38 +92,29 @@ export default function ServicesPage() {
                             <DollarSign className="h-12 w-12 text-accent" />
                         </div>
                         <CardTitle className="text-2xl">Fees and Additional Expenses</CardTitle>
-                        <CardDescription className="mt-2 text-2xl font-bold text-accent">USD $500.00</CardDescription>
+                        <CardDescription className="mt-2 text-2xl font-bold text-accent">USD $600.00</CardDescription>
                     </div>
-                    <div className="p-8 grid md:grid-cols-2 gap-8">
-                        <div>
-                            
-                            <ul className="space-y-3">
-                                <li className="flex items-start">
-                                    <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                                    <span className="text-muted-foreground">Invitation Letter Fee</span>
-                                </li>
-                                <li className="flex items-start">
-                                    <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                                    <span className="text-muted-foreground">Visa Confirmation Letter (We will send you the visa application form)</span>
-                                </li>
-                                <li className="flex items-start">
-                                    <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                                    <span className="text-muted-foreground">Courier and Postage Fees</span>
-                                </li>
-                            </ul>
+                    <div className="p-8">
+                        <div className="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h4 className="font-semibold text-lg mb-4">Payment Methods:</h4>
+                                <ul className="space-y-3">
+                                    <li className="flex items-center">
+                                        <Banknote className="h-5 w-5 text-primary mr-3" />
+                                        <span className="text-muted-foreground">Bank Transfer</span>
+                                    </li>
+                                    <li className="flex items-center">
+                                        <Bitcoin className="h-5 w-5 text-primary mr-3" />
+                                        <span className="text-muted-foreground">Cryptocurrency Deposit</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <div>
-                            <h4 className="font-semibold text-lg mb-4">Payment Methods:</h4>
-                            <ul className="space-y-3">
-                                <li className="flex items-center">
-                                    <Banknote className="h-5 w-5 text-primary mr-3" />
-                                    <span className="text-muted-foreground">Bank Transfer</span>
-                                </li>
-                                <li className="flex items-center">
-                                    <Bitcoin className="h-5 w-5 text-primary mr-3" />
-                                    <span className="text-muted-foreground">Cryptocurrency Deposit</span>
-                                </li>
-                            </ul>
+                         <div className="mt-6 flex items-start text-sm text-muted-foreground bg-secondary/50 p-3 rounded-lg">
+                            <Info className="h-5 w-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                            <p>
+                                Please note: Your study invitation will be issued and sent upon receipt of payment.
+                            </p>
                         </div>
                     </div>
                 </div>
