@@ -6,7 +6,6 @@ import { handleApplicationSubmit, ApplicationState } from '@/lib/actions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { CountryDropdownSingle } from '../components/country-dropdown-single';
 import { CountryDropdown } from './ui/country-dropdown';
 import {
   Alert,
@@ -283,9 +282,8 @@ export function ApplicationForm() {
             {state.errors?.lastName && <p className="text-sm text-destructive">{state.errors.lastName[0]}</p>}
         </div>
         <div className="space-y-2">
-            {/* <Label htmlFor="citizenship">Citizenship*</Label> */}
-            <CountryDropdownSingle />
-            <Input id="citizenship" name="citizenship" placeholder="Your country of citizenship" required />
+            <Label htmlFor="citizenship">Citizenship*</Label>
+            <CountryDropdown />
             {state.errors?.citizenship && <p className="text-sm text-destructive">{state.errors.citizenship[0]}</p>}
         </div>
       </div>
