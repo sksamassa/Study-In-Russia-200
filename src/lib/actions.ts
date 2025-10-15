@@ -15,6 +15,23 @@ import {
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ACCEPTED_FILE_TYPES = ['image/jpeg', 'image/png', 'application/pdf'];
 
+// Schema for plain file metadata (not File instances)
+const fileSchema = z
+  .object({
+    name: z.string(),
+    size: z.number(),
+    type: z.string(),
+  })
+  .refine((file) => file.size > 0, 'File is required and cannot be empty.')
+  .refine(
+    (file) => file.size <= MAX_FILE_SIZE,
+    `File size must be less than ${MAX_FILE_SIZE / (1024 * 1024)}MB.`
+  )
+  .refine(
+    (file) => ACCEPTED_FILE_TYPES.includes(file.type),
+    'Invalid file type. Only JPG, PNG, and PDF are allowed.'
+  );
+
 const applicationSchema = z.object({
   firstName: z.string().min(1, 'First name is required'),
   middleName: z.string().optional(),
@@ -22,14 +39,21 @@ const applicationSchema = z.object({
   citizenship: z.string().min(1, 'Citizenship is required'),
   email: z.string().email('Invalid email address'),
   phone: z.string().min(1, 'Phone number is required'),
+  passport: fileSchema,
+  education: z.array(fileSchema).min(1, 'At least one educational document is required.'),
 });
 
 export interface ApplicationState {
   status: 'idle' | 'loading' | 'success' | 'error';
   message: string | null;
   data?: {
-    veracity: DocumentVeracityCheckOutput;
-    extraction?: Record<string, any>;
+    veracity: {
+      isAuthentic: boolean;
+      isReadable: boolean;
+      meetsRequirements: boolean;
+      errors: string | null;
+    };
+    extraction?: Record<string, string | number | boolean | null>;
   } | null;
   errors?: {
     firstName?: string[];
@@ -43,40 +67,43 @@ export interface ApplicationState {
   } | null;
 }
 
+// --- Notification Helpers (fire-and-forget) ---
 async function sendTelegramMessage(message: string) {
-    // In a real application, you would use a library like 'node-telegram-bot-api'
-    // with a BOT_TOKEN to send a message to a specific chat ID.
-    // const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN);
-    // await bot.sendMessage(process.env.TELEGRAM_CHAT_ID, message);
-    console.log("--- Sending to Telegram (@studyinrussia200) ---");
-    console.log(message);
-    console.log("------------------------------------------");
+  console.log('--- Sending to Telegram (@studyinrussia200) ---');
+  console.log(message);
+  console.log('------------------------------------------');
 }
 
 async function sendEmail(subject: string, htmlBody: string) {
-    // In a real application, you would use a library like 'nodemailer'
-    // with credentials for an email service (e.g., Gmail, SendGrid).
-    // const transporter = nodemailer.createTransport({ service: 'gmail', auth: { ... } });
-    // await transporter.sendMail({ from: '...', to: 'studyinrussia200@gmail.com', subject, html: htmlBody });
-    console.log("--- Sending Email to studyinrussia200@gmail.com ---");
-    console.log(`Subject: ${subject}`);
-    console.log(htmlBody);
-    console.log("-------------------------------------------------");
+  console.log('--- Sending Email to studyinrussia200@gmail.com ---');
+  console.log(`Subject: ${subject}`);
+  console.log(htmlBody);
+  console.log('-------------------------------------------------');
 }
 
-function formatApplicationForNotification(applicationData: z.infer<typeof applicationSchema>, passportFileName: string, educationFileNames: string[], veracityResult: DocumentVeracityCheckOutput, extractionResult: any) {
-    const text = `
+function formatApplicationForNotification(
+  applicationData: z.infer<typeof applicationSchema>,
+  veracityResult: ApplicationState['data']['veracity'],
+  extractionResult: Record<string, any> | undefined
+) {
+  const data = {
+    ...applicationData,
+    passport: applicationData.passport.name,
+    education: applicationData.education.map(f => f.name),
+  };
+
+  const text = `
 New University Application:
 
 Personal Info:
-- Name: ${applicationData.firstName} ${applicationData.middleName || ''} ${applicationData.lastName}
-- Citizenship: ${applicationData.citizenship}
-- Email: ${applicationData.email}
-- Phone: ${applicationData.phone}
+- Name: ${data.firstName} ${data.middleName || ''} ${data.lastName}
+- Citizenship: ${data.citizenship}
+- Email: ${data.email}
+- Phone: ${data.phone}
 
 Documents:
-- Passport: ${passportFileName}
-- Education Docs: ${educationFileNames.join(', ')}
+- Passport: ${data.passport}
+- Education Docs: ${data.education.join(', ')}
 
 AI Verification:
 - Authentic: ${veracityResult.isAuthentic}
@@ -85,24 +112,24 @@ AI Verification:
 - Errors: ${veracityResult.errors || 'None'}
 
 AI Extracted Info:
-${JSON.stringify(extractionResult, null, 2)}
-    `;
+${extractionResult ? JSON.stringify(extractionResult, null, 2) : 'None'}
+  `;
 
-    const html = `
+  const html = `
 <html>
 <body>
     <h1>New University Application</h1>
     <h2>Personal Information</h2>
     <ul>
-        <li><strong>Name:</strong> ${applicationData.firstName} ${applicationData.middleName || ''} ${applicationData.lastName}</li>
-        <li><strong>Citizenship:</strong> ${applicationData.citizenship}</li>
-        <li><strong>Email:</strong> ${applicationData.email}</li>
-        <li><strong>Phone:</strong> ${applicationData.phone}</li>
+        <li><strong>Name:</strong> ${data.firstName} ${data.middleName || ''} ${data.lastName}</li>
+        <li><strong>Citizenship:</strong> ${data.citizenship}</li>
+        <li><strong>Email:</strong> ${data.email}</li>
+        <li><strong>Phone:</strong> ${data.phone}</li>
     </ul>
     <h2>Documents Submitted</h2>
     <ul>
-        <li><strong>Passport:</strong> ${passportFileName}</li>
-        <li><strong>Education Docs:</strong> ${educationFileNames.join(', ')}</li>
+        <li><strong>Passport:</strong> ${data.passport}</li>
+        <li><strong>Education Docs:</strong> ${data.education.join(', ')}</li>
     </ul>
     <h2>AI Verification Results</h2>
     <ul>
@@ -112,136 +139,174 @@ ${JSON.stringify(extractionResult, null, 2)}
         <li><strong>Verification Errors:</strong> ${veracityResult.errors || 'None'}</li>
     </ul>
     <h2>AI Extracted Information</h2>
-    <pre>${JSON.stringify(extractionResult, null, 2)}</pre>
+    <pre>${extractionResult ? JSON.stringify(extractionResult, null, 2) : 'None'}</pre>
 </body>
 </html>
-    `;
+  `;
 
-    return { text, html };
+  return { text, html };
 }
 
+// --- Safe serialization via explicit shape (no JSON.parse(JSON.stringify)) ---
+function makeSafeVeracity(result: DocumentVeracityCheckOutput) {
+  return {
+    isAuthentic: Boolean(result.isAuthentic),
+    isReadable: Boolean(result.isReadable),
+    meetsRequirements: Boolean(result.meetsRequirements),
+    errors: typeof result.errors === 'string' ? result.errors : null,
+  };
+}
+
+function makeSafeExtraction(obj: any): Record<string, string | number | boolean | null> {
+  if (!obj || typeof obj !== 'object') return {};
+  const safe: Record<string, string | number | boolean | null> = {};
+  for (const key in obj) {
+    const val = obj[key];
+    if (val == null) {
+      safe[key] = null;
+    } else if (typeof val === 'string' || typeof val === 'number' || typeof val === 'boolean') {
+      safe[key] = val;
+    } else {
+      safe[key] = String(val); // fallback to string
+    }
+  }
+  return safe;
+}
+
+// --- Main Server Action ---
 export async function handleApplicationSubmit(
   prevState: ApplicationState,
   formData: FormData
 ): Promise<ApplicationState> {
-  
-  const validatedFields = applicationSchema.safeParse({
-    firstName: formData.get('firstName'),
-    middleName: formData.get('middleName'),
-    lastName: formData.get('lastName'),
-    citizenship: formData.get('citizenship'),
-    email: formData.get('email'),
-    phone: formData.get('phone'),
-  });
-  
-  if (!validatedFields.success) {
-    return {
-      status: 'error',
-      message: 'Please correct the errors below.',
-      errors: validatedFields.error.flatten().fieldErrors,
-    };
-  }
-
-  const passportFile = formData.get('passport') as File | null;
-  const educationFiles = formData.getAll('education').filter(f => (f instanceof File && f.size > 0)) as File[];
-  const errors: ApplicationState['errors'] = {};
-
-  if (!passportFile || passportFile.size === 0) {
-      errors.passport = ['Passport file is required.'];
-  } else {
-      if (passportFile.size > MAX_FILE_SIZE) {
-          errors.passport = [`File size must be less than 5MB.`];
-      }
-      if (!ACCEPTED_FILE_TYPES.includes(passportFile.type)) {
-          errors.passport = ['Invalid file type. Only JPG, PNG, and PDF are allowed.'];
-      }
-  }
-
-  if (educationFiles.length === 0) {
-      errors.education = ['At least one educational document is required.'];
-  } else {
-      for (const file of educationFiles) {
-          if (file.size > MAX_FILE_SIZE) {
-              errors.education = (errors.education || []).concat(`File ${file.name} exceeds 5MB.`);
-          }
-          if (!ACCEPTED_FILE_TYPES.includes(file.type)) {
-              errors.education = (errors.education || []).concat(`Invalid file type for ${file.name}.`);
-          }
-      }
-  }
-
-  if (Object.keys(errors).length > 0) {
-      return {
-          status: 'error',
-          message: 'Please correct the file upload errors.',
-          errors: errors
-      };
-  }
-  
-  const university = 'Lomonosov Moscow State University';
-  const requirements = universityRequirements[university as keyof typeof universityRequirements];
-
   try {
-    const buffer = await passportFile!.arrayBuffer();
-    const base64 = Buffer.from(buffer).toString('base64');
-    const dataUri = `data:${passportFile!.type};base64,${base64}`;
+    // --- Step 1: Extract and validate files ---
+    const rawPassport = formData.get('passport');
+    const rawEducation = formData.getAll('education');
 
-    // --- Prepare data for notifications before consuming file buffers ---
-    const passportFileName = passportFile!.name;
-    const educationFileNames = educationFiles.map(f => f.name);
-    // ------------------------------------------------------------------
+    const passportFile = rawPassport instanceof File && rawPassport.size > 0 ? rawPassport : null;
+    const educationFiles = rawEducation
+      .filter(f => f instanceof File && f.size > 0)
+      .map(f => f as File);
 
-    const veracityResult = await documentVeracityCheck({
-      documentDataUri: dataUri,
-      universityRequirements: requirements,
+    // Convert to plain objects for Zod
+    const passportData = passportFile
+      ? { name: passportFile.name, size: passportFile.size, type: passportFile.type }
+      : undefined;
+
+    const educationData = educationFiles.map(f => ({
+      name: f.name,
+      size: f.size,
+      type: f.type,
+    }));
+
+    // --- Step 2: Validate form data ---
+    const parsed = applicationSchema.safeParse({
+      firstName: (formData.get('firstName')?.toString() || '').trim(),
+      middleName: (formData.get('middleName')?.toString() || '').trim() || undefined,
+      lastName: (formData.get('lastName')?.toString() || '').trim(),
+      citizenship: (formData.get('citizenship')?.toString() || '').trim(),
+      email: (formData.get('email')?.toString() || '').trim(),
+      phone: (formData.get('phone')?.toString() || '').trim(),
+      passport: passportData,
+      education: educationData,
     });
 
-    if (
-      !veracityResult.isAuthentic ||
-      !veracityResult.isReadable ||
-      !veracityResult.meetsRequirements
-    ) {
+    if (!parsed.success) {
       return {
         status: 'error',
-        message: `Document verification failed. ${veracityResult.errors}`,
-        data: { veracity: veracityResult },
+        message: 'Please correct the errors below.',
+        errors: parsed.error.flatten().fieldErrors,
       };
     }
 
-    const extractionResult = await extractAdditionalInfo({
-      documentDataUri: dataUri,
-      documentDescription: `Passport for ${validatedFields.data.firstName} ${validatedFields.data.lastName}`,
-    });
-    
-    // --- Send Notifications ---
-    const { text, html } = formatApplicationForNotification(
-      validatedFields.data,
-      passportFileName,
-      educationFileNames,
-      veracityResult,
-      extractionResult.extractedInformation
-    );
-    
-    // In a real application, these would be awaited.
-    // We run them without await here to avoid blocking the UI response.
-    sendTelegramMessage(text);
-    sendEmail(`New Application from ${validatedFields.data.firstName} ${validatedFields.data.lastName}`, html);
-    // --------------------------
+    if (!passportFile) {
+      return {
+        status: 'error',
+        message: 'Passport file is missing.',
+      };
+    }
 
-    return {
+    // --- Step 3: Read passport file ---
+    let arrayBuffer: ArrayBuffer;
+    try {
+      arrayBuffer = await passportFile.arrayBuffer();
+    } catch (err) {
+      console.error('Failed to read passport file:', err);
+      return {
+        status: 'error',
+        message: 'Could not read passport file. Please re-upload.',
+      };
+    }
+
+    const base64 = Buffer.from(arrayBuffer).toString('base64');
+    const dataUri = `data:${passportFile.type};base64,${base64}`;
+
+    // --- Step 4: AI Veracity Check ---
+    let veracityResult: DocumentVeracityCheckOutput;
+    try {
+      veracityResult = await documentVeracityCheck({
+        documentDataUri: dataUri,
+        universityRequirements: universityRequirements['Lomonosov Moscow State University'],
+      });
+    } catch (err) {
+      console.error('AI Veracity Check failed:', err);
+      return {
+        status: 'error',
+        message: 'Document verification service is unavailable. Please try again later.',
+      };
+    }
+
+    const safeVeracity = makeSafeVeracity(veracityResult);
+
+    if (!safeVeracity.isAuthentic || !safeVeracity.isReadable || !safeVeracity.meetsRequirements) {
+      return {
+        status: 'error',
+        message: `Document verification failed. ${safeVeracity.errors || 'Unknown issue.'}`,
+        data: { veracity: safeVeracity },
+      };
+    }
+
+    // --- Step 5: AI Info Extraction ---
+    let extractionResult;
+    try {
+      extractionResult = await extractAdditionalInfo({
+        documentDataUri: dataUri,
+        documentDescription: `Passport for ${parsed.data.firstName} ${parsed.data.lastName}`,
+      });
+    } catch (err) {
+      console.error('AI Extraction failed:', err);
+      // Non-fatal — continue without extraction
+      extractionResult = { extractedInformation: {} };
+    }
+
+    const safeExtraction = makeSafeExtraction(extractionResult.extractedInformation);
+
+    // --- Step 6: Send notifications (fire-and-forget) ---
+    const { text, html } = formatApplicationForNotification(
+      parsed.data,
+      safeVeracity,
+      safeExtraction
+    );
+
+    sendTelegramMessage(text);
+    sendEmail(`New Application: ${parsed.data.firstName} ${parsed.data.lastName}`, html);
+
+    // --- Step 7: Return SUCCESS with guaranteed-serializable data ---
+    const result: ApplicationState = {
       status: 'success',
       message: 'Application submitted and verified successfully!',
       data: {
-        veracity: veracityResult,
-        extraction: extractionResult.extractedInformation,
+        veracity: safeVeracity,
+        extraction: Object.keys(safeExtraction).length > 0 ? safeExtraction : undefined,
       },
     };
+
+    return result;
   } catch (error) {
-    console.error(error);
-    const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred.';
+    console.error('Unhandled error in handleApplicationSubmit:', error);
     return {
       status: 'error',
-      message: `An error occurred during AI processing: ${errorMessage}`,
+      message: 'An unexpected error occurred. Please try again.',
     };
   }
 }
