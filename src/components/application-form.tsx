@@ -284,7 +284,7 @@ export function ApplicationForm() {
         </div>
         <div className="space-y-2">
             {/* <Label htmlFor="citizenship">Citizenship*</Label> */}
-            <CountryDropdown />
+            <CountryDropdownSingle />
             <Input id="citizenship" name="citizenship" placeholder="Your country of citizenship" required />
             {state.errors?.citizenship && <p className="text-sm text-destructive">{state.errors.citizenship[0]}</p>}
         </div>
