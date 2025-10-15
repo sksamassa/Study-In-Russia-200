@@ -66,7 +66,7 @@ export const CountryDropdown = ({ value, onChange, disabled }: CountryDropdownPr
         >
           {value ? (
             <div className="flex items-center gap-2">
-              <CircleFlag countryCode={value.alpha2.toLowerCase()} height="16" />
+              <CircleFlag countryCode={value.alpha2.toLowerCase()} width="16" />
               <span>{value.name}</span>
             </div>
           ) : (
@@ -98,7 +98,7 @@ export const CountryDropdown = ({ value, onChange, disabled }: CountryDropdownPr
                     )}
                   />
                   <div className="flex items-center gap-2">
-                    <CircleFlag countryCode={country.alpha2.toLowerCase()} height="16" />
+                    <CircleFlag countryCode={country.alpha2.toLowerCase()} width="16" />
                     <span>{country.name}</span>
                   </div>
                 </CommandItem>

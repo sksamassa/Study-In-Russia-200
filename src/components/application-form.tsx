@@ -162,7 +162,15 @@ function FileUploadField({
 export function ApplicationForm() {
   const [state, formAction] = useActionState(handleApplicationSubmit, initialState);
   const [selectedCountry, setSelectedCountry] = useState<Country | undefined>(undefined);
+  const [phoneValue, setPhoneValue] = useState('');
   const { toast } = useToast();
+
+  const handleCountryChange = (country: Country) => {
+    setSelectedCountry(country);
+    if (country.countryCallingCodes && country.countryCallingCodes.length > 0) {
+      setPhoneValue(country.countryCallingCodes[0]);
+    }
+  }
 
   useEffect(() => {
     if (state.status === 'success' && state.message) {
@@ -287,7 +295,7 @@ export function ApplicationForm() {
             <Label htmlFor="citizenship">Citizenship*</Label>
             <CountryDropdown
                 value={selectedCountry}
-                onChange={setSelectedCountry}
+                onChange={handleCountryChange}
             />
             <input type="hidden" name="citizenship" value={selectedCountry?.name ?? ''} />
             {state.errors?.citizenship && <p className="text-sm text-destructive">{state.errors.citizenship[0]}</p>}
@@ -303,7 +311,14 @@ export function ApplicationForm() {
         </div>
         <div className="space-y-2">
             <Label htmlFor="phone">Telegram/WhatsApp Number*</Label>
-            <Input id="phone" name="phone" placeholder="+1234567890" required />
+            <Input 
+                id="phone" 
+                name="phone" 
+                placeholder="+1234567890" 
+                required 
+                value={phoneValue}
+                onChange={(e) => setPhoneValue(e.target.value)}
+            />
             {state.errors?.phone && <p className="text-sm text-destructive">{state.errors.phone[0]}</p>}
         </div>
       </div>
@@ -334,5 +349,5 @@ export function ApplicationForm() {
 
       <SubmitButton />
     </form>
-  );
-}
+
+    
