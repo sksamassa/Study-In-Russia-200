@@ -61,7 +61,8 @@ export async function handleApplicationSubmit(
   prevState: ApplicationState,
   formData: FormData
 ): Promise<ApplicationState> {
-  // Use a single document for AI verification for now. We'll use the passport.
+  const educationFiles = formData.getAll('education');
+  
   const validatedFields = applicationSchema.safeParse({
     firstName: formData.get('firstName'),
     middleName: formData.get('middleName'),
@@ -70,7 +71,7 @@ export async function handleApplicationSubmit(
     email: formData.get('email'),
     phone: formData.get('phone'),
     passport: formData.get('passport'),
-    education: formData.getAll('education'),
+    education: Array.isArray(educationFiles) ? educationFiles : [educationFiles],
   });
 
   if (!validatedFields.success) {
