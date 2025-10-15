@@ -22,8 +22,6 @@ import { RussianCities } from '@/components/russian-cities';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { CountUp } from '@/components/count-up';
-import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
-import { ApplicationForm } from '@/components/application-form';
 
 
 const services = [
@@ -193,22 +191,9 @@ export default function Home() {
             Study In Russia 200 provides comprehensive support for international students, from application to arrival.
           </p>
           <div className="mt-8 flex justify-center">
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button size="lg" className="text-lg px-8 py-6">Apply Now</Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-3xl">
-                <DialogHeader>
-                  <DialogTitle className="text-2xl">University Application</DialogTitle>
-                  <DialogDescription>
-                    Fill out the form below to start your application. Our team will verify your documents using AI.
-                  </DialogDescription>
-                </DialogHeader>
-                <div className="max-h-[70vh] overflow-y-auto p-1 pr-4">
-                  <ApplicationForm />
-                </div>
-              </DialogContent>
-            </Dialog>
+            <Button size="lg" className="text-lg px-8 py-6" asChild>
+              <Link href="/application">Apply Now</Link>
+            </Button>
           </div>
         </motion.div>
       </section>
