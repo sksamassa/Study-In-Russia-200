@@ -349,5 +349,5 @@ export function ApplicationForm() {
 
       <SubmitButton />
     </form>
-
-    
+  );
+}
