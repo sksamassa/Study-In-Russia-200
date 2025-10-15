@@ -57,12 +57,95 @@ export interface ApplicationState {
   } | null;
 }
 
+async function sendTelegramMessage(message: string) {
+    // In a real application, you would use a library like 'node-telegram-bot-api'
+    // with a BOT_TOKEN to send a message to a specific chat ID.
+    // const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN);
+    // await bot.sendMessage(process.env.TELEGRAM_CHAT_ID, message);
+    console.log("--- Sending to Telegram (@studyinrussia200) ---");
+    console.log(message);
+    console.log("------------------------------------------");
+}
+
+async function sendEmail(subject: string, htmlBody: string) {
+    // In a real application, you would use a library like 'nodemailer'
+    // with credentials for an email service (e.g., Gmail, SendGrid).
+    // const transporter = nodemailer.createTransport({ service: 'gmail', auth: { ... } });
+    // await transporter.sendMail({ from: '...', to: 'studyinrussia200@gmail.com', subject, html: htmlBody });
+    console.log("--- Sending Email to studyinrussia200@gmail.com ---");
+    console.log(`Subject: ${subject}`);
+    console.log(htmlBody);
+    console.log("-------------------------------------------------");
+}
+
+function formatApplicationForNotification(applicationData: z.infer<typeof applicationSchema>, veracityResult: DocumentVeracityCheckOutput, extractionResult: any) {
+    const data = {
+        ...applicationData,
+        passport: applicationData.passport.name,
+        education: applicationData.education.map(f => f.name),
+    };
+
+    const text = `
+New University Application:
+
+Personal Info:
+- Name: ${data.firstName} ${data.middleName || ''} ${data.lastName}
+- Citizenship: ${data.citizenship}
+- Email: ${data.email}
+- Phone: ${data.phone}
+
+Documents:
+- Passport: ${data.passport}
+- Education Docs: ${data.education.join(', ')}
+
+AI Verification:
+- Authentic: ${veracityResult.isAuthentic}
+- Readable: ${veracityResult.isReadable}
+- Meets Requirements: ${veracityResult.meetsRequirements}
+- Errors: ${veracityResult.errors || 'None'}
+
+AI Extracted Info:
+${JSON.stringify(extractionResult, null, 2)}
+    `;
+
+    const html = `
+<html>
+<body>
+    <h1>New University Application</h1>
+    <h2>Personal Information</h2>
+    <ul>
+        <li><strong>Name:</strong> ${data.firstName} ${data.middleName || ''} ${data.lastName}</li>
+        <li><strong>Citizenship:</strong> ${data.citizenship}</li>
+        <li><strong>Email:</strong> ${data.email}</li>
+        <li><strong>Phone:</strong> ${data.phone}</li>
+    </ul>
+    <h2>Documents Submitted</h2>
+    <ul>
+        <li><strong>Passport:</strong> ${data.passport}</li>
+        <li><strong>Education Docs:</strong> ${data.education.join(', ')}</li>
+    </ul>
+    <h2>AI Verification Results</h2>
+    <ul>
+        <li><strong>Authentic:</strong> ${veracityResult.isAuthentic ? 'Yes' : 'No'}</li>
+        <li><strong>Readable:</strong> ${veracityResult.isReadable ? 'Yes' : 'No'}</li>
+        <li><strong>Meets Requirements:</strong> ${veracityResult.meetsRequirements ? 'Yes' : 'No'}</li>
+        <li><strong>Verification Errors:</strong> ${veracityResult.errors || 'None'}</li>
+    </ul>
+    <h2>AI Extracted Information</h2>
+    <pre>${JSON.stringify(extractionResult, null, 2)}</pre>
+</body>
+</html>
+    `;
+
+    return { text, html };
+}
+
 export async function handleApplicationSubmit(
   prevState: ApplicationState,
   formData: FormData
 ): Promise<ApplicationState> {
+
   const educationFiles = formData.getAll('education');
-  
   const validatedFields = applicationSchema.safeParse({
     firstName: formData.get('firstName'),
     middleName: formData.get('middleName'),
@@ -71,9 +154,10 @@ export async function handleApplicationSubmit(
     email: formData.get('email'),
     phone: formData.get('phone'),
     passport: formData.get('passport'),
-    education: Array.isArray(educationFiles) ? educationFiles : [educationFiles],
+    // Ensure education is always an array for validation
+    education: Array.isArray(educationFiles) ? educationFiles : [educationFiles].filter(f => (f as File).size > 0),
   });
-
+  
   if (!validatedFields.success) {
     return {
       status: 'error',
@@ -82,11 +166,8 @@ export async function handleApplicationSubmit(
     };
   }
   
-  // For demonstration, we'll verify the passport.
-  // In a real app, you might verify multiple documents or choose the most important one.
-  const { passport, email } = validatedFields.data;
+  const { passport } = validatedFields.data;
   
-  // For now, we are not using a specific university's requirements, but this could be added back.
   const university = 'Lomonosov Moscow State University';
   const requirements = universityRequirements[university as keyof typeof universityRequirements];
 
@@ -95,8 +176,6 @@ export async function handleApplicationSubmit(
     const base64 = Buffer.from(buffer).toString('base64');
     const dataUri = `data:${passport.type};base64,${base64}`;
 
-    // The AI flows are called here.
-    // In a real app you might want to run these in parallel
     const veracityResult = await documentVeracityCheck({
       documentDataUri: dataUri,
       universityRequirements: requirements,
@@ -119,21 +198,18 @@ export async function handleApplicationSubmit(
       documentDescription: `Passport for ${validatedFields.data.firstName} ${validatedFields.data.lastName}`,
     });
 
-    // In a real application, you would send this data to your backend,
-    // email, and Telegram.
-    console.log('Application Data to be sent:');
-    console.log({
-        ...validatedFields.data,
-        passport: validatedFields.data.passport.name,
-        education: validatedFields.data.education.map(f => f.name),
-        veracityResult,
-        extractionResult
-    });
-
-
-    // Simulate sending email and telegram message
-    console.log(`Sending application details to studyinrussia200@gmail.com and @studyinrussia200 on Telegram.`);
-
+    // --- Send Notifications ---
+    const { text, html } = formatApplicationForNotification(
+      validatedFields.data,
+      veracityResult,
+      extractionResult.extractedInformation
+    );
+    
+    // In a real application, these would be awaited.
+    // We run them without await here to avoid blocking the UI response.
+    sendTelegramMessage(text);
+    sendEmail(`New Application from ${validatedFields.data.firstName} ${validatedFields.data.lastName}`, html);
+    // --------------------------
 
     return {
       status: 'success',
