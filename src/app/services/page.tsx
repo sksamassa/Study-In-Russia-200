@@ -96,7 +96,7 @@ export default function ServicesPage() {
                     </div>
                     <div className="p-8 grid md:grid-cols-2 gap-8">
                         <div>
-                            <h4 className="font-semibold text-lg mb-4">This total includes:</h4>
+                            
                             <ul className="space-y-3">
                                 <li className="flex items-start">
                                     <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
