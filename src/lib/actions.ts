@@ -15,23 +15,6 @@ import {
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ACCEPTED_FILE_TYPES = ['image/jpeg', 'image/png', 'application/pdf'];
 
-// More robust file schema for server actions
-const fileSchema = z
-  .object({
-    name: z.string(),
-    size: z.number(),
-    type: z.string(),
-  })
-  .refine((file) => file.size > 0, 'File is required and cannot be empty.')
-  .refine(
-    (file) => file.size <= MAX_FILE_SIZE,
-    `File size must be less than 5MB.`
-  )
-  .refine(
-    (file) => ACCEPTED_FILE_TYPES.includes(file.type),
-    'Invalid file type. Only JPG, PNG, and PDF are allowed.'
-  );
-
 const applicationSchema = z.object({
   firstName: z.string().min(1, 'First name is required'),
   middleName: z.string().optional(),
@@ -39,8 +22,7 @@ const applicationSchema = z.object({
   citizenship: z.string().min(1, 'Citizenship is required'),
   email: z.string().email('Invalid email address'),
   phone: z.string().min(1, 'Phone number is required'),
-  passport: fileSchema,
-  education: z.array(fileSchema).min(1, 'At least one educational document is required.'),
+  // File validation will be done manually
 });
 
 export interface ApplicationState {
@@ -83,7 +65,7 @@ async function sendEmail(subject: string, htmlBody: string) {
     console.log("-------------------------------------------------");
 }
 
-function formatApplicationForNotification(applicationData: z.infer<typeof applicationSchema>, veracityResult: DocumentVeracityCheckOutput, extractionResult: any) {
+function formatApplicationForNotification(applicationData: z.infer<typeof applicationSchema> & { passport: File, education: File[] }, veracityResult: DocumentVeracityCheckOutput, extractionResult: any) {
     const data = {
         ...applicationData,
         passport: applicationData.passport.name,
@@ -149,9 +131,6 @@ export async function handleApplicationSubmit(
   prevState: ApplicationState,
   formData: FormData
 ): Promise<ApplicationState> {
-
-  const passportFile = formData.get('passport') as File | null;
-  const educationFiles = formData.getAll('education').filter(f => (f instanceof File && f.size > 0)) as File[];
   
   const validatedFields = applicationSchema.safeParse({
     firstName: formData.get('firstName'),
@@ -160,8 +139,6 @@ export async function handleApplicationSubmit(
     citizenship: formData.get('citizenship'),
     email: formData.get('email'),
     phone: formData.get('phone'),
-    passport: passportFile,
-    education: educationFiles,
   });
   
   if (!validatedFields.success) {
@@ -171,16 +148,50 @@ export async function handleApplicationSubmit(
       errors: validatedFields.error.flatten().fieldErrors,
     };
   }
-  
-  const { passport } = validatedFields.data;
+
+  const passportFile = formData.get('passport') as File | null;
+  const educationFiles = formData.getAll('education').filter(f => (f instanceof File && f.size > 0)) as File[];
+  const errors: ApplicationState['errors'] = {};
+
+  if (!passportFile || passportFile.size === 0) {
+      errors.passport = ['Passport file is required.'];
+  } else {
+      if (passportFile.size > MAX_FILE_SIZE) {
+          errors.passport = [`File size must be less than 5MB.`];
+      }
+      if (!ACCEPTED_FILE_TYPES.includes(passportFile.type)) {
+          errors.passport = ['Invalid file type. Only JPG, PNG, and PDF are allowed.'];
+      }
+  }
+
+  if (educationFiles.length === 0) {
+      errors.education = ['At least one educational document is required.'];
+  } else {
+      for (const file of educationFiles) {
+          if (file.size > MAX_FILE_SIZE) {
+              errors.education = (errors.education || []).concat(`File ${file.name} exceeds 5MB.`);
+          }
+          if (!ACCEPTED_FILE_TYPES.includes(file.type)) {
+              errors.education = (errors.education || []).concat(`Invalid file type for ${file.name}.`);
+          }
+      }
+  }
+
+  if (Object.keys(errors).length > 0) {
+      return {
+          status: 'error',
+          message: 'Please correct the file upload errors.',
+          errors: errors
+      };
+  }
   
   const university = 'Lomonosov Moscow State University';
   const requirements = universityRequirements[university as keyof typeof universityRequirements];
 
   try {
-    const buffer = await passport.arrayBuffer();
+    const buffer = await passportFile!.arrayBuffer();
     const base64 = Buffer.from(buffer).toString('base64');
-    const dataUri = `data:${passport.type};base64,${base64}`;
+    const dataUri = `data:${passportFile!.type};base64,${base64}`;
 
     const veracityResult = await documentVeracityCheck({
       documentDataUri: dataUri,
@@ -203,10 +214,16 @@ export async function handleApplicationSubmit(
       documentDataUri: dataUri,
       documentDescription: `Passport for ${validatedFields.data.firstName} ${validatedFields.data.lastName}`,
     });
+    
+    const fullApplicationData = {
+        ...validatedFields.data,
+        passport: passportFile!,
+        education: educationFiles,
+    };
 
     // --- Send Notifications ---
     const { text, html } = formatApplicationForNotification(
-      validatedFields.data,
+      fullApplicationData,
       veracityResult,
       extractionResult.extractedInformation
     );
