@@ -15,17 +15,15 @@ import {
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ACCEPTED_FILE_TYPES = ['image/jpeg', 'image/png', 'application/pdf'];
 
-// Schema for plain file metadata (not File instances)
+// This is the correct way to validate a File object in a Next.js Server Action
+// using Zod. `z.instanceof(File)` does not work because the object's prototype
+// is lost when it's passed from the client to the server.
 const fileSchema = z
-  .object({
-    name: z.string(),
-    size: z.number(),
-    type: z.string(),
-  })
-  .refine((file) => file.size > 0, 'File is required and cannot be empty.')
+  .any()
+  .refine((file): file is File => file instanceof File && file.size > 0, 'File is required and cannot be empty.')
   .refine(
     (file) => file.size <= MAX_FILE_SIZE,
-    `File size must be less than ${MAX_FILE_SIZE / (1024 * 1024)}MB.`
+    `Max file size is ${MAX_FILE_SIZE / (1024 * 1024)}MB.`
   )
   .refine(
     (file) => ACCEPTED_FILE_TYPES.includes(file.type),
@@ -81,29 +79,35 @@ async function sendEmail(subject: string, htmlBody: string) {
   console.log('-------------------------------------------------');
 }
 
+type NotificationData = {
+    firstName: string;
+    middleName?: string;
+    lastName: string;
+    citizenship: string;
+    email: string;
+    phone: string;
+    passport: string;
+    education: string[];
+}
+
 function formatApplicationForNotification(
-  applicationData: z.infer<typeof applicationSchema>,
+  applicationData: NotificationData,
   veracityResult: ApplicationState['data']['veracity'],
   extractionResult: Record<string, any> | undefined
 ) {
-  const data = {
-    ...applicationData,
-    passport: applicationData.passport.name,
-    education: applicationData.education.map(f => f.name),
-  };
 
   const text = `
 New University Application:
 
 Personal Info:
-- Name: ${data.firstName} ${data.middleName || ''} ${data.lastName}
-- Citizenship: ${data.citizenship}
-- Email: ${data.email}
-- Phone: ${data.phone}
+- Name: ${applicationData.firstName} ${applicationData.middleName || ''} ${applicationData.lastName}
+- Citizenship: ${applicationData.citizenship}
+- Email: ${applicationData.email}
+- Phone: ${applicationData.phone}
 
 Documents:
-- Passport: ${data.passport}
-- Education Docs: ${data.education.join(', ')}
+- Passport: ${applicationData.passport}
+- Education Docs: ${applicationData.education.join(', ')}
 
 AI Verification:
 - Authentic: ${veracityResult.isAuthentic}
@@ -121,15 +125,15 @@ ${extractionResult ? JSON.stringify(extractionResult, null, 2) : 'None'}
     <h1>New University Application</h1>
     <h2>Personal Information</h2>
     <ul>
-        <li><strong>Name:</strong> ${data.firstName} ${data.middleName || ''} ${data.lastName}</li>
-        <li><strong>Citizenship:</strong> ${data.citizenship}</li>
-        <li><strong>Email:</strong> ${data.email}</li>
-        <li><strong>Phone:</strong> ${data.phone}</li>
+        <li><strong>Name:</strong> ${applicationData.firstName} ${applicationData.middleName || ''} ${applicationData.lastName}</li>
+        <li><strong>Citizenship:</strong> ${applicationData.citizenship}</li>
+        <li><strong>Email:</strong> ${applicationData.email}</li>
+        <li><strong>Phone:</strong> ${applicationData.phone}</li>
     </ul>
     <h2>Documents Submitted</h2>
     <ul>
-        <li><strong>Passport:</strong> ${data.passport}</li>
-        <li><strong>Education Docs:</strong> ${data.education.join(', ')}</li>
+        <li><strong>Passport:</strong> ${applicationData.passport}</li>
+        <li><strong>Education Docs:</strong> ${applicationData.education.join(', ')}</li>
     </ul>
     <h2>AI Verification Results</h2>
     <ul>
@@ -179,27 +183,9 @@ export async function handleApplicationSubmit(
   formData: FormData
 ): Promise<ApplicationState> {
   try {
-    // --- Step 1: Extract and validate files ---
-    const rawPassport = formData.get('passport');
-    const rawEducation = formData.getAll('education');
+    const passportFile = formData.get('passport');
+    const educationFiles = formData.getAll('education').filter(f => f instanceof File && f.size > 0);
 
-    const passportFile = rawPassport instanceof File && rawPassport.size > 0 ? rawPassport : null;
-    const educationFiles = rawEducation
-      .filter(f => f instanceof File && f.size > 0)
-      .map(f => f as File);
-
-    // Convert to plain objects for Zod
-    const passportData = passportFile
-      ? { name: passportFile.name, size: passportFile.size, type: passportFile.type }
-      : undefined;
-
-    const educationData = educationFiles.map(f => ({
-      name: f.name,
-      size: f.size,
-      type: f.type,
-    }));
-
-    // --- Step 2: Validate form data ---
     const parsed = applicationSchema.safeParse({
       firstName: (formData.get('firstName')?.toString() || '').trim(),
       middleName: (formData.get('middleName')?.toString() || '').trim() || undefined,
@@ -207,8 +193,8 @@ export async function handleApplicationSubmit(
       citizenship: (formData.get('citizenship')?.toString() || '').trim(),
       email: (formData.get('email')?.toString() || '').trim(),
       phone: (formData.get('phone')?.toString() || '').trim(),
-      passport: passportData,
-      education: educationData,
+      passport: passportFile,
+      education: educationFiles,
     });
 
     if (!parsed.success) {
@@ -219,17 +205,19 @@ export async function handleApplicationSubmit(
       };
     }
 
-    if (!passportFile) {
-      return {
-        status: 'error',
-        message: 'Passport file is missing.',
-      };
-    }
+    const { passport, education, ...otherData } = parsed.data;
 
-    // --- Step 3: Read passport file ---
+    // Create a plain object for notifications before consuming the file buffers
+    const notificationData: NotificationData = {
+        ...otherData,
+        passport: passport.name,
+        education: education.map(f => f.name),
+    };
+
+
     let arrayBuffer: ArrayBuffer;
     try {
-      arrayBuffer = await passportFile.arrayBuffer();
+      arrayBuffer = await passport.arrayBuffer();
     } catch (err) {
       console.error('Failed to read passport file:', err);
       return {
@@ -239,9 +227,8 @@ export async function handleApplicationSubmit(
     }
 
     const base64 = Buffer.from(arrayBuffer).toString('base64');
-    const dataUri = `data:${passportFile.type};base64,${base64}`;
+    const dataUri = `data:${passport.type};base64,${base64}`;
 
-    // --- Step 4: AI Veracity Check ---
     let veracityResult: DocumentVeracityCheckOutput;
     try {
       veracityResult = await documentVeracityCheck({
@@ -266,7 +253,6 @@ export async function handleApplicationSubmit(
       };
     }
 
-    // --- Step 5: AI Info Extraction ---
     let extractionResult;
     try {
       extractionResult = await extractAdditionalInfo({
@@ -281,9 +267,8 @@ export async function handleApplicationSubmit(
 
     const safeExtraction = makeSafeExtraction(extractionResult.extractedInformation);
 
-    // --- Step 6: Send notifications (fire-and-forget) ---
     const { text, html } = formatApplicationForNotification(
-      parsed.data,
+      notificationData,
       safeVeracity,
       safeExtraction
     );
@@ -291,7 +276,6 @@ export async function handleApplicationSubmit(
     sendTelegramMessage(text);
     sendEmail(`New Application: ${parsed.data.firstName} ${parsed.data.lastName}`, html);
 
-    // --- Step 7: Return SUCCESS with guaranteed-serializable data ---
     const result: ApplicationState = {
       status: 'success',
       message: 'Application submitted and verified successfully!',
@@ -306,7 +290,7 @@ export async function handleApplicationSubmit(
     console.error('Unhandled error in handleApplicationSubmit:', error);
     return {
       status: 'error',
-      message: 'An unexpected error occurred. Please try again.',
+      message: 'An unexpected server error occurred. Please try again.',
     };
   }
 }
