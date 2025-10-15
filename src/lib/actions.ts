@@ -21,8 +21,6 @@ const fileSchema = z
     name: z.string(),
     size: z.number(),
     type: z.string(),
-    // The arrayBuffer function is part of the File object's prototype, not a direct property for validation.
-    // We only need to validate the properties we can access directly.
   })
   .refine((file) => file.size > 0, 'File is required and cannot be empty.')
   .refine(
