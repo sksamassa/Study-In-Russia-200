@@ -9,8 +9,8 @@ export const metadata = {
     description: 'Submit your application to study in Russia. Our AI-powered system will help verify your documents.',
 };
 
-export default async function ApplicationPage({ params: { lang } }: { params: { lang: Locale } }) {
-    const dictionary = await getDictionary(lang);
+export default async function ApplicationPage({ params }: { params: { lang: Locale } }) {
+    const dictionary = await getDictionary(params.lang);
     return (
         <div className="container py-12 md:py-20">
             <div className="max-w-4xl mx-auto">

@@ -45,8 +45,8 @@ const contactMethods = [
   },
 ];
 
-export default async function ContactPage({ params: { lang } }: { params: { lang: Locale } }) {
-    const dictionary = await getDictionary(lang);
+export default async function ContactPage({ params }: { params: { lang: Locale } }) {
+    const dictionary = await getDictionary(params.lang);
   return (
     <div className="container px-4 md:px-8 py-12 md:py-20">
       <div className="text-center max-w-3xl mx-auto mb-12">

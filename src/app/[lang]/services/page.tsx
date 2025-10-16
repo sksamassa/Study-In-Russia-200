@@ -4,8 +4,8 @@ import { Locale } from '@/i18n/i18n-config';
 import { School, FileText, Bot, Plane, CheckCircle, DollarSign, Banknote, Bitcoin, Info } from 'lucide-react';
 
 
-export default async function ServicesPage({ params: { lang } }: { params: { lang: Locale } }) {
-    const dictionary = await getDictionary(lang);
+export default async function ServicesPage({ params }: { params: { lang: Locale } }) {
+    const dictionary = await getDictionary(params.lang);
     const services = [
         {
             icon: School,
