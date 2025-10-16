@@ -1,3 +1,4 @@
+
 "use server"
 
 import { documentVeracityCheck, type DocumentVeracityCheckOutput } from "@/ai/flows/document-veracity-check"
@@ -18,6 +19,7 @@ const fileSchema = z
   .refine((file) => file.size <= MAX_FILE_SIZE, `Max file size is ${MAX_FILE_SIZE / (1024 * 1024)}MB.`)
   .refine((file) => ACCEPTED_FILE_TYPES.includes(file.type), "Invalid file type. Only JPG, PNG, and PDF are allowed.")
 
+// Adjusted schema to handle files more safely for serialization
 const applicationSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
   middleName: z.string().optional(),
@@ -25,8 +27,8 @@ const applicationSchema = z.object({
   citizenship: z.string().min(1, "Citizenship is required"),
   email: z.string().email("Invalid email address"),
   phone: z.string().min(1, "Phone number is required"),
-  passport: fileSchema,
-  education: z.array(fileSchema).min(1, "At least one educational document is required."),
+  passport: z.any(),
+  education: z.any(),
 })
 
 export interface ApplicationState {
@@ -277,7 +279,28 @@ export async function handleApplicationSubmit(
       }
     }
 
-    const { passport, education, ...otherData } = parsed.data
+    const { passport: rawPassport, education: rawEducation, ...otherData } = parsed.data;
+
+    // Manual file validation
+    const passportResult = fileSchema.safeParse(rawPassport)
+    if (!passportResult.success) {
+      return {
+        status: "error",
+        message: "Please correct the errors below.",
+        errors: { passport: passportResult.error.flatten().formErrors },
+      }
+    }
+    const passport = passportResult.data
+
+    const educationResult = z.array(fileSchema).min(1, "At least one educational document is required.").safeParse(rawEducation)
+    if (!educationResult.success) {
+        return {
+          status: "error",
+          message: "Please correct the errors below.",
+          errors: { education: educationResult.error.flatten().formErrors },
+        }
+    }
+    const education = educationResult.data
 
     // Create a plain object for notifications before consuming the file buffers
     const notificationData: NotificationData = {
@@ -333,7 +356,7 @@ export async function handleApplicationSubmit(
     try {
       extractionResult = await extractAdditionalInfo({
         documentDataUri: dataUri,
-        documentDescription: `Passport for ${parsed.data.firstName} ${parsed.data.lastName}`,
+        documentDescription: `Passport for ${otherData.firstName} ${otherData.lastName}`,
       })
     } catch (err) {
       console.error("AI Extraction failed:", err)
@@ -346,7 +369,7 @@ export async function handleApplicationSubmit(
     const { text, html } = formatApplicationForNotification(notificationData, safeVeracity, safeExtraction)
 
     sendTelegramMessage(text)
-    sendEmail(`New Application: ${parsed.data.firstName} ${parsed.data.lastName}`, html)
+    sendEmail(`New Application: ${otherData.firstName} ${otherData.lastName}`, html)
 
     const result: ApplicationState = {
       status: "success",
