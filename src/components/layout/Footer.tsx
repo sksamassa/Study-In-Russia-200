@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { GraduationCap } from 'lucide-react';
+import { getDictionary } from '@/i18n/get-dictionary';
+import { Locale } from '@/i18n/i18n-config';
 
 const TelegramIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg
@@ -59,34 +61,35 @@ const contactMethods = [
   },
 ];
 
-const quickLinks = [
-    { href: '/services', label: 'Services' },
-    { href: '/blog', label: 'Blog' },
-    { href: '/contact', label: 'Contact' },
-];
 
-export function Footer() {
+export async function Footer({ lang }: { lang: Locale }) {
+    const dictionary = await getDictionary(lang);
+    const quickLinks = [
+        { href: `/${lang}/services`, label: dictionary.footer.links.services },
+        { href: `/${lang}/blog`, label: dictionary.footer.links.blog },
+        { href: `/${lang}/contact`, label: dictionary.footer.links.contact },
+    ];
   return (
     <footer className="border-t bg-card">
       <div className="container py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left  justify-items-center items-center">
           {/* Column 1: Logo & Description */}
           <div className="space-y-4">
-            <Link href="/" className="flex items-center space-x-2">
+            <Link href={`/${lang}`} className="flex items-center space-x-2">
               <GraduationCap className="h-8 w-8 text-primary" />
               <span className="text-2xl font-bold font-headline">
-                Study In Russia 200
+                {dictionary.footer.title}
               </span>
             </Link>
             <p className="text-sm text-muted-foreground max-w-xs">
-              Your trusted partner in securing admission to top Russian universities.
+              {dictionary.footer.description}
             </p>
           </div>
 
           {/* Column 2: Contact Us */}
           <div className="space-y-4">
             <h3 className="font-semibold tracking-wider uppercase">
-              Contact Us
+              {dictionary.footer.contactUs}
             </h3>
             <ul className="space-y-2">
               {contactMethods.map((item) => (
@@ -108,7 +111,7 @@ export function Footer() {
           {/* Column 3: Quick Links */}
           <div className="space-y-4">
             <h3 className="font-semibold tracking-wider uppercase">
-              Quick Links
+              {dictionary.footer.quickLinks}
             </h3>
             <ul className="space-y-2 text-lg">
                 {quickLinks.map(link => (
@@ -123,8 +126,7 @@ export function Footer() {
         </div>
         <div className="mt-8 border-t pt-4 text-center text-sm text-muted-foreground">
           <p>
-            &copy; {new Date().getFullYear()} Study In Russia 200. All rights
-            reserved.
+            &copy; {new Date().getFullYear()} {dictionary.footer.copyright}
           </p>
         </div>
       </div>

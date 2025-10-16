@@ -1,0 +1,332 @@
+{
+    "header": {
+        "title": "Étudier En Russie 200",
+        "subtitle": "Votre Passerelle vers l'Enseignement Supérieur Russe",
+        "services": "Services",
+        "blog": "Blog",
+        "contact": "Contact",
+        "applyNow": "Postulez Maintenant"
+    },
+    "footer": {
+        "title": "Étudier En Russie 200",
+        "description": "Votre partenaire de confiance pour sécuriser l'admission dans les meilleures universités russes.",
+        "contactUs": "Contactez-nous",
+        "quickLinks": "Liens Rapides",
+        "links": {
+            "services": "Services",
+            "blog": "Blog",
+            "contact": "Contact"
+        },
+        "copyright": "Étudier En Russie 200. Tous droits réservés."
+    },
+    "hero": {
+        "title": "Votre Voyage vers une Université Russe Commence Ici",
+        "subtitle": "Étudier En Russie 200 offre un soutien complet aux étudiants internationaux, de la candidature à l'arrivée.",
+        "cta": "Postulez Maintenant"
+    },
+    "services": {
+        "title": "Nos Services Complets",
+        "description": "Nous gérons chaque détail de votre voyage, assurant une expérience transparente et sans stress.",
+        "cards": {
+            "studyInvitationTitle": "Invitation d'Étude",
+            "studyInvitationDescription": "Nous obtenons votre lettre d'invitation officielle de l'université de votre choix, une première étape cruciale dans votre processus de candidature.",
+            "visaSupportTitle": "Support Visa",
+            "visaSupportDescription": "Nos experts vous guident à travers la demande complexe de visa étudiant, s'assurant que tous les formulaires sont correctement remplis et soumis.",
+            "documentAssistanceTitle": "Assistance Documentaire",
+            "documentAssistanceDescription": "De la traduction à la légalisation, nous vous aidons à préparer et vérifier tous les documents requis pour répondre aux normes universitaires.",
+            "airportReceptionTitle": "Accueil à l'Aéroport",
+            "airportReceptionDescription": "Un accueil chaleureux vous attend. Nous organisons votre prise en charge à l'aéroport et votre transfert à votre logement."
+        }
+    },
+    "stickyScroll": {
+        "title": "4 Étapes Faciles pour Étudier en Russie",
+        "subtitle": "Votre voyage, simplifié",
+        "steps": {
+            "step1": {
+                "title": "Soumettre une Candidature",
+                "stepNumber": 1,
+                "steps": [
+                    "Remplissez le formulaire de candidature en ligne avec vos informations personnelles et éducatives.",
+                    "Préparez et soumettez tous les documents requis, y compris les relevés de notes et les copies de passeport.",
+                    "Notre équipe examinera votre candidature et vous contactera dans les 3 jours ouvrables."
+                ]
+            },
+            "step2": {
+                "title": "Recevoir une Invitation",
+                "stepNumber": 2,
+                "steps": [
+                    "Une fois approuvée, vous recevrez une lettre d'invitation officielle de l'université russe.",
+                    "Cette invitation est votre document clé pour le processus de demande de visa.",
+                    "L'invitation arrive généralement dans les 2 à 4 semaines suivant l'approbation de la candidature."
+                ]
+            },
+            "step3": {
+                "title": "Obtenir Votre Visa Étudiant",
+                "stepNumber": 3,
+                "steps": [
+                    "Demandez un visa étudiant à l'ambassade ou au consulat russe le plus proche.",
+                    "Passez l'examen médical et obtenez une assurance maladie selon les besoins.",
+                    "Réservez votre vol pour la Russie après avoir reçu votre visa."
+                ]
+            },
+            "step4": {
+                "title": "Arriver et Commencer à Étudier",
+                "stepNumber": 4,
+                "steps": [
+                    "Une fois que vous avez reçu un visa étudiant, vous pouvez planifier votre arrivée à l'université.",
+                    "Nous vous aiderons à organiser votre logement et à vous installer dans votre nouvelle ville.",
+                    "Commencez votre passionnant voyage éducatif en Russie !"
+                ]
+            }
+        }
+    },
+    "metrics": {
+        "title": "Notre Bilan de Réussite",
+        "description": "Nous sommes fiers des résultats que nous livrons et des étudiants que nous avons aidés.",
+        "items": {
+            "visaSuccessRate": "Taux de Réussite des Visas",
+            "studentsEnrolled": "Étudiants Inscrits",
+            "partnerUniversities": "Universités Partenaires",
+            "airportReceptions": "Accueils à l'Aéroport"
+        }
+    },
+    "cities": {
+        "title": "Explorez les Villes Russes",
+        "description": "Découvrez la culture vibrante et l'histoire des villes où vous pouvez étudier.",
+        "items": {
+            "city-moscow": { "name": "Moscou", "description": "La capitale vibrante de la Russie, connue pour sa Place Rouge emblématique et sa riche histoire." },
+            "city-st-petersburg": { "name": "Saint-Pétersbourg", "description": "Le cœur culturel de la Russie, célèbre pour ses canaux et le musée de l'Ermitage." },
+            "city-kazan": { "name": "Kazan", "description": "Un mélange unique de cultures tatare et russe avec un Kremlin magnifique." },
+            "city-novosibirsk": { "name": "Novossibirsk", "description": "Un grand centre sibérien de la science, de la culture et des arts." },
+            "city-yekaterinburg": { "name": "Iekaterinbourg", "description": "Une ville dynamique à la frontière de l'Europe et de l'Asie." },
+            "city-sochi": { "name": "Sotchi", "description": "Une station balnéaire populaire de la mer Noire, connue pour ses plages et ses montagnes." }
+        }
+    },
+    "faq": {
+        "title": "Questions Fréquemment Posées",
+        "categories": {
+            "education": {
+                "title": "Éducation en Russie",
+                "questions": [
+                    {
+                        "question": "Quels programmes de formation sont disponibles pour moi ?",
+                        "answer": "Les universités russes proposent un large éventail de programmes, notamment des diplômes de Licence, Master et Doctorat, ainsi que des cours de langue préparatoires. Les domaines populaires incluent la médecine, l'ingénierie, l'informatique et les sciences naturelles."
+                    },
+                    {
+                        "question": "Quelle langue est enseignée en Russie ?",
+                        "answer": "Bien que la langue principale d'enseignement soit le russe, de nombreuses universités proposent des programmes entièrement enseignés en anglais, en particulier au niveau Master. Des cours préparatoires sont disponibles pour vous aider à apprendre le russe avant de commencer votre programme principal."
+                    },
+                    {
+                        "question": "Quelles formes d'éducation sont disponibles en Russie ?",
+                        "answer": "Vous pouvez choisir entre des formations à temps plein (sur le campus), à temps partiel et en ligne (à distance), en fonction de l'université et du programme."
+                    },
+                    {
+                        "question": "Les étudiants étrangers peuvent-ils étudier gratuitement en Russie ?",
+                        "answer": "Oui, c'est possible. Le gouvernement russe offre chaque année un nombre limité de bourses (quotas) aux étudiants étrangers, qui couvrent les frais de scolarité et fournissent une petite allocation mensuelle. La concurrence pour ces bourses est élevée."
+                    },
+                    {
+                        "question": "Combien coûte-t-il d'étudier en Russie ?",
+                        "answer": "Les frais de scolarité sont abordables par rapport à de nombreux pays occidentaux, allant de 2 000 à 8 000 dollars par an pour les programmes de Licence. Le coût de la vie est également relativement bas, en particulier en dehors des grandes villes comme Moscou et Saint-Pétersbourg."
+                    }
+                ]
+            },
+            "admission": {
+                "title": "Procédure d'Admission",
+                "questions": [
+                    {
+                        "question": "Quelles sont les conditions générales d'admission ?",
+                        "answer": "Généralement, vous avez besoin d'un certificat d'études secondaires complété pour un programme de Licence, et d'un diplôme de Licence pour un programme de Master. Certaines universités peuvent exiger des examens d'entrée ou un entretien."
+                    },
+                    {
+                        "question": "Quand devrais-je commencer ma candidature ?",
+                        "answer": "Il est préférable de commencer le processus de candidature au moins 6 à 8 mois avant le début de l'année universitaire (qui est généralement le 1er septembre). Cela laisse suffisamment de temps pour obtenir l'invitation, demander un visa et se préparer au voyage."
+                    }
+                ]
+            },
+            "moving": {
+                "title": "Déménager en Russie",
+                "questions": [
+                    {
+                        "question": "Que dois-je emporter ?",
+                        "answer": "Emportez des vêtements pour toutes les saisons, en particulier des vêtements d'hiver chauds. Apportez également tous les médicaments sur ordonnance nécessaires, les documents importants et des adaptateurs pour les prises de courant de type européen (Type C et F)."
+                    },
+                    {
+                        "question": "Comment est le logement étudiant ?",
+                        "answer": "La plupart des universités fournissent des résidences étudiantes (общежитие), qui sont l'option la plus abordable. Les chambres sont généralement partagées entre 2 et 4 étudiants. Vous pouvez également louer un appartement privé, ce qui est plus cher."
+                    }
+                ]
+            },
+            "learning": {
+                "title": "Processus d'Apprentissage",
+                "questions": [
+                    {
+                        "question": "Quel est le calendrier universitaire ?",
+                        "answer": "L'année universitaire s'étend généralement du 1er septembre à la fin juin, divisée en deux semestres. Il y a une pause hivernale en janvier/février et une pause estivale en juillet/août."
+                    },
+                    {
+                        "question": "Comment les cours sont-ils notés ?",
+                        "answer": "La Russie utilise un système de notation sur 5 points, où 5 est 'excellent', 4 est 'bon', 3 est 'satisfaisant' et 2 est 'échec'."
+                    }
+                ]
+            }
+        }
+    },
+    "servicesPage": {
+        "title": "Nos Services",
+        "description": "Nous fournissons une solution de bout en bout pour les étudiants internationaux, faisant de votre rêve d'étudier en Russie une réalité.",
+        "whatsIncluded": "Ce qui est inclus :",
+        "services": {
+            "studyInvitation": {
+                "title": "Assistance pour l'Invitation d'Étude",
+                "description": "La première étape, et la plus cruciale, est d'obtenir une Lettre d'Invitation d'Étude officielle d'une université russe. Nous assurons la liaison avec nos institutions partenaires pour garantir que votre candidature soit priorisée et traitée efficacement, augmentant considérablement vos chances de recevoir ce document vital.",
+                "details": [
+                    "Consultation sur le choix de l'université et du cours.",
+                    "Soumission de la candidature à l'université de votre choix.",
+                    "Suivi avec l'administration de l'université.",
+                    "Livraison sécurisée de la lettre d'invitation originale."
+                ]
+            },
+            "visaSupport": {
+                "title": "Soutien pour le Visa Étudiant",
+                "description": "Naviguer dans le processus de visa étudiant russe peut être complexe. Notre équipe expérimentée fournit des conseils étape par étape, du remplissage du formulaire de demande à la préparation de l'entretien au consulat. Nous nous tenons au courant des dernières réglementations pour assurer un processus fluide.",
+                "details": [
+                    "Liste de contrôle complète des documents requis.",
+                    "Aide au remplissage du formulaire de demande en ligne.",
+                    "Conseils pour la prise de rendez-vous au consulat.",
+                    "Conseils de préparation pour l'entretien de visa."
+                ]
+            },
+            "aiDocumentAssistance": {
+                "title": "Assistance Documentaire Pilotée par l'IA",
+                "description": "Assurez-vous que vos documents répondent aux exigences strictes des universités et des autorités de l'immigration russes. Notre plateforme utilise l'IA générative pour vérifier l'authenticité, la lisibilité et la conformité de vos documents téléchargés. Nous aidons également avec des services de traduction et de légalisation professionnels.",
+                "details": [
+                    "Vérification de la qualité et de la véracité des documents par l'IA.",
+                    "Extraction des informations clés pour votre candidature.",
+                    "Gestion des services de traduction (par exemple, russe, anglais).",
+                    "Conseils sur les processus d'Apostille et de légalisation consulaire."
+                ]
+            },
+            "airportReception": {
+                "title": "Accueil à l'Aéroport et Intégration",
+                "description": "Nous veillons à ce que votre arrivée en Russie soit accueillante et sans stress. Un représentant de notre agence vous accueillera à l'aéroport, vous transférera en toute sécurité à votre dortoir universitaire ou à votre logement pré-arrangé, et vous aidera avec les procédures initiales d'inscription et d'installation.",
+                "details": [
+                    "Briefing et coordination avant l'arrivée.",
+                    "Service de prise en charge personnalisé à l'aéroport.",
+                    "Assistance pour l'inscription à l'université et les bilans de santé.",
+                    "Kit de bienvenue comprenant une carte SIM locale et un plan de la ville."
+                ]
+            }
+        },
+        "fees": {
+            "title": "Frais et Dépenses Supplémentaires",
+            "paymentMethods": "Méthodes de payement:",
+            "bankTransfer": "Virement bancaire",
+            "crypto": "Dépôt de crypto-monnaie",
+            "note": "Veuillez noter que votre invitation d'étude sera émise et envoyée dès réception du paiement."
+        }
+    },
+    "blog": {
+        "title": "Notre Blog",
+        "description": "Restez informé des dernières nouvelles, conseils et histoires sur la vie étudiante dans la Fédération de Russie.",
+        "posts": {
+            "navigating-the-russian-student-visa-process": {
+                "title": "Naviguer dans le Processus de Visa Étudiant Russe : Un Guide Étape par Étape",
+                "description": "Comprendre le processus de visa étudiant russe peut être intimidant. Notre guide le décompose en étapes gérables, vous assurant d'avoir toute la documentation et les informations nécessaires pour une demande fluide.",
+                "content": "<p>Le voyage pour étudier en Russie commence par une demande de visa réussie. Ce guide complet vous guidera à travers chaque étape, de la réception de votre invitation universitaire à la soumission de votre demande au consulat russe. Nous couvrirons les pièges courants et fournirons des conseils pour garantir que votre demande soit la plus solide possible.</p><h2>Documents Clés Requis :</h2><ul><li>Lettre d'invitation universitaire originale.</li><li>Passeport international valide.</li><li>Formulaire de demande de visa complété.</li><li>Certificat de test VIH (négatif).</li><li>Certificats d'études.</li></ul><p>Nous vous recommandons de commencer ce processus au moins 3 mois avant votre date de voyage prévue pour tenir compte de tout retard potentiel.</p>"
+            },
+            "top-5-reasons-to-study-in-russia": {
+                "title": "Les 5 Meilleures Raisons de Choisir la Russie pour Vos Études Supérieures",
+                "description": "Des universités de renommée mondiale aux riches expériences culturelles, découvrez les principales raisons pour lesquelles la Russie est une excellente destination pour les étudiants internationaux.",
+                "content": "<p>La Russie a une longue tradition d'enseignement de haute qualité, en particulier dans les domaines des sciences, de la technologie, de l'ingénierie et des mathématiques (STEM). Voici cinq raisons convaincantes de considérer la Russie pour votre parcours académique :</p><ol><li><strong>Universités Reconnues Mondialement :</strong> De nombreuses universités russes sont classées parmi les meilleures au monde.</li><li><strong>Frais de Scolarité Abordables :</strong> Comparé aux pays occidentaux, le coût de l'éducation et de la vie en Russie est nettement inférieur.</li><li><strong>Riche Patrimoine Culturel :</strong> Immergez-vous dans un pays avec une histoire profonde, une architecture époustouflante et une scène artistique vibrante.</li><li><strong>Large Gamme de Programmes :</strong> Choisissez parmi des centaines de programmes enseignés en russe et en anglais.</li><li><strong>Expérience Internationale Unique :</strong> Vivez et étudiez dans un pays transcontinental, offrant un mélange unique de cultures européenne et asiatique.</li></ol>"
+            },
+            "life-as-an-international-student-in-moscow": {
+                "title": "La Vie d'un Étudiant International à Moscou",
+                "description": "Comment est-ce vraiment de vivre et d'étudier dans la capitale animée de la Russie ? Nous partageons des aperçus sur le logement, les transports et comment profiter au maximum de votre temps à Moscou.",
+                "content": "<p>Moscou est une ville vibrante, 24h/24 et 7j/7, qui offre des possibilités infinies d'exploration et de divertissement. En tant qu'étudiant, vous trouverez une communauté accueillante et un large éventail d'activités à apprécier en dehors des salles de classe.</p><h2>Se Déplacer :</h2><p>Le métro de Moscou est l'un des systèmes de métro les plus efficaces et les plus beaux au monde. Une carte de transport pour étudiants offre des tarifs réduits, ce qui en fait le moyen le plus pratique de se déplacer dans la ville.</p><h2>Logement :</h2><p>La plupart des universités proposent des résidences étudiantes, qui sont une option abordable et un excellent moyen de rencontrer d'autres étudiants. Alternativement, vous pouvez louer un appartement privé, bien que ce soit une option plus chère.</p><p>Des musées de classe mondiale comme la Galerie d'État Tretiakov aux vastes parcs comme le parc Gorki, vous ne manquerez jamais de choses à faire à Moscou.</p>"
+            },
+            "preparing-your-documents-for-russian-university-admission": {
+                "title": "Préparer Vos Documents pour l'Admission à l'Université Russe",
+                "description": "Une liste de contrôle complète des documents que vous devrez préparer pour votre candidature à une université russe, y compris des conseils sur la traduction et la légalisation.",
+                "content": "<p>Une préparation adéquate des documents est essentielle pour une candidature universitaire réussie. Notre outil de vérification alimenté par l'IA peut aider, mais il est essentiel de commencer avec les bons documents, correctement formatés et légalisés. Voici ce dont vous aurez généralement besoin :</p><ul><li><strong>Diplôme/Certificat d'Études Secondaires :</strong> Légalisé et traduit en russe.</li><li><strong>Relevés de Notes Académiques :</strong> Montrant toutes les matières et les notes.</li><li><strong>Certificats Médicaux :</strong> Y compris un certificat de bonne santé générale et un résultat de test VIH négatif.</li><li><strong>Copie de votre Passeport :</strong> Doit être valide pendant au moins 18 mois à compter de votre date d'entrée prévue.</li><li><strong>Formulaire de Candidature :</strong> Complété et signé.</li></ul><p>Les exigences de légalisation varient selon les pays. Il est crucial de vérifier le processus spécifique (par exemple, Apostille ou légalisation consulaire) requis pour vos documents.</p>"
+            }
+        }
+    },
+    "contact": {
+        "title": "Contactez-nous",
+        "description": "Vous avez des questions ? Nous sommes là pour vous aider. Contactez-nous via l'un de nos canaux, ou envoyez-nous un message en utilisant le formulaire ci-dessous.",
+        "cta": {
+            "telegramCta": "Envoyez-nous un message",
+            "whatsappCta": "Discutez avec nous",
+            "emailCta": "Envoyer un e-mail"
+        }
+    },
+    "application": {
+        "title": "Candidature Universitaire",
+        "description": "Remplissez le formulaire ci-dessous pour commencer votre candidature. Notre équipe vérifiera vos documents à l'aide de l'IA."
+    },
+    "applicationForm": {
+        "submit": "Soumettre la Candidature",
+        "submitting": "Vérification et Soumission...",
+        "personalInfo": {
+            "title": "Informations Personnelles",
+            "firstName": "Prénom",
+            "firstNamePlaceholder": "Votre prénom",
+            "middleName": "Deuxième Prénom",
+            "middleNamePlaceholder": "Optionnel",
+            "lastName": "Nom de Famille",
+            "lastNamePlaceholder": "Votre nom de famille",
+            "citizenship": "Citoyenneté"
+        },
+        "contactInfo": {
+            "title": "Coordonnées",
+            "email": "Email",
+            "phone": "Numéro de Telegram/WhatsApp"
+        },
+        "documents": {
+            "title": "Documents",
+            "passportLabel": "Passeport (original)*",
+            "passportDescription": "Copie numérisée du document original",
+            "passportTooltip": "Veuillez télécharger un scan couleur clair et pleine page de la page de données biographiques de votre passeport.",
+            "educationLabel": "Diplôme d'études (original)*",
+            "educationDescription": "Copie numérisée du ou des documents originaux",
+            "educationTooltip": "Téléchargez votre diplôme d'études secondaires, votre licence ou tout certificat académique pertinent.",
+            "paymentNote": "Veuillez noter : votre invitation d'étude sera émise et envoyée dès réception du paiement."
+        },
+        "fileUpload": {
+            "upload": "Télécharger un fichier"
+        },
+        "results": {
+            "success": {
+                "title": "Succès !",
+                "description": "Votre document a passé toutes les vérifications et les informations pertinentes ont été extraites.",
+                "verificationResults": "Résultats de la Vérification",
+                "authenticityCheck": "Vérification d'Authenticité",
+                "appearsAuthentic": "Le document semble authentique.",
+                "readabilityCheck": "Vérification de Lisibilité",
+                "isClear": "Le document est clair et lisible.",
+                "requirementsMet": "Exigences Satisfaites",
+                "meetsRequirements": "Le document répond aux exigences de l'université.",
+                "extractedInformation": "Informations Extraites",
+                "extractedInformationDescription": "Notre IA a extrait les informations suivantes de votre document. Veuillez les examiner.",
+                "newApplication": "Commencer une Nouvelle Candidature"
+            },
+            "error": {
+                "title": "Erreur",
+                "description": "Votre document n'a pas pu être vérifié. Veuillez examiner les problèmes ci-dessous.",
+                "verificationIssues": "Problèmes de Vérification",
+                "authenticityCheck": "Vérification d'Authenticité",
+                "appearsAuthentic": "Le document semble authentique.",
+                "authenticityFailed": "L'authenticité n'a pas pu être confirmée.",
+                "readabilityCheck": "Vérification de Lisibilité",
+                "isClear": "Le document est clair et lisible.",
+                "readabilityFailed": "Le document est flou ou illisible.",
+                "requirementsMet": "Exigences Satisfaites",
+                "meetsRequirements": "Le document répond aux exigences de l'université.",
+                "requirementsFailed": "Le document ne répond pas aux exigences de l'université.",
+                "reason": "Raison",
+                "tryAgain": "Réessayer",
+                "unexpected": "Une erreur de serveur inattendue s'est produite. Veuillez réessayer."
+            }
+        }
+    }
+}

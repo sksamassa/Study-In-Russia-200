@@ -20,12 +20,15 @@ type Language = {
 };
 
 const languages: Language[] = [
-  { code: 'en', name: 'English' },
-  { code: 'fr', name: 'Français' },
-  { code: 'ar', name: 'العربية' },
-  { code: 'es', name: 'Español' },
-  { code: 'pt', name: 'Português' },
-  { code: 'zh', name: '中文' },
+    { code: 'en', name: 'English' },
+    { code: 'fr', name: 'Français' },
+    { code: 'ar', name: 'العربية' },
+    { code: 'es', name: 'Español' },
+    { code: 'pt', name: 'Português' },
+    { code: 'zh', name: '中文' },
+    { code: 'tr', name: 'Türkçe' },
+    { code: 'hi', name: 'हिन्दी' },
+    { code: 'af', name: 'Afrikaans' },
 ];
 
 export function LanguageSwitcher() {
@@ -35,8 +38,8 @@ export function LanguageSwitcher() {
 
   const onSelectLocale = (locale: Locale) => {
     const newPathname = pathname.replace(
-      /^\/[a-z]{2}(\/|$)/,
-      `/${locale}$1`
+      /^\/[a-z]{2}(-[A-Z]{2})?/,
+      `/${locale}`
     );
     startTransition(() => {
       router.replace(newPathname);

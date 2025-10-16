@@ -3,36 +3,40 @@
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
+import { getDictionary } from '@/i18n/get-dictionary';
 
-const cities = [
-  { name: 'Moscow', imageId: 'city-moscow' },
-  { name: 'Saint Petersburg', imageId: 'city-st-petersburg' },
-  { name: 'Kazan', imageId: 'city-kazan' },
-  { name: 'Novosibirsk', imageId: 'city-novosibirsk' },
-  { name: 'Yekaterinburg', imageId: 'city-yekaterinburg' },
-  { name: 'Sochi', imageId: 'city-sochi' },
+
+const cityImageIds = [
+    'city-moscow',
+    'city-st-petersburg',
+    'city-kazan',
+    'city-novosibirsk',
+    'city-yekaterinburg',
+    'city-sochi',
 ];
 
-const cityData = cities.map(city => {
-    const imageData = PlaceHolderImages.find(img => img.id === city.imageId);
-    return {
-        ...city,
-        ...imageData
-    }
-});
 
+export function RussianCities({ dictionary }: { dictionary: Awaited<ReturnType<typeof getDictionary>>['cities'] }) {
+    const cityData = cityImageIds.map(id => {
+        const imageData = PlaceHolderImages.find(img => img.id === id);
+        const cityDict = dictionary.items[id as keyof typeof dictionary.items];
+        return {
+            name: cityDict.name,
+            description: cityDict.description,
+            imageUrl: imageData?.imageUrl!,
+            imageHint: imageData?.imageHint!,
+        }
+    });
 
-export function RussianCities() {
   return (
     <section className="py-16 lg:py-24 bg-background">
       <div className="container">
         <div className="text-center space-y-4 mb-12">
           <h2 className="text-3xl md:text-4xl font-bold">
-            Explore Russian Cities
+            {dictionary.title}
           </h2>
           <p className="max-w-2xl mx-auto text-muted-foreground">
-            Discover the vibrant culture and history of the cities where you
-            can study.
+            {dictionary.description}
           </p>
         </div>
       </div>

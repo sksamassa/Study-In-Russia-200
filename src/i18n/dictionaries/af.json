@@ -1,0 +1,332 @@
+{
+    "header": {
+        "title": "Studeer In Rusland 200",
+        "subtitle": "Jou Poort na Russiese Hoër Onderwys",
+        "services": "Dienste",
+        "blog": "Blog",
+        "contact": "Kontak",
+        "applyNow": "Doen Nou Aansoek"
+    },
+    "footer": {
+        "title": "Studeer In Rusland 200",
+        "description": "Jou betroubare vennoot om toelating tot top Russiese universiteite te verseker.",
+        "contactUs": "Kontak Ons",
+        "quickLinks": "Vinnige Skakels",
+        "links": {
+            "services": "Dienste",
+            "blog": "Blog",
+            "contact": "Kontak"
+        },
+        "copyright": "Studeer In Rusland 200. Alle regte voorbehou."
+    },
+    "hero": {
+        "title": "Jou Reis na 'n Russiese Universiteit Begin Hier",
+        "subtitle": "Studeer In Rusland 200 bied omvattende ondersteuning vir internasionale studente, van aansoek tot aankoms.",
+        "cta": "Doen Nou Aansoek"
+    },
+    "services": {
+        "title": "Ons Omvattende Dienste",
+        "description": "Ons hanteer elke detail van jou reis, en verseker 'n naatlose en stresvrye ervaring.",
+        "cards": {
+            "studyInvitationTitle": "Studie-uitnodiging",
+            "studyInvitationDescription": "Ons verseker jou amptelike uitnodigingsbrief van jou gekose universiteit, 'n deurslaggewende eerste stap in jou aansoekproses.",
+            "visaSupportTitle": "Visa-ondersteuning",
+            "visaSupportDescription": "Ons kundiges lei jou deur die komplekse studentevisumaansoek, en verseker dat alle vorms korrek ingevul en ingedien word.",
+            "documentAssistanceTitle": "Dokumentbystand",
+            "documentAssistanceDescription": "Van vertaling tot wettiging, ons help jou om alle vereiste dokumente voor te berei en te verifieer om aan universiteitstandaarde te voldoen.",
+            "airportReceptionTitle": "Lughawe-ontvangs",
+            "airportReceptionDescription": "'n Warm ontvangs wag op jou. Ons reël vir jou oplaai by die lughawe en vervoer na jou akkommodasie."
+        }
+    },
+    "stickyScroll": {
+        "title": "4 Maklike Stappe om in Rusland te Studeer",
+        "subtitle": "Jou reis, vereenvoudig",
+        "steps": {
+            "step1": {
+                "title": "Dien 'n Aansoek in",
+                "stepNumber": 1,
+                "steps": [
+                    "Voltooi die aanlyn aansoekvorm met jou persoonlike en opvoedkundige besonderhede.",
+                    "Berei en dien alle vereiste dokumente in, insluitend transkripsies en paspoortkopieë.",
+                    "Ons span sal jou aansoek hersien en jou binne 3 werksdae kontak."
+                ]
+            },
+            "step2": {
+                "title": "Ontvang 'n Uitnodiging",
+                "stepNumber": 2,
+                "steps": [
+                    "Sodra goedgekeur, sal jy 'n amptelike uitnodigingsbrief van die Russiese universiteit ontvang.",
+                    "Hierdie uitnodiging is jou sleuteldokument vir die visumaansoekproses.",
+                    "Die uitnodiging arriveer gewoonlik binne 2-4 weke na aansoekgoedkeuring."
+                ]
+            },
+            "step3": {
+                "title": "Kry Jou Studentevisum",
+                "stepNumber": 3,
+                "steps": [
+                    "Doen aansoek vir 'n studentevisum by die naaste Russiese ambassade of konsulaat.",
+                    "Voltooi mediese ondersoek en verkry gesondheidsversekering soos vereis.",
+                    "Bespreek jou vlug na Rusland nadat jy jou visum ontvang het."
+                ]
+            },
+            "step4": {
+                "title": "Arriveer en Begin Studeer",
+                "stepNumber": 4,
+                "steps": [
+                    "Sodra jy 'n studentevisum ontvang het, kan jy jou aankoms by die universiteit beplan.",
+                    "Ons sal jou help om akkommodasie te reël en in jou nuwe stad gevestig te raak.",
+                    "Begin jou opwindende opvoedkundige reis in Rusland!"
+                ]
+            }
+        }
+    },
+    "metrics": {
+        "title": "Ons Suksesrekord",
+        "description": "Ons is trots op die resultate wat ons lewer en die studente wat ons gehelp het.",
+        "items": {
+            "visaSuccessRate": "Visa Sukseskoers",
+            "studentsEnrolled": "Studente Ingeskryf",
+            "partnerUniversities": "Vennoot Universiteite",
+            "airportReceptions": "Lughawe-ontvangste"
+        }
+    },
+    "cities": {
+        "title": "Verken Russiese Stede",
+        "description": "Ontdek die lewendige kultuur en geskiedenis van die stede waar jy kan studeer.",
+        "items": {
+            "city-moscow": { "name": "Moskou", "description": "Rusland se lewendige hoofstad, bekend vir sy ikoniese Rooi Plein en ryk geskiedenis." },
+            "city-st-petersburg": { "name": "Sint Petersburg", "description": "Die kulturele hart van Rusland, beroemd vir sy kanale en die Hermitage Museum." },
+            "city-kazan": { "name": "Kazan", "description": "'n Unieke mengsel van Tataarse en Russiese kulture met 'n pragtige Kremlin." },
+            "city-novosibirsk": { "name": "Novosibirsk", "description": "'n Belangrike Siberiese sentrum van wetenskap, kultuur en kuns." },
+            "city-yekaterinburg": { "name": "Jekaterinburg", "description": "'n Dinamiese stad op die grens van Europa en Asië." },
+            "city-sochi": { "name": "Sotsji", "description": "'n Gewilde Swartsee-oordstad, bekend vir sy strande en berge." }
+        }
+    },
+    "faq": {
+        "title": "Algemene Vrae",
+        "categories": {
+            "education": {
+                "title": "Onderwys in Rusland",
+                "questions": [
+                    {
+                        "question": "Watter opleidingsprogramme is vir my beskikbaar?",
+                        "answer": "Russiese universiteite bied 'n wye verskeidenheid programme aan, insluitend Baccalaureus-, Meesters- en PhD-grade, asook voorbereidende taalkursusse. Gewilde velde sluit medisyne, ingenieurswese, rekenaarwetenskap en natuurwetenskappe in."
+                    },
+                    {
+                        "question": "In watter taal word daar in Rusland onderrig?",
+                        "answer": "Terwyl die primêre onderrigtaal Russies is, bied baie universiteite programme aan wat volledig in Engels aangebied word, veral op Meestersvlak. Voorbereidende kursusse is beskikbaar om jou te help om Russies te leer voordat jy met jou hoofprogram begin."
+                    },
+                    {
+                        "question": "Watter vorme van onderwys is in Rusland beskikbaar?",
+                        "answer": "Jy kan kies tussen voltydse (op-kampus), deeltydse en aanlyn (afstandsonderrig) vorme van onderwys, afhangende van die universiteit en program."
+                    },
+                    {
+                        "question": "Kan buitelandse studente gratis in Rusland studeer?",
+                        "answer": "Ja, dit is moontlik. Die Russiese regering bied jaarliks 'n beperkte aantal beurse (kwotas) aan vir buitelandse studente, wat klasgeld dek en 'n klein maandelikse toelae voorsien. Kompetisie vir hierdie beurse is hoog."
+                    },
+                    {
+                        "question": "Hoeveel kos dit om in Rusland te studeer?",
+                        "answer": "Klasgelde is bekostigbaar in vergelyking met baie Westerse lande, en wissel van $2,000 tot $8,000 per jaar vir Baccalaureusprogramme. Lewenskoste is ook relatief laag, veral buite groot stede soos Moskou en Sint Petersburg."
+                    }
+                ]
+            },
+            "admission": {
+                "title": "Toelatingsprosedure",
+                "questions": [
+                    {
+                        "question": "Wat is die algemene toelatingsvereistes?",
+                        "answer": "Oor die algemeen benodig jy 'n voltooide sekondêre onderwyssertifikaat vir 'n Baccalaureusprogram, en 'n Baccalaureusgraad vir 'n Meestersprogram. Sommige universiteite mag toelatingseksamens of 'n onderhoud vereis."
+                    },
+                    {
+                        "question": "Wanneer moet ek my aansoek begin?",
+                        "answer": "Dit is die beste om die aansoekproses ten minste 6-8 maande voor die begin van die akademiese jaar (wat tipies 1 September is) te begin. Dit laat genoeg tyd toe vir die verkryging van die uitnodiging, aansoek om 'n visum, en voorbereiding vir reis."
+                    }
+                ]
+            },
+            "moving": {
+                "title": "Verhuising na Rusland",
+                "questions": [
+                    {
+                        "question": "Wat moet ek inpak?",
+                        "answer": "Pak vir alle seisoene, veral warm winterklere. Bring ook enige nodige voorskrifmedikasie, belangrike dokumente en adapters vir Europese-styl kragpunte (Tipe C en F) saam."
+                    },
+                    {
+                        "question": "Hoe lyk studente-akkommodasie?",
+                        "answer": "Die meeste universiteite voorsien studentekoshuise (общежитие), wat die mees bekostigbare opsie is. Kamers word tipies tussen 2-4 studente gedeel. Jy kan ook 'n privaat woonstel huur, wat duurder is."
+                    }
+                ]
+            },
+            "learning": {
+                "title": "Leerproses",
+                "questions": [
+                    {
+                        "question": "Wat is die akademiese kalender?",
+                        "answer": "Die akademiese jaar strek tipies van 1 September tot einde Junie, verdeel in twee semesters. Daar is 'n wintervakansie in Januarie/Februarie en 'n somervakansie in Julie/Augustus."
+                    },
+                    {
+                        "question": "Hoe word kursusse gegradeer?",
+                        "answer": "Rusland gebruik 'n 5-punt-graderingstelsel, waar 5 'uitstekend' is, 4 'goed' is, 3 'bevredigend' is, en 2 'druip' is."
+                    }
+                ]
+            }
+        }
+    },
+    "servicesPage": {
+        "title": "Ons Dienste",
+        "description": "Ons bied 'n end-tot-end oplossing vir internasionale studente, wat jou droom om in Rusland te studeer 'n werklikheid maak.",
+        "whatsIncluded": "Wat is Ingesluit:",
+        "services": {
+            "studyInvitation": {
+                "title": "Studie-uitnodiging Bystand",
+                "description": "Die eerste en mees deurslaggewende stap is om 'n amptelike Studie-uitnodigingsbrief van 'n Russiese universiteit te bekom. Ons skakel met ons vennootinstellings om te verseker dat jou aansoek geprioritiseer en doeltreffend verwerk word, wat jou kanse om hierdie noodsaaklike dokument te ontvang, dramaties verhoog.",
+                "details": [
+                    "Konsultasie oor universiteit- en kursuskeuse.",
+                    "Aansoekindiening by jou gekose universiteit.",
+                    "Opvolg met universiteitsadministrasie.",
+                    "Veilige aflewering van die oorspronklike uitnodigingsbrief."
+                ]
+            },
+            "visaSupport": {
+                "title": "Studentevisum Ondersteuning",
+                "description": "Die navigasie van die Russiese studentevisumproses kan kompleks wees. Ons ervare span bied stap-vir-stap leiding, van die invul van die aansoekvorm tot voorbereiding vir die konsulaatonderhoud. Ons bly op hoogte van die nuutste regulasies om 'n gladde proses te verseker.",
+                "details": [
+                    "Omvattende kontrolelys van vereiste dokumente.",
+                    "Hulp met die voltooiing van die aanlyn aansoekvorm.",
+                    "Leiding oor die skedulering van konsulaatafsprake.",
+                    "Voorbereidingswenke vir die visumonderhoud."
+                ]
+            },
+            "aiDocumentAssistance": {
+                "title": "KI-gedrewe Dokumentbystand",
+                "description": "Verseker dat jou dokumente voldoen aan die streng vereistes van Russiese universiteite en immigrasie-owerhede. Ons platform gebruik Generatiewe KI om jou opgelaaide dokumente te verifieer vir egtheid, leesbaarheid en nakoming. Ons help ook met professionele vertaling- en wettigingsdienste.",
+                "details": [
+                    "KI-gedrewe verifikasie van dokumentkwaliteit en waarheid.",
+                    "Onttrekking van sleutelinligting vir jou aansoek.",
+                    "Bestuur van vertaaldienste (bv. Russies, Engels).",
+                    "Leiding oor Apostille- en konsulêre wettigingsprosesse."
+                ]
+            },
+            "airportReception": {
+                "title": "Lughawe-ontvangs & Aanboord",
+                "description": "Ons verseker dat jou aankoms in Rusland verwelkomend en stresvry is. 'n Verteenwoordiger van ons agentskap sal jou by die lughawe ontmoet, jou veilig na jou universiteitskoshuis of vooraf gereëlde akkommodasie vervoer, en jou help met die aanvanklike registrasie- en vestigingsprosedures.",
+                "details": [
+                    "Voor-aankoms-inligtingsessie en koördinering.",
+                    "Gepersonaliseerde lughawe-oplaaidiens.",
+                    "Hulp met universiteitsregistrasie en mediese ondersoeke.",
+                    "Verwelkomingspakket insluitend 'n plaaslike SIM-kaart en stadskaart."
+                ]
+            }
+        },
+        "fees": {
+            "title": "Fooie en Bykomende Uitgawes",
+            "paymentMethods": "Betaalmetodes:",
+            "bankTransfer": "Bankoorplasing",
+            "crypto": "Kriptogelddeposito",
+            "note": "Let wel: Jou studie-uitnodiging sal uitgereik en gestuur word by ontvangs van betaling."
+        }
+    },
+    "blog": {
+        "title": "Ons Blog",
+        "description": "Bly ingelig met die nuutste nuus, wenke en stories oor die studentelewe in die Russiese Federasie.",
+        "posts": {
+            "navigating-the-russian-student-visa-process": {
+                "title": "Navigeer die Russiese Studentevisumproses: 'n Stap-vir-Stap Gids",
+                "description": "Om die Russiese studentevisumproses te verstaan kan uitdagend wees. Ons gids breek dit af in hanteerbare stappe, en verseker dat jy al die nodige dokumentasie en inligting vir 'n gladde aansoek het.",
+                "content": "<p>Die reis om in Rusland te studeer begin met 'n suksesvolle visumaansoek. Hierdie omvattende gids sal jou deur elke stadium lei, van die ontvangs van jou universiteitsuitnodiging tot die indiening van jou aansoek by die Russiese konsulaat. Ons dek algemene slaggate en gee wenke om te verseker jou aansoek is so sterk as moontlik.</p><h2>Sleuteldokumente Vereis:</h2><ul><li>Oorspronklike universiteitsuitnodigingsbrief.</li><li>Geldige internasionale paspoort.</li><li>Voltooide visumaansoekvorm.</li><li>MIV-toets (negatief) sertifikaat.</li><li>Opvoedkundige sertifikate.</li></ul><p>Ons beveel aan om hierdie proses ten minste 3 maande voor jou beoogde reisdatum te begin om rekening te hou met enige moontlike vertragings.</p>"
+            },
+            "top-5-reasons-to-study-in-russia": {
+                "title": "Top 5 Redes om Rusland vir Jou Hoër Onderwys te Kies",
+                "description": "Van wêreldbekende universiteite tot ryk kulturele ervarings, ontdek die top redes waarom Rusland 'n uitstekende bestemming vir internasionale studente is.",
+                "content": "<p>Rusland het 'n lang tradisie van hoëgehalte-onderwys, veral op die gebied van wetenskap, tegnologie, ingenieurswese en wiskunde (STEM). Hier is vyf dwingende redes om Rusland vir jou akademiese reis te oorweeg:</p><ol><li><strong>Wêreldwyd Erkende Universiteite:</strong> Baie Russiese universiteite word onder die beste ter wêreld gereken.</li><li><strong>Bekostigbare Klasgelde:</strong> In vergelyking met Westerse lande is die koste van onderwys en lewe in Rusland aansienlik laer.</li><li><strong>Ryk Kulturele Erfenis:</strong> Dompel jouself in 'n land met 'n diep geskiedenis, pragtige argitektuur en lewendige kunstoneel.</li><li><strong>Diverse Reeks Programme:</strong> Kies uit honderde programme wat in beide Russies en Engels aangebied word.</li><li><strong>Unieke Internasionale Ervaring:</strong> Leef en studeer in 'n transkontinentale land wat 'n unieke mengsel van Europese en Asiatiese kulture bied.</li></ol>"
+            },
+            "life-as-an-international-student-in-moscow": {
+                "title": "Die Lewe as 'n Internasionale Student in Moskou",
+                "description": "Hoe is dit regtig om in Rusland se bedrywige hoofstad te woon en te studeer? Ons deel insigte oor akkommodasie, vervoer en hoe om die meeste van jou tyd in Moskou te maak.",
+                "content": "<p>Moskou is 'n lewendige, 24/7 stad wat eindelose geleenthede vir verkenning en pret bied. As student sal jy 'n verwelkomende gemeenskap en 'n wye verskeidenheid aktiwiteite vind om buite die klaskamer te geniet.</p><h2>Om Rond te Kom:</h2><p>Die Moskouse Metro is een van die doeltreffendste en mooiste moltreinstelsels ter wêreld. 'n Studentereiskaart bied afslagtariewe, wat dit die gerieflikste manier maak om die stad te navigeer.</p><h2>Akkommodasie:</h2><p>Die meeste universiteite bied studentekoshuise aan, wat 'n bekostigbare en wonderlike manier is om ander studente te ontmoet. Alternatiewelik kan jy 'n privaat woonstel huur, hoewel dit 'n duurder opsie is.</p><p>Van wêreldklas-museums soos die Tretjakof-galery tot uitgestrekte parke soos Gorky Park, sal jy nooit sonder dinge om te doen in Moskou opraak nie.</p>"
+            },
+            "preparing-your-documents-for-russian-university-admission": {
+                "title": "Berei Jou Dokumente voor vir Russiese Universiteitstoelating",
+                "description": "'n Volledige kontrolelys van die dokumente wat jy sal moet voorberei vir jou aansoek by 'n Russiese universiteit, insluitend wenke oor vertaling en wettiging.",
+                "content": "<p>Behoorlike dokumentvoorbereiding is krities vir 'n suksesvolle universiteitsaansoek. Ons KI-gedrewe verifikasie-instrument kan help, maar dit is noodsaaklik om met die korrekte dokumente te begin, behoorlik geformateer en gewettig. Hier is wat jy tipies sal benodig:</p><ul><li><strong>Hoërskool Diploma/Sertifikaat:</strong> Gewettig en vertaal in Russies.</li><li><strong>Akademiese Transkripsies:</strong> Wat alle vakke en grade toon.</li><li><strong>Mediese Sertifikate:</strong> Insluitend 'n algemene fiksheidsertifikaat en 'n negatiewe MIV-toetsuitslag.</li><li><strong>Kopie van jou Paspoort:</strong> Moet geldig wees vir ten minste 18 maande vanaf jou beoogde toetredingsdatum.</li><li><strong>Aansoekvorm:</strong> Voltooi en onderteken.</li></ul><p>Wettigingsvereistes verskil per land. Dit is deurslaggewend om die spesifieke proses (bv. Apostille of konsulêre wettiging) wat vir jou dokumente vereis word, na te gaan.</p>"
+            }
+        }
+    },
+    "contact": {
+        "title": "Kom in Kontak",
+        "description": "Het jy vrae? Ons is hier om te help. Reik uit na ons deur enige van ons kanale, of stuur vir ons 'n boodskap deur die vorm hieronder te gebruik.",
+        "cta": {
+            "telegramCta": "Stuur vir ons 'n Boodskap",
+            "whatsappCta": "Gesels met Ons",
+            "emailCta": "Stuur 'n E-pos"
+        }
+    },
+    "application": {
+        "title": "Universiteitsaansoek",
+        "description": "Vul die vorm hieronder in om jou aansoek te begin. Ons span sal jou dokumente met behulp van KI verifieer."
+    },
+    "applicationForm": {
+        "submit": "Dien Aansoek in",
+        "submitting": "Verifieer & Dien in...",
+        "personalInfo": {
+            "title": "Persoonlike Inligting",
+            "firstName": "Voornaam",
+            "firstNamePlaceholder": "Jou voornaam",
+            "middleName": "Middelnaam",
+            "middleNamePlaceholder": "Opsioneel",
+            "lastName": "Van",
+            "lastNamePlaceholder": "Jou van",
+            "citizenship": "Burgerskap"
+        },
+        "contactInfo": {
+            "title": "Kontakinligting",
+            "email": "E-pos",
+            "phone": "Telegram/WhatsApp Nommer"
+        },
+        "documents": {
+            "title": "Dokumente",
+            "passportLabel": "Paspoort (oorspronklik)*",
+            "passportDescription": "Geskeduleerde kopie van die oorspronklike dokument",
+            "passportTooltip": "Laai asseblief 'n duidelike, volblad-kleurskandering van jou paspoort se bio-data-bladsy op.",
+            "educationLabel": "Opvoedkundige graad (oorspronklik)*",
+            "educationDescription": "Geskeduleerde kopie van die oorspronklike dokument(e)",
+            "educationTooltip": "Laai jou hoërskooldiploma, baccalaureusgraad, of enige relevante akademiese sertifikate op.",
+            "paymentNote": "Let wel: Jou studie-uitnodiging sal uitgereik en gestuur word by ontvangs van betaling."
+        },
+        "fileUpload": {
+            "upload": "Laai 'n lêer op"
+        },
+        "results": {
+            "success": {
+                "title": "Sukses!",
+                "description": "Jou dokument het alle tjeks geslaag en die relevante inligting is onttrek.",
+                "verificationResults": "Verifikasieresultate",
+                "authenticityCheck": "Egtheidskontrole",
+                "appearsAuthentic": "Die dokument blyk eg te wees.",
+                "readabilityCheck": "Leesbaarheidskontrole",
+                "isClear": "Die dokument is duidelik en leesbaar.",
+                "requirementsMet": "Vereistes Voldoen",
+                "meetsRequirements": "Die dokument voldoen aan universiteitsvereistes.",
+                "extractedInformation": "Onttrekte Inligting",
+                "extractedInformationDescription": "Ons KI het die volgende inligting uit jou dokument onttrek. Hersien dit asseblief.",
+                "newApplication": "Begin Nuwe Aansoek"
+            },
+            "error": {
+                "title": "Fout",
+                "description": "Jou dokument kon nie geverifieer word nie. Hersien asseblief die kwessies hieronder.",
+                "verificationIssues": "Verifikasiekwessies",
+                "authenticityCheck": "Egtheidskontrole",
+                "appearsAuthentic": "Die dokument blyk eg te wees.",
+                "authenticityFailed": "Egtheid kon nie bevestig word nie.",
+                "readabilityCheck": "Leesbaarheidskontrole",
+                "isClear": "Die dokument is duidelik en leesbaar.",
+                "readabilityFailed": "Die dokument is vaag of onleesbaar.",
+                "requirementsMet": "Vereistes Voldoen",
+                "meetsRequirements": "Die dokument voldoen aan universiteitsvereistes.",
+                "requirementsFailed": "Die dokument voldoen nie aan universiteitsvereistes nie.",
+                "reason": "Rede",
+                "tryAgain": "Probeer Weer",
+                "unexpected": "'n Onverwagte bedienerfout het voorgekom. Probeer asseblief weer."
+            }
+        }
+    }
+}

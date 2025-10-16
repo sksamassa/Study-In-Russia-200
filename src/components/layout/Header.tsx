@@ -4,34 +4,46 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { GraduationCap, Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '../theme-toggle';
+import { LanguageSwitcher } from '../language-switcher';
+import { Locale } from '@/i18n/i18n-config';
+import { getDictionary } from '@/i18n/get-dictionary';
 
 
-const navLinks = [
-  { href: '/services', label: 'Services' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/contact', label: 'Contact' },
-];
-
-export function Header() {
+export function Header({ lang }: { lang: Locale }) {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [dictionary, setDictionary] = useState<Awaited<ReturnType<typeof getDictionary>>['header'] | null>(null);
 
+  useEffect(() => {
+    getDictionary(lang).then((d) => setDictionary(d.header));
+  }, [lang]);
+
+  if (!dictionary) {
+    return null; // Or a loading skeleton
+  }
+
+  const navLinks = [
+    { href: `/${lang}/services`, label: dictionary.services },
+    { href: `/${lang}/blog`, label: dictionary.blog },
+    { href: `/${lang}/contact`, label: dictionary.contact },
+  ];
+  
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4">
       <div className="container flex h-16 items-center">
         <div className="mr-4 hidden md:flex">
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href={`/${lang}`} className="flex items-center space-x-2">
             <GraduationCap className="h-8 w-8 text-primary" />
             <div>
               <span className="font-bold font-headline text-2xl">
-                Study In Russia 200
+                {dictionary.title}
               </span>
               <p className="text-xs text-muted-foreground whitespace-nowrap">
-                Your Gateway to Russian Higher Education
+                {dictionary.subtitle}
               </p>
             </div>
           </Link>
@@ -45,7 +57,7 @@ export function Header() {
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             <span className="sr-only">Toggle menu</span>
           </button>
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href={`/${lang}`} className="flex items-center space-x-2">
             <GraduationCap className="h-7 w-7 text-primary" />
           </Link>
         </div>
@@ -68,9 +80,10 @@ export function Header() {
             ))}
           </nav>
           <div className="flex items-center">
+            <LanguageSwitcher />
             <ThemeToggle />
              {/* <Button asChild className="ml-4">
-                <Link href="/application">Apply Now</Link>
+                <Link href={`/${lang}/application`}>{dictionary.applyNow}</Link>
              </Button> */}
           </div>
         </div>
@@ -95,7 +108,7 @@ export function Header() {
                 </Link>
               ))}
               {/* <Button asChild className="w-full">
-                <Link href="/application" onClick={() => setIsMenuOpen(false)}>Apply Now</Link>
+                <Link href={`/${lang}/application`} onClick={() => setIsMenuOpen(false)}>{dictionary.applyNow}</Link>
               </Button> */}
             </nav>
           </div>

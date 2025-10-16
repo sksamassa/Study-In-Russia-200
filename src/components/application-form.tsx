@@ -16,23 +16,24 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/
 import { cn } from "@/lib/utils"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip"
 import type { Country } from "./ui/country-dropdown"
+import { getDictionary } from "@/i18n/get-dictionary"
 
 const initialState: ApplicationState = {
   status: "idle",
   message: null,
 }
 
-function SubmitButton() {
+function SubmitButton({ dictionary }: { dictionary: Awaited<ReturnType<typeof getDictionary>>['applicationForm'] }) {
   const { pending } = useFormStatus()
   return (
     <Button type="submit" disabled={pending} className="w-full">
       {pending ? (
         <>
-          <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Verifying & Submitting...
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" /> {dictionary.submitting}
         </>
       ) : (
         <>
-          <Upload className="mr-2 h-4 w-4" /> Submit Application
+          <Upload className="mr-2 h-4 w-4" /> {dictionary.submit}
         </>
       )}
     </Button>
@@ -63,13 +64,15 @@ function FileUploadField({
   tooltip,
   error,
   multiple = false,
+  dictionary
 }: {
   name: string
   label: string
   description: string
   tooltip: string
   error?: string
-  multiple?: boolean
+  multiple?: boolean,
+  dictionary: Awaited<ReturnType<typeof getDictionary>>['applicationForm']['fileUpload']
 }) {
   const [files, setFiles] = useState<File[]>([])
   const inputRef = useRef<HTMLInputElement>(null)
@@ -118,7 +121,7 @@ function FileUploadField({
         </div>
         <Button asChild variant="ghost" size="sm">
           <label htmlFor={id} className="cursor-pointer flex items-center gap-2">
-            <Upload className="h-4 w-4" /> Upload a file
+            <Upload className="h-4 w-4" /> {dictionary.upload}
           </label>
         </Button>
         <input
@@ -155,7 +158,7 @@ function FileUploadField({
   )
 }
 
-export function ApplicationForm() {
+export function ApplicationForm({ dictionary }: { dictionary: Awaited<ReturnType<typeof getDictionary>>['applicationForm'] }) {
   const [state, formAction] = useActionState(handleApplicationSubmit, initialState)
   const [selectedCountry, setSelectedCountry] = useState<Country | undefined>(undefined)
   const [phoneValue, setPhoneValue] = useState("")
@@ -171,36 +174,37 @@ export function ApplicationForm() {
   useEffect(() => {
     if (state.status === "success" && state.message) {
       toast({
-        title: "Success!",
+        title: dictionary.results.success.title,
         description: state.message,
       })
     }
-  }, [state, toast])
+  }, [state, toast, dictionary])
 
   if (state.status === "success" && state.data) {
+    const resultsDict = dictionary.results.success;
     return (
       <div className="space-y-6">
         <Alert variant="default" className="bg-green-50 border-green-200 text-green-800">
           <CheckCircle className="h-4 w-4 !text-green-600" />
-          <AlertTitle>Verification and Extraction Successful!</AlertTitle>
+          <AlertTitle>{resultsDict.title}</AlertTitle>
           <AlertDescription>
-            Your document has passed all checks and the relevant information has been extracted.
+            {resultsDict.description}
           </AlertDescription>
         </Alert>
 
         <Card>
           <CardHeader>
-            <CardTitle>Verification Results</CardTitle>
+            <CardTitle>{resultsDict.verificationResults}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <ResultCard title="Authenticity Check" icon={CheckCircle} success={state.data.veracity.isAuthentic}>
-              The document appears authentic.
+            <ResultCard title={resultsDict.authenticityCheck} icon={CheckCircle} success={state.data.veracity.isAuthentic}>
+              {resultsDict.appearsAuthentic}
             </ResultCard>
-            <ResultCard title="Readability Check" icon={CheckCircle} success={state.data.veracity.isReadable}>
-              The document is clear and readable.
+            <ResultCard title={resultsDict.readabilityCheck} icon={CheckCircle} success={state.data.veracity.isReadable}>
+              {resultsDict.isClear}
             </ResultCard>
-            <ResultCard title="Requirements Met" icon={CheckCircle} success={state.data.veracity.meetsRequirements}>
-              The document meets university requirements.
+            <ResultCard title={resultsDict.requirementsMet} icon={CheckCircle} success={state.data.veracity.meetsRequirements}>
+              {resultsDict.meetsRequirements}
             </ResultCard>
           </CardContent>
         </Card>
@@ -208,9 +212,9 @@ export function ApplicationForm() {
         {state.data.extraction && (
           <Card>
             <CardHeader>
-              <CardTitle>Extracted Information</CardTitle>
+              <CardTitle>{resultsDict.extractedInformation}</CardTitle>
               <CardDescription>
-                Our AI has extracted the following information from your document. Please review it.
+                {resultsDict.extractedInformationDescription}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -222,65 +226,66 @@ export function ApplicationForm() {
         )}
 
         <Button onClick={() => window.location.reload()} variant="outline">
-          Start New Application
+          {resultsDict.newApplication}
         </Button>
       </div>
     )
   }
 
   if (state.status === "error" && state.data) {
+    const resultsDict = dictionary.results.error;
     return (
       <div className="space-y-6">
         <Alert variant="destructive">
           <XCircle className="h-4 w-4" />
-          <AlertTitle>Document Verification Failed</AlertTitle>
+          <AlertTitle>{resultsDict.title}</AlertTitle>
           <AlertDescription>
-            {state.message || "Your document could not be verified. Please review the issues below."}
+            {state.message || resultsDict.description}
           </AlertDescription>
         </Alert>
         <Card>
           <CardHeader>
-            <CardTitle>Verification Issues</CardTitle>
+            <CardTitle>{resultsDict.verificationIssues}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <ResultCard
-              title="Authenticity Check"
+              title={resultsDict.authenticityCheck}
               icon={state.data.veracity.isAuthentic ? CheckCircle : XCircle}
               success={state.data.veracity.isAuthentic}
             >
               {state.data.veracity.isAuthentic
-                ? "The document appears authentic."
-                : "Authenticity could not be confirmed."}
+                ? resultsDict.appearsAuthentic
+                : resultsDict.authenticityFailed}
             </ResultCard>
             <ResultCard
-              title="Readability Check"
+              title={resultsDict.readabilityCheck}
               icon={state.data.veracity.isReadable ? CheckCircle : XCircle}
               success={state.data.veracity.isReadable}
             >
               {state.data.veracity.isReadable
-                ? "The document is clear and readable."
-                : "The document is blurry or unreadable."}
+                ? resultsDict.isClear
+                : resultsDict.readabilityFailed}
             </ResultCard>
             <ResultCard
-              title="Requirements Met"
+              title={resultsDict.requirementsMet}
               icon={state.data.veracity.meetsRequirements ? CheckCircle : XCircle}
               success={state.data.veracity.meetsRequirements}
             >
               {state.data.veracity.meetsRequirements
-                ? "The document meets university requirements."
-                : "The document does not meet university requirements."}
+                ? resultsDict.meetsRequirements
+                : resultsDict.requirementsFailed}
             </ResultCard>
             {!state.data.veracity.meetsRequirements && (
               <Alert variant="destructive">
                 <AlertCircle className="h-4 w-4" />
-                <AlertTitle>Reason:</AlertTitle>
+                <AlertTitle>{resultsDict.reason}:</AlertTitle>
                 <AlertDescription>{state.data.veracity.errors}</AlertDescription>
               </Alert>
             )}
           </CardContent>
         </Card>
         <Button onClick={() => window.location.reload()} variant="outline">
-          Try Again
+          {resultsDict.tryAgain}
         </Button>
       </div>
     )
@@ -291,31 +296,31 @@ export function ApplicationForm() {
       {state.status === "error" && !state.data && (
         <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
+          <AlertTitle>{dictionary.results.error.title}</AlertTitle>
           <AlertDescription>
-            {state.message || "An unexpected server error occurred. Please try again."}
+            {state.message || dictionary.results.error.unexpected}
           </AlertDescription>
         </Alert>
       )}
 
       <div className="space-y-4">
-        <h3 className="text-lg font-medium text-foreground">Personal Information</h3>
+        <h3 className="text-lg font-medium text-foreground">{dictionary.personalInfo.title}</h3>
         <div className="space-y-2">
-          <Label htmlFor="firstName">First Name*</Label>
-          <Input id="firstName" name="firstName" placeholder="Your first name" required />
+          <Label htmlFor="firstName">{dictionary.personalInfo.firstName}*</Label>
+          <Input id="firstName" name="firstName" placeholder={dictionary.personalInfo.firstNamePlaceholder} required />
           {state.errors?.firstName && <p className="text-sm text-destructive">{state.errors.firstName[0]}</p>}
         </div>
         <div className="space-y-2">
-          <Label htmlFor="middleName">Middle Name</Label>
-          <Input id="middleName" name="middleName" placeholder="Optional" />
+          <Label htmlFor="middleName">{dictionary.personalInfo.middleName}</Label>
+          <Input id="middleName" name="middleName" placeholder={dictionary.personalInfo.middleNamePlaceholder} />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="lastName">Last Name*</Label>
-          <Input id="lastName" name="lastName" placeholder="Your last name" required />
+          <Label htmlFor="lastName">{dictionary.personalInfo.lastName}*</Label>
+          <Input id="lastName" name="lastName" placeholder={dictionary.personalInfo.lastNamePlaceholder} required />
           {state.errors?.lastName && <p className="text-sm text-destructive">{state.errors.lastName[0]}</p>}
         </div>
         <div className="space-y-2">
-          <Label htmlFor="citizenship">Citizenship*</Label>
+          <Label htmlFor="citizenship">{dictionary.personalInfo.citizenship}*</Label>
           <CountryDropdown value={selectedCountry} onChange={handleCountryChange} />
           <input type="hidden" name="citizenship" value={selectedCountry?.name ?? ""} />
           {state.errors?.citizenship && <p className="text-sm text-destructive">{state.errors.citizenship[0]}</p>}
@@ -323,14 +328,14 @@ export function ApplicationForm() {
       </div>
 
       <div className="space-y-4">
-        <h3 className="text-lg font-medium text-foreground">Contact Information</h3>
+        <h3 className="text-lg font-medium text-foreground">{dictionary.contactInfo.title}</h3>
         <div className="space-y-2">
-          <Label htmlFor="email">Email*</Label>
+          <Label htmlFor="email">{dictionary.contactInfo.email}*</Label>
           <Input id="email" name="email" type="email" placeholder="you@example.com" required />
           {state.errors?.email && <p className="text-sm text-destructive">{state.errors.email[0]}</p>}
         </div>
         <div className="space-y-2">
-          <Label htmlFor="phone">Telegram/WhatsApp Number*</Label>
+          <Label htmlFor="phone">{dictionary.contactInfo.phone}*</Label>
           <Input
             id="phone"
             name="phone"
@@ -343,31 +348,33 @@ export function ApplicationForm() {
         </div>
       </div>
 
-      {/* <div className="space-y-4">
-        <h3 className="text-lg font-medium text-foreground">Documents</h3>
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium text-foreground">{dictionary.documents.title}</h3>
         <FileUploadField
           name="passport"
-          label="Passport (original)*"
-          description="Scanned Copy of the Original Document"
-          tooltip="Please upload a clear, full-page color scan of your passport's bio-data page."
+          label={dictionary.documents.passportLabel}
+          description={dictionary.documents.passportDescription}
+          tooltip={dictionary.documents.passportTooltip}
           error={state.errors?.passport?.[0]}
+          dictionary={dictionary.fileUpload}
         />
         <div className="mt-2 flex items-start text-xs text-muted-foreground bg-secondary/50 p-2 rounded-lg">
           <Info className="h-4 w-4 text-primary mr-2 mt-0.5 flex-shrink-0" />
-          <p>Please note: Your study invitation will be issued and sent upon receipt of payment.</p>
+          <p>{dictionary.documents.paymentNote}</p>
         </div>
 
         <FileUploadField
           name="education"
-          label="Educational degree (original)*"
-          description="Scanned Copy of the Original Document(s)"
-          tooltip="Upload your high school diploma, bachelor's degree, or any relevant academic certificates."
+          label={dictionary.documents.educationLabel}
+          description={dictionary.documents.educationDescription}
+          tooltip={dictionary.documents.educationTooltip}
           error={state.errors?.education?.[0]}
           multiple
+          dictionary={dictionary.fileUpload}
         />
-      </div> */}
+      </div>
 
-      <SubmitButton />
+      <SubmitButton dictionary={dictionary} />
     </form>
   )
 }

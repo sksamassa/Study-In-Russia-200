@@ -1,0 +1,332 @@
+{
+    "header": {
+        "title": "留学俄罗斯200",
+        "subtitle": "您通往俄罗斯高等教育的门户",
+        "services": "服务",
+        "blog": "博客",
+        "contact": "联系",
+        "applyNow": "现在申请"
+    },
+    "footer": {
+        "title": "留学俄罗斯200",
+        "description": "您确保进入顶尖俄罗斯大学的可靠伙伴。",
+        "contactUs": "联系我们",
+        "quickLinks": "快速链接",
+        "links": {
+            "services": "服务",
+            "blog": "博客",
+            "contact": "联系"
+        },
+        "copyright": "留学俄罗斯200。保留所有权利。"
+    },
+    "hero": {
+        "title": "您的俄罗斯大学之旅从这里开始",
+        "subtitle": "留学俄罗斯200为国际学生提供从申请到抵达的全面支持。",
+        "cta": "现在申请"
+    },
+    "services": {
+        "title": "我们的综合服务",
+        "description": "我们处理您旅程的每一个细节，确保无缝且无压力的体验。",
+        "cards": {
+            "studyInvitationTitle": "学习邀请函",
+            "studyInvitationDescription": "我们为您从所选大学获得官方邀请函，这是您申请过程中的关键第一步。",
+            "visaSupportTitle": "签证支持",
+            "visaSupportDescription": "我们的专家会指导您完成复杂的学生签证申请，确保所有表格都正确填写和提交。",
+            "documentAssistanceTitle": "文件协助",
+            "documentAssistanceDescription": "从翻译到合法化，我们帮助您准备和验证所有必需文件，以满足大学标准。",
+            "airportReceptionTitle": "机场接待",
+            "airportReceptionDescription": "热情的欢迎等待着您。我们安排从机场接您并送您到住宿地点。"
+        }
+    },
+    "stickyScroll": {
+        "title": "留学俄罗斯的4个简单步骤",
+        "subtitle": "您的旅程，简化了",
+        "steps": {
+            "step1": {
+                "title": "提交申请",
+                "stepNumber": 1,
+                "steps": [
+                    "用您的个人和教育信息填写在线申请表。",
+                    "准备并提交所有必需文件，包括成绩单和护照复印件。",
+                    "我们的团队将在3个工作日内审核您的申请并与您联系。"
+                ]
+            },
+            "step2": {
+                "title": "收到邀请函",
+                "stepNumber": 2,
+                "steps": [
+                    "一旦获得批准，您将收到俄罗斯大学的官方邀请函。",
+                    "此邀请函是您签证申请过程中的关键文件。",
+                    "邀请函通常在申请批准后的2-4周内到达。"
+                ]
+            },
+            "step3": {
+                "title": "获得学生签证",
+                "stepNumber": 3,
+                "steps": [
+                    "在最近的俄罗斯大使馆或领事馆申请学生签证。",
+                    "根据要求完成体检并获得健康保险。",
+                    "收到签证后预订飞往俄罗斯的航班。"
+                ]
+            },
+            "step4": {
+                "title": "抵达并开始学习",
+                "stepNumber": 4,
+                "steps": [
+                    "收到学生签证后，您可以计划抵达大学。",
+                    "我们将帮助您安排住宿并在新城市安顿下来。",
+                    "在俄罗斯开始您激动人心的教育之旅！"
+                ]
+            }
+        }
+    },
+    "metrics": {
+        "title": "我们的成功记录",
+        "description": "我们为我们提供的结果和我们帮助过的学生感到自豪。",
+        "items": {
+            "visaSuccessRate": "签证成功率",
+            "studentsEnrolled": "在读学生",
+            "partnerUniversities": "合作大学",
+            "airportReceptions": "机场接待"
+        }
+    },
+    "cities": {
+        "title": "探索俄罗斯城市",
+        "description": "发现您可以学习的城市的充满活力的文化和历史。",
+        "items": {
+            "city-moscow": { "name": "莫斯科", "description": "俄罗斯充满活力的首都，以其标志性的红场和丰富的历史而闻名。" },
+            "city-st-petersburg": { "name": "圣彼得堡", "description": "俄罗斯的文化中心，以其运河和冬宫博物馆而闻名。" },
+            "city-kazan": { "name": "喀山", "description": "鞑靼和俄罗斯文化的独特融合，拥有令人惊叹的克里姆林宫。" },
+            "city-novosibirsk": { "name": "新西伯利亚", "description": "西伯利亚科学、文化和艺术的主要枢纽。" },
+            "city-yekaterinburg": { "name": "叶卡捷琳堡", "description": "欧洲和亚洲边界上的一个充满活力的城市。" },
+            "city-sochi": { "name": "索契", "description": "一个受欢迎的黑海度假城市，以其海滩和山脉而闻名。" }
+        }
+    },
+    "faq": {
+        "title": "常见问题",
+        "categories": {
+            "education": {
+                "title": "俄罗斯的教育",
+                "questions": [
+                    {
+                        "question": "我有哪些培训项目可供选择？",
+                        "answer": "俄罗斯大学提供广泛的课程，包括学士、硕士和博士学位，以及预科语言课程。热门领域包括医学、工程、计算机科学和自然科学。"
+                    },
+                    {
+                        "question": "俄罗斯用什么语言授课？",
+                        "answer": "虽然主要教学语言是俄语，但许多大学提供完全用英语授课的课程，尤其是在硕士阶段。在开始主课程之前，有预科课程可以帮助您学习俄语。"
+                    },
+                    {
+                        "question": "俄罗斯有哪些教育形式？",
+                        "answer": "您可以根据大学和课程选择全日制（校内）、非全日制和在线（远程学习）教育形式。"
+                    },
+                    {
+                        "question": "外国学生可以在俄罗斯免费学习吗？",
+                        "answer": "是的，这是可能的。俄罗斯政府每年为外国学生提供有限数量的奖学金（配额），这些奖学金涵盖学费并提供少量月度津贴。这些奖学金的竞争非常激烈。"
+                    },
+                    {
+                        "question": "在俄罗斯学习需要多少费用？",
+                        "answer": "与许多西方国家相比，学费是负担得起的，学士课程每年从2,000美元到8,000美元不等。生活费用也相对较低，尤其是在莫斯科和圣彼得堡等主要城市之外。"
+                    }
+                ]
+            },
+            "admission": {
+                "title": "入学程序",
+                "questions": [
+                    {
+                        "question": "一般的入学要求是什么？",
+                        "answer": "一般来说，您需要有完整的中学教育证书才能申请学士课程，而硕士课程则需要学士学位。一些大学可能要求入学考试或面试。"
+                    },
+                    {
+                        "question": "我应该什么时候开始申请？",
+                        "answer": "最好在学年开始前至少6-8个月开始申请过程（通常是9月1日）。这为确保邀请函、申请签证和准备旅行留出了足够的时间。"
+                    }
+                ]
+            },
+            "moving": {
+                "title": "移居俄罗斯",
+                "questions": [
+                    {
+                        "question": "我应该打包什么？",
+                        "answer": "为所有季节打包，特别是保暖的冬衣。还要带上任何必要的处方药、重要文件和欧式电源插座的适配器（C型和F型）。"
+                    },
+                    {
+                        "question": "学生住宿怎么样？",
+                        "answer": "大多数大学都提供学生宿舍（общежитие），这是最实惠的选择。房间通常由2-4名学生共用。您也可以租一间私人公寓，但这更贵。"
+                    }
+                ]
+            },
+            "learning": {
+                "title": "学习过程",
+                "questions": [
+                    {
+                        "question": "学年日历是怎样的？",
+                        "answer": "学年通常从9月1日到6月底，分为两个学期。1月/2月有寒假，7月/8月有暑假。"
+                    },
+                    {
+                        "question": "课程如何评分？",
+                        "answer": "俄罗斯使用5分制评分系统，其中5分为“优秀”，4分为“良好”，3分为“及格”，2分为“不及格”。"
+                    }
+                ]
+            }
+        }
+    },
+    "servicesPage": {
+        "title": "我们的服务",
+        "description": "我们为国际学生提供端到端的解决方案，让您在俄罗斯学习的梦想成为现实。",
+        "whatsIncluded": "包含内容：",
+        "services": {
+            "studyInvitation": {
+                "title": "学习邀请函协助",
+                "description": "第一步也是最关键的一步是从俄罗斯大学获得官方学习邀请函。我们与我们的合作机构联络，以确保您的申请得到优先处理和高效处理，从而大大增加您收到这份重要文件的机会。",
+                "details": [
+                    "大学和课程选择咨询。",
+                    "向您选择的大学提交申请。",
+                    "与大学行政部门跟进。",
+                    "安全递送原始邀请函。"
+                ]
+            },
+            "visaSupport": {
+                "title": "学生签证支持",
+                "description": "办理俄罗斯学生签证的过程可能很复杂。我们经验丰富的团队提供从填写申请表到准备领事馆面试的逐步指导。我们随时了解最新的法规，以确保流程顺利。",
+                "details": [
+                    "所需文件的综合清单。",
+                    "协助填写在线申请表。",
+                    "安排领事馆预约的指导。",
+                    "签证面试的准备技巧。"
+                ]
+            },
+            "aiDocumentAssistance": {
+                "title": "人工智能驱动的文件协助",
+                "description": "确保您的文件符合俄罗斯大学和移民当局的严格要求。我们的平台使用生成式人工智能来验证您上传的文件的真实性、可读性和合规性。我们还协助提供专业的翻译和合法化服务。",
+                "details": [
+                    "人工智能驱动的文件质量和真实性验证。",
+                    "为您的申请提取关键信息。",
+                    "翻译服务管理（例如，俄语、英语）。",
+                    "关于Apostille和领事合法化流程的指导。"
+                ]
+            },
+            "airportReception": {
+                "title": "机场接待和入职",
+                "description": "我们确保您抵达俄罗斯时受到欢迎且无压力。我们机构的代表将在机场迎接您，将您安全地转移到您的大学宿舍或预先安排的住宿，并帮助您完成最初的注册和安顿程序。",
+                "details": [
+                    "抵达前简报和协调。",
+                    "个性化机场接机服务。",
+                    "协助大学注册和体检。",
+                    "包括本地SIM卡和城市地图的欢迎套件。"
+                ]
+            }
+        },
+        "fees": {
+            "title": "费用和额外开支",
+            "paymentMethods": "付款方式：",
+            "bankTransfer": "银行转帐",
+            "crypto": "加密货币存款",
+            "note": "请注意：您的学习邀请函将在收到付款后签发并寄出。"
+        }
+    },
+    "blog": {
+        "title": "我们的博客",
+        "description": "随时了解有关俄罗斯联邦学生生活的最新消息、技巧和故事。",
+        "posts": {
+            "navigating-the-russian-student-visa-process": {
+                "title": " navigating-the-russian-student-visa-process：分步指南",
+                "description": "了解俄罗斯学生签证流程可能令人望而生畏。我们的指南将其分解为易于管理的步骤，确保您拥有顺利申请所需的所有必要文件和信息。",
+                "content": "<p>留学俄罗斯的旅程始于成功的签证申请。这份全面的指南将引导您完成每个阶段，从收到大学邀请函到在俄罗斯领事馆提交申请。我们将涵盖常见的陷阱并提供技巧，以确保您的申请尽可能强大。</p><h2>所需关键文件：</h2><ul><li>大学邀请函原件。</li><li>有效的国际护照。</li><li>完整的签证申请表。</li><li>HIV检测（阴性）证书。</li><li>教育证书。</li></ul><p>我们建议您在预定旅行日期前至少3个月开始此过程，以应对任何潜在的延误。</p>"
+            },
+            "top-5-reasons-to-study-in-russia": {
+                "title": "选择俄罗斯接受高等教育的五大理由",
+                "description": "从世界知名的大学到丰富的文化体验，探索为什么俄罗斯是国际学生的绝佳目的地。",
+                "content": "<p>俄罗斯在高质量教育方面有着悠久的传统，尤其是在科学、技术、工程和数学（STEM）领域。以下是考虑俄罗斯作为您学术旅程的五个令人信服的理由：</p><ol><li><strong>全球认可的大学：</strong>许多俄罗斯大学都位列世界顶尖大学之列。</li><li><strong>负担得起的学费：</strong>与西方国家相比，俄罗斯的教育和生活成本要低得多。</li><li><strong>丰富的文化遗产：</strong>沉浸在一个拥有深厚历史、令人惊叹的建筑和充满活力的艺术氛围的国家。</li><li><strong>多样化的课程选择：</strong>从数百个以俄语和英语授课的课程中进行选择。</li><li><strong>独特的国际体验：</strong>在一个横跨大陆的国家生活和学习，提供欧洲和亚洲文化的独特融合。</li></ol>"
+            },
+            "life-as-an-international-student-in-moscow": {
+                "title": "在莫斯科作为国际学生的生活",
+                "description": "在俄罗斯繁华的首都生活和学习到底是什么样的？我们分享关于住宿、交通以及如何充分利用您在莫斯科的时间的见解。",
+                "content": "<p>莫斯科是一个充满活力、24/7不打烊的城市，为探索和娱乐提供了无限的机会。作为一名学生，您会发现一个热情的社区和各种各样的课外活动。</p><h2>出行：</h2><p>莫斯科地铁是世界上最高效、最美丽的地铁系统之一。学生旅行卡提供折扣票价，使其成为在城市中穿梭最便捷的方式。</p><h2>住宿：</h2><p>大多数大学都提供学生宿舍，这是一个经济实惠且结识其他学生的好方法。或者，您也可以租一间私人公寓，尽管这是一个更昂贵的选择。</p><p>从像国家特列季亚科夫画廊这样的世界级博物馆到像高尔基公园这样广阔的公园，您在莫斯科永远不会无事可做。</p>"
+            },
+            "preparing-your-documents-for-russian-university-admission": {
+                "title": "为俄罗斯大学入学准备您的文件",
+                "description": "您申请俄罗斯大学所需准备的文件的完整清单，包括有关翻译和合法化的提示。",
+                "content": "<p>适当的文件准备对于成功的大学申请至关重要。我们的人工智能验证工具可以提供帮助，但从正确的文件开始至关重要，这些文件格式正确且合法化。以下是您通常需要的内容：</p><ul><li><strong>高中文凭/证书：</strong>合法化并翻译成俄语。</li><li><strong>学业成绩单：</strong>显示所有科目和成绩。</li><li><strong>医疗证明：</strong>包括一般健康证明和HIV检测阴性结果。</li><li><strong>您的护照复印件：</strong>必须在您预定入境日期起至少18个月内有效。</li><li><strong>申请表：</strong>填写并签名。</li></ul><p>合法化要求因国家/地区而异。检查您的文件所需的具体流程（例如，Apostille或领事合法化）至关重要。</p>"
+            }
+        }
+    },
+    "contact": {
+        "title": "保持联系",
+        "description": "有问题吗？我们随时为您提供帮助。通过我们的任何渠道与我们联系，或使用下面的表格向我们发送消息。",
+        "cta": {
+            "telegramCta": "给我们发消息",
+            "whatsappCta": "与我们聊天",
+            "emailCta": "发送电子邮件"
+        }
+    },
+    "application": {
+        "title": "大学申请",
+        "description": "填写下面的表格开始您的申请。我们的团队将使用人工智能验证您的文件。"
+    },
+    "applicationForm": {
+        "submit": "提交申请",
+        "submitting": "正在验证和提交...",
+        "personalInfo": {
+            "title": "个人信息",
+            "firstName": "名",
+            "firstNamePlaceholder": "您的名字",
+            "middleName": "中间名",
+            "middleNamePlaceholder": "可选",
+            "lastName": "姓",
+            "lastNamePlaceholder": "您的姓氏",
+            "citizenship": "国籍"
+        },
+        "contactInfo": {
+            "title": "联系信息",
+            "email": "电子邮件",
+            "phone": "Telegram/WhatsApp 号码"
+        },
+        "documents": {
+            "title": "文件",
+            "passportLabel": "护照（原件）*",
+            "passportDescription": "原始文件的扫描副本",
+            "passportTooltip": "请上传您护照个人资料页的清晰、全页彩色扫描件。",
+            "educationLabel": "学历证书（原件）*",
+            "educationDescription": "原始文件的扫描副本",
+            "educationTooltip": "上传您的高中毕业证书、学士学位证书或任何相关的学术证书。",
+            "paymentNote": "请注意：您的学习邀请函将在收到付款后签发并寄出。"
+        },
+        "fileUpload": {
+            "upload": "上传文件"
+        },
+        "results": {
+            "success": {
+                "title": "成功！",
+                "description": "您的文件已通过所有检查，相关信息已提取。",
+                "verificationResults": "验证结果",
+                "authenticityCheck": "真实性检查",
+                "appearsAuthentic": "文件似乎是真实的。",
+                "readabilityCheck": "可读性检查",
+                "isClear": "文件清晰可读。",
+                "requirementsMet": "要求已满足",
+                "meetsRequirements": "文件符合大学要求。",
+                "extractedInformation": "提取的信息",
+                "extractedInformationDescription": "我们的 AI 已从您的文件中提取了以下信息。请查看。",
+                "newApplication": "开始新的申请"
+            },
+            "error": {
+                "title": "错误",
+                "description": "您的文件无法验证。请查看以下问题。",
+                "verificationIssues": "验证问题",
+                "authenticityCheck": "真实性检查",
+                "appearsAuthentic": "文件似乎是真实的。",
+                "authenticityFailed": "无法确认真实性。",
+                "readabilityCheck": "可读性检查",
+                "isClear": "文件清晰可读。",
+                "readabilityFailed": "文件模糊或不可读。",
+                "requirementsMet": "要求已满足",
+                "meetsRequirements": "文件符合大学要求。",
+                "requirementsFailed": "文件不符合大学要求。",
+                "reason": "原因",
+                "tryAgain": "再试一次",
+                "unexpected": "发生意外的服务器错误。请再试一次。"
+            }
+        }
+    }
+}

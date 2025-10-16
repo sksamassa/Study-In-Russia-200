@@ -3,14 +3,18 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { CalendarIcon } from 'lucide-react';
+import { Locale } from '@/i18n/i18n-config';
+import { getDictionary } from '@/i18n/get-dictionary';
 
 type BlogPostPageProps = {
   params: {
     slug: string;
+    lang: Locale;
   };
 };
 
 export async function generateStaticParams() {
+    // This should ideally be dynamic based on languages, but for now we can do this
   return blogPosts.map((post) => ({
     slug: post.slug,
   }));
@@ -29,10 +33,13 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   };
 }
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = blogPosts.find((p) => p.slug === params.slug);
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const dictionary = await getDictionary(params.lang);
+  const post = dictionary.blog.posts[params.slug as keyof typeof dictionary.blog.posts];
+  const staticPostData = blogPosts.find((p) => p.slug === params.slug);
 
-  if (!post) {
+
+  if (!post || !staticPostData) {
     notFound();
   }
 
@@ -44,26 +51,26 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           <div className="flex justify-center items-center gap-4 text-muted-foreground">
             <div className="flex items-center gap-2">
               <Avatar className="h-8 w-8">
-                <AvatarFallback>{post.author.charAt(0)}</AvatarFallback>
+                <AvatarFallback>{staticPostData.author.charAt(0)}</AvatarFallback>
               </Avatar>
-              <span>{post.author}</span>
+              <span>{staticPostData.author}</span>
             </div>
             <div className="flex items-center gap-2">
               <CalendarIcon className="h-4 w-4" />
-              <span>{post.date}</span>
+              <span>{staticPostData.date}</span>
             </div>
           </div>
         </div>
 
         <div className="my-8">
           <Image
-            src={post.image.imageUrl}
+            src={staticPostData.image.imageUrl}
             alt={post.title}
             width={1200}
             height={700}
             className="rounded-lg object-cover aspect-video"
             priority
-            data-ai-hint={post.image.imageHint}
+            data-ai-hint={staticPostData.image.imageHint}
           />
         </div>
 

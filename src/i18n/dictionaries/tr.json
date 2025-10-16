@@ -1,0 +1,332 @@
+{
+    "header": {
+        "title": "Rusya'da Eğitim 200",
+        "subtitle": "Rus Yüksek Öğrenimine Açılan Kapınız",
+        "services": "Hizmetler",
+        "blog": "Blog",
+        "contact": "İletişim",
+        "applyNow": "Şimdi Başvur"
+    },
+    "footer": {
+        "title": "Rusya'da Eğitim 200",
+        "description": "En iyi Rus üniversitelerine kabul sağlamada güvenilir ortağınız.",
+        "contactUs": "Bize Ulaşın",
+        "quickLinks": "Hızlı Linkler",
+        "links": {
+            "services": "Hizmetler",
+            "blog": "Blog",
+            "contact": "İletişim"
+        },
+        "copyright": "Rusya'da Eğitim 200. Tüm hakları saklıdır."
+    },
+    "hero": {
+        "title": "Bir Rus Üniversitesine Yolculuğunuz Burada Başlıyor",
+        "subtitle": "Rusya'da Eğitim 200, uluslararası öğrenciler için başvurudan varışa kadar kapsamlı destek sağlar.",
+        "cta": "Şimdi Başvur"
+    },
+    "services": {
+        "title": "Kapsamlı Hizmetlerimiz",
+        "description": "Yolculuğunuzun her detayını biz hallediyoruz, sorunsuz ve stressiz bir deneyim sağlıyoruz.",
+        "cards": {
+            "studyInvitationTitle": "Eğitim Davetiyesi",
+            "studyInvitationDescription": "Seçtiğiniz üniversiteden resmi davet mektubunuzu alıyoruz, bu başvuru sürecinizdeki önemli bir ilk adımdır.",
+            "visaSupportTitle": "Vize Desteği",
+            "visaSupportDescription": "Uzmanlarımız, karmaşık öğrenci vizesi başvurusunda size rehberlik ederek tüm formların doğru bir şekilde doldurulmasını ve gönderilmesini sağlar.",
+            "documentAssistanceTitle": "Belge Yardımı",
+            "documentAssistanceDescription": "Tercümeden yasallaştırmaya kadar, üniversite standartlarını karşılamak için gerekli tüm belgeleri hazırlamanıza ve doğrulamanıza yardımcı oluyoruz.",
+            "airportReceptionTitle": "Havaalanı Karşılama",
+            "airportReceptionDescription": "Sizi sıcak bir karşılama bekliyor. Havaalanından alınmanızı ve konaklamanıza transferinizi ayarlıyoruz."
+        }
+    },
+    "stickyScroll": {
+        "title": "Rusya'da Eğitim Almak İçin 4 Kolay Adım",
+        "subtitle": "Yolculuğunuz, basitleştirildi",
+        "steps": {
+            "step1": {
+                "title": "Başvuru Yapın",
+                "stepNumber": 1,
+                "steps": [
+                    "Kişisel ve eğitim bilgilerinizi içeren çevrimiçi başvuru formunu doldurun.",
+                    "Transkriptler ve pasaport kopyaları dahil olmak üzere gerekli tüm belgeleri hazırlayın ve gönderin.",
+                    "Ekibimiz başvurunuzu inceleyecek ve 3 iş günü içinde sizinle iletişime geçecektir."
+                ]
+            },
+            "step2": {
+                "title": "Davetiye Alın",
+                "stepNumber": 2,
+                "steps": [
+                    "Onaylandıktan sonra, Rus üniversitesinden resmi bir davet mektubu alacaksınız.",
+                    "Bu davetiye, vize başvuru süreciniz için anahtar belgenizdir.",
+                    "Davetiye genellikle başvuru onayından sonra 2-4 hafta içinde gelir."
+                ]
+            },
+            "step3": {
+                "title": "Öğrenci Vizenizi Alın",
+                "stepNumber": 3,
+                "steps": [
+                    "En yakın Rus büyükelçiliğinde veya konsolosluğunda öğrenci vizesi için başvurun.",
+                    "Gerektiğinde tıbbi muayeneyi tamamlayın ve sağlık sigortası edinin.",
+                    "Vizenizi aldıktan sonra Rusya'ya uçuşunuzu ayırtın."
+                ]
+            },
+            "step4": {
+                "title": "Varın ve Eğitime Başlayın",
+                "stepNumber": 4,
+                "steps": [
+                    "Öğrenci vizesi aldıktan sonra, üniversiteye varışınızı planlayabilirsiniz.",
+                    "Konaklama düzenlemenize ve yeni şehrinize yerleşmenize yardımcı olacağız.",
+                    "Rusya'daki heyecan verici eğitim yolculuğunuza başlayın!"
+                ]
+            }
+        }
+    },
+    "metrics": {
+        "title": "Başarı Kaydımız",
+        "description": "Sunduğumuz sonuçlardan ve yardım ettiğimiz öğrencilerden gurur duyuyoruz.",
+        "items": {
+            "visaSuccessRate": "Vize Başarı Oranı",
+            "studentsEnrolled": "Kayıtlı Öğrenci Sayısı",
+            "partnerUniversities": "Ortak Üniversiteler",
+            "airportReceptions": "Havaalanı Karşılamaları"
+        }
+    },
+    "cities": {
+        "title": "Rus Şehirlerini Keşfedin",
+        "description": "Eğitim alabileceğiniz şehirlerin canlı kültürünü ve tarihini keşfedin.",
+        "items": {
+            "city-moscow": { "name": "Moskova", "description": "Rusya'nın canlı başkenti, ikonik Kızıl Meydanı ve zengin tarihi ile tanınır." },
+            "city-st-petersburg": { "name": "St. Petersburg", "description": "Rusya'nın kültür kalbi, kanalları ve Hermitage Müzesi ile ünlüdür." },
+            "city-kazan": { "name": "Kazan", "description": "Tatar ve Rus kültürlerinin çarpıcı bir Kremlin ile eşsiz bir karışımı." },
+            "city-novosibirsk": { "name": "Novosibirsk", "description": "Bilim, kültür ve sanatın önemli bir Sibirya merkezi." },
+            "city-yekaterinburg": { "name": "Yekaterinburg", "description": "Avrupa ve Asya sınırında dinamik bir şehir." },
+            "city-sochi": { "name": "Soçi", "description": "Plajları ve dağları ile tanınan popüler bir Karadeniz tatil beldesi." }
+        }
+    },
+    "faq": {
+        "title": "Sıkça Sorulan Sorular",
+        "categories": {
+            "education": {
+                "title": "Rusya'da Eğitim",
+                "questions": [
+                    {
+                        "question": "Bana hangi eğitim programları sunuluyor?",
+                        "answer": "Rus üniversiteleri Lisans, Yüksek Lisans ve Doktora derecelerinin yanı sıra hazırlık dil kursları da dahil olmak üzere geniş bir program yelpazesi sunmaktadır. Popüler alanlar arasında tıp, mühendislik, bilgisayar bilimi ve doğa bilimleri bulunmaktadır."
+                    },
+                    {
+                        "question": "Rusya'da hangi dilde eğitim veriliyor?",
+                        "answer": "Birincil eğitim dili Rusça olmasına rağmen, birçok üniversite özellikle Yüksek Lisans düzeyinde tamamen İngilizce olarak öğretilen programlar sunmaktadır. Ana programınıza başlamadan önce Rusça öğrenmenize yardımcı olacak hazırlık kursları mevcuttur."
+                    },
+                    {
+                        "question": "Rusya'da hangi eğitim şekilleri mevcuttur?",
+                        "answer": "Üniversiteye ve programa bağlı olarak tam zamanlı (kampüste), yarı zamanlı ve çevrimiçi (uzaktan eğitim) eğitim şekilleri arasından seçim yapabilirsiniz."
+                    },
+                    {
+                        "question": "Yabancı öğrenciler Rusya'da ücretsiz eğitim alabilir mi?",
+                        "answer": "Evet, bu mümkün. Rus hükümeti her yıl yabancı öğrenciler için sınırlı sayıda burs (kota) sunmaktadır. Bu burslar öğrenim ücretlerini karşılar ve küçük bir aylık ödenek sağlar. Bu burslar için rekabet yüksektir."
+                    },
+                    {
+                        "question": "Rusya'da eğitim almanın maliyeti nedir?",
+                        "answer": "Öğrenim ücretleri birçok Batı ülkesine kıyasla uygun olup, Lisans programları için yıllık 2.000 ila 8.000 Dolar arasında değişmektedir. Yaşam maliyetleri de özellikle Moskova ve St. Petersburg gibi büyük şehirler dışında nispeten düşüktür."
+                    }
+                ]
+            },
+            "admission": {
+                "title": "Kabul Prosedürü",
+                "questions": [
+                    {
+                        "question": "Genel kabul şartları nelerdir?",
+                        "answer": "Genellikle, bir Lisans programı için tamamlanmış bir ortaöğretim sertifikasına ve bir Yüksek Lisans programı için bir Lisans derecesine ihtiyacınız vardır. Bazı üniversiteler giriş sınavları veya bir mülakat gerektirebilir."
+                    },
+                    {
+                        "question": "Başvuruma ne zaman başlamalıyım?",
+                        "answer": "Başvuru sürecine akademik yılın başlangıcından (genellikle 1 Eylül) en az 6-8 ay önce başlamak en iyisidir. Bu, davetiyeyi güvence altına almak, vize başvurusunda bulunmak ve seyahat için hazırlanmak için yeterli zaman sağlar."
+                    }
+                ]
+            },
+            "moving": {
+                "title": "Rusya'ya Taşınma",
+                "questions": [
+                    {
+                        "question": "Ne paketlemeliyim?",
+                        "answer": "Tüm mevsimler için, özellikle sıcak kışlık giysiler için paket yapın. Ayrıca gerekli reçeteli ilaçları, önemli belgeleri ve Avrupa tarzı prizler (Tip C ve F) için adaptörleri de getirin."
+                    },
+                    {
+                        "question": "Öğrenci konaklaması nasıl?",
+                        "answer": "Çoğu üniversite, en uygun seçenek olan öğrenci yurtları (общежитие) sağlar. Odalar genellikle 2-4 öğrenci arasında paylaşılır. Daha pahalı bir seçenek olan özel bir daire de kiralayabilirsiniz."
+                    }
+                ]
+            },
+            "learning": {
+                "title": "Öğrenme Süreci",
+                "questions": [
+                    {
+                        "question": "Akademik takvim nedir?",
+                        "answer": "Akademik yıl genellikle 1 Eylül'den Haziran sonuna kadar sürer ve iki döneme ayrılır. Ocak/Şubat aylarında bir kış tatili ve Temmuz/Ağustos aylarında bir yaz tatili vardır."
+                    },
+                    {
+                        "question": "Dersler nasıl notlandırılır?",
+                        "answer": "Rusya 5 puanlık bir notlandırma sistemi kullanır; burada 5 'mükemmel', 4 'iyi', 3 'yeterli' ve 2 'başarısız' anlamına gelir."
+                    }
+                ]
+            }
+        }
+    },
+    "servicesPage": {
+        "title": "hizmetlerimiz",
+        "description": "Uluslararası öğrenciler için uçtan uca bir çözüm sunarak Rusya'da eğitim hayalinizi gerçeğe dönüştürüyoruz.",
+        "whatsIncluded": "Neler dahil:",
+        "services": {
+            "studyInvitation": {
+                "title": "Eğitim Davetiyesi Yardımı",
+                "description": "İlk ve en önemli adım, bir Rus üniversitesinden resmi bir Eğitim Davet Mektubu almaktır. Bu hayati belgeyi alma şansınızı önemli ölçüde artırarak başvurunuzun önceliklendirilmesini ve verimli bir şekilde işlenmesini sağlamak için ortak kurumlarımızla iletişim halindeyiz.",
+                "details": [
+                    "Üniversite ve bölüm seçimi konusunda danışmanlık.",
+                    "Seçtiğiniz üniversiteye başvuru.",
+                    "Üniversite yönetimi ile takip.",
+                    "Orijinal davet mektubunun güvenli teslimatı."
+                ]
+            },
+            "visaSupport": {
+                "title": "Öğrenci Vizesi Desteği",
+                "description": "Rus öğrenci vizesi sürecinde ilerlemek karmaşık olabilir. Deneyimli ekibimiz, başvuru formunu doldurmaktan konsolosluk mülakatına hazırlanmaya kadar adım adım rehberlik sağlar. Sorunsuz bir süreç sağlamak için en son düzenlemelerle güncel kalıyoruz.",
+                "details": [
+                    "Gerekli belgelerin kapsamlı kontrol listesi.",
+                    "Çevrimiçi başvuru formunu doldurmada yardım.",
+                    "Konsolosluk randevularını planlama konusunda rehberlik.",
+                    "Vize mülakatı için hazırlık ipuçları."
+                ]
+            },
+            "aiDocumentAssistance": {
+                "title": "Yapay Zeka Destekli Belge Yardımı",
+                "description": "Belgelerinizin Rus üniversitelerinin ve göçmenlik makamlarının katı gerekliliklerini karşıladığından emin olun. Platformumuz, yüklediğiniz belgelerin orijinalliğini, okunabilirliğini ve uygunluğunu doğrulamak için Üretken Yapay Zeka kullanır. Ayrıca profesyonel çeviri ve yasallaştırma hizmetleri konusunda da yardımcı oluyoruz.",
+                "details": [
+                    "Belge kalitesi ve doğruluğunun yapay zeka ile doğrulanması.",
+                    "Başvurunuz için önemli bilgilerin çıkarılması.",
+                    "Çeviri hizmetlerinin yönetimi (ör. Rusça, İngilizce).",
+                    "Apostil ve konsolosluk yasallaştırma süreçleri hakkında rehberlik."
+                ]
+            },
+            "airportReception": {
+                "title": "Havaalanı Karşılama ve Oryantasyon",
+                "description": "Rusya'ya varışınızın misafirperver ve stressiz olmasını sağlıyoruz. Ajansımızdan bir temsilci sizi havaalanında karşılayacak, sizi güvenli bir şekilde üniversite yurdunuza veya önceden ayarlanmış konaklamanıza transfer edecek ve ilk kayıt ve yerleşim prosedürlerinde size yardımcı olacaktır.",
+                "details": [
+                    "Varış öncesi bilgilendirme ve koordinasyon.",
+                    "Kişiselleştirilmiş havaalanı karşılama hizmeti.",
+                    "Üniversite kaydı ve sağlık kontrolleri konusunda yardım.",
+                    "Yerel bir SIM kart ve şehir haritası içeren hoş geldin kiti."
+                ]
+            }
+        },
+        "fees": {
+            "title": "Ücretler ve Ek Giderler",
+            "paymentMethods": "Ödeme metodları:",
+            "bankTransfer": "Banka transferi",
+            "crypto": "Kripto para yatırma",
+            "note": "Lütfen dikkat: eğitim davetiyeniz ödeme alındıktan sonra düzenlenip gönderilecektir."
+        }
+    },
+    "blog": {
+        "title": "Blogumuz",
+        "description": "Rusya Federasyonu'ndaki öğrenci hayatı hakkındaki en son haberler, ipuçları ve hikayelerle bilgi sahibi olun.",
+        "posts": {
+            "navigating-the-russian-student-visa-process": {
+                "title": "Rus Öğrenci Vizesi Sürecinde Yol Almak: Adım Adım Bir Rehber",
+                "description": "Rus öğrenci vizesi sürecini anlamak göz korkutucu olabilir. Rehberimiz bunu yönetilebilir adımlara ayırarak sorunsuz bir başvuru için gerekli tüm belgelere ve bilgilere sahip olmanızı sağlar.",
+                "content": "<p>Rusya'da eğitim alma yolculuğu başarılı bir vize başvurusu ile başlar. Bu kapsamlı rehber, üniversite davetiyenizi almaktan Rus konsolosluğuna başvurunuzu göndermeye kadar her aşamada size yol gösterecektir. Yaygın tuzakları ele alacak ve başvurunuzun olabildiğince güçlü olmasını sağlamak için ipuçları vereceğiz.</p><h2>Gerekli Ana Belgeler:</h2><ul><li>Orijinal üniversite davet mektubu.</li><li>Geçerli uluslararası pasaport.</li><li>Doldurulmuş vize başvuru formu.</li><li>HIV testi (negatif) sertifikası.</li><li>Eğitim sertifikaları.</li></ul><p>Olası gecikmeleri hesaba katmak için bu sürece planladığınız seyahat tarihinden en az 3 ay önce başlamanızı öneririz.</p>"
+            },
+            "top-5-reasons-to-study-in-russia": {
+                "title": "Yüksek Öğreniminiz İçin Rusya'yı Seçmeniz İçin En İyi 5 Neden",
+                "description": "Dünyaca ünlü üniversitelerden zengin kültürel deneyimlere kadar, Rusya'nın uluslararası öğrenciler için neden mükemmel bir yer olduğunu keşfedin.",
+                "content": "<p>Rusya, özellikle bilim, teknoloji, mühendislik ve matematik (STEM) alanlarında yüksek kaliteli eğitim konusunda köklü bir geleneğe sahiptir. İşte akademik yolculuğunuz için Rusya'yı düşünmeniz için beş ikna edici neden:</p><ol><li><strong>Küresel Olarak Tanınan Üniversiteler:</strong> Birçok Rus üniversitesi dünyanın en iyileri arasında yer almaktadır.</li><li><strong>Uygun Öğrenim Ücretleri:</strong> Batı ülkeleriyle karşılaştırıldığında, Rusya'da eğitim ve yaşam maliyeti önemli ölçüde daha düşüktür.</li><li><strong>Zengin Kültürel Miras:</strong> Kendinizi derin bir tarihe, çarpıcı mimariye ve canlı bir sanat ortamına sahip bir ülkeye bırakın.</li><li><strong>Çeşitli Program Yelpazesi:</strong> Hem Rusça hem de İngilizce olarak öğretilen yüzlerce program arasından seçim yapın.</li><li><strong>Benzersiz Uluslararası Deneyim:</strong> Avrupa ve Asya kültürlerinin eşsiz bir karışımını sunan kıtalararası bir ülkede yaşayın ve eğitim alın.</li></ol>"
+            },
+            "life-as-an-international-student-in-moscow": {
+                "title": "Moskova'da Uluslararası Bir Öğrenci Olarak Yaşam",
+                "description": "Rusya'nın hareketli başkentinde yaşamak ve okumak gerçekten nasıl bir şey? Konaklama, ulaşım ve Moskova'da zamanınızı en iyi şekilde değerlendirme konusunda görüşler paylaşıyoruz.",
+                "content": "<p>Moskova, keşif ve eğlence için sonsuz fırsatlar sunan canlı, 7/24 bir şehirdir. Bir öğrenci olarak, sınıf dışında keyfini çıkarabileceğiniz misafirperver bir topluluk ve geniş bir etkinlik yelpazesi bulacaksınız.</p><h2>Ulaşım:</h2><p>Moskova Metrosu, dünyanın en verimli ve güzel metro sistemlerinden biridir. Öğrenci seyahat kartı indirimli ücretler sunarak şehri dolaşmanın en uygun yolu haline getirir.</p><h2>Konaklama:</h2><p>Çoğu üniversite, uygun fiyatlı ve diğer öğrencilerle tanışmak için harika bir yol olan öğrenci yurtları sunar. Alternatif olarak, özel bir daire kiralayabilirsiniz, ancak bu daha pahalı bir seçenektir.</p><p>Devlet Tretyakov Galerisi gibi birinci sınıf müzelerden Gorky Parkı gibi geniş parklara kadar, Moskova'da yapacaklarınız asla bitmez.</p>"
+            },
+            "preparing-your-documents-for-russian-university-admission": {
+                "title": "Rus Üniversitesine Kabul İçin Belgelerinizi Hazırlama",
+                "description": "Bir Rus üniversitesine başvurunuz için hazırlamanız gereken belgelerin eksiksiz bir kontrol listesi, çeviri ve yasallaştırma ipuçları dahil.",
+                "content": "<p>Başarılı bir üniversite başvurusu için uygun belge hazırlığı kritik öneme sahiptir. Yapay zeka destekli doğrulama aracımız yardımcı olabilir, ancak doğru belgelerle, düzgün bir şekilde biçimlendirilmiş ve yasallaştırılmış olarak başlamak esastır. İşte genellikle ihtiyacınız olacaklar:</p><ul><li><strong>Lise Diploması/Sertifikası:</strong> Rusça'ya yasallaştırılmış ve tercüme edilmiş.</li><li><strong>Akademik Transkriptler:</strong> Tüm dersleri ve notları gösteren.</li><li><strong>Tıbbi Sertifikalar:</strong> Genel bir sağlık sertifikası ve negatif bir HIV testi sonucu dahil.</li><li><strong>Pasaportunuzun Kopyası:</strong> Planladığınız giriş tarihinden itibaren en az 18 ay geçerli olmalıdır.</li><li><strong>Başvuru Formu:</strong> Doldurulmuş ve imzalanmış.</li></ul><p>Yasallaştırma gereksinimleri ülkeye göre değişir. Belgeleriniz için gereken özel süreci (örneğin, Apostil veya konsolosluk yasallaştırması) kontrol etmek çok önemlidir.</p>"
+            }
+        }
+    },
+    "contact": {
+        "title": "İletişime geç",
+        "description": "Sorularınız mı var? Yardım etmek için buradayız. Kanallarımızdan herhangi biri aracılığıyla bize ulaşın veya aşağıdaki formu kullanarak bize bir mesaj gönderin.",
+        "cta": {
+            "telegramCta": "Bize mesaj gönder",
+            "whatsappCta": "Bizimle sohbet et",
+            "emailCta": "Bir e-posta gönder"
+        }
+    },
+    "application": {
+        "title": "Üniversite Başvurusu",
+        "description": "Başvurunuzu başlatmak için aşağıdaki formu doldurun. Ekibimiz belgelerinizi yapay zeka kullanarak doğrulayacaktır."
+    },
+    "applicationForm": {
+        "submit": "Başvuruyu Gönder",
+        "submitting": "Doğrulanıyor ve Gönderiliyor...",
+        "personalInfo": {
+            "title": "Kişisel Bilgiler",
+            "firstName": "Ad",
+            "firstNamePlaceholder": "Adınız",
+            "middleName": "İkinci Ad",
+            "middleNamePlaceholder": "İsteğe bağlı",
+            "lastName": "Soyadı",
+            "lastNamePlaceholder": "Soyadınız",
+            "citizenship": "Vatandaşlık"
+        },
+        "contactInfo": {
+            "title": "İletişim Bilgileri",
+            "email": "E-posta",
+            "phone": "Telegram/WhatsApp Numarası"
+        },
+        "documents": {
+            "title": "Belgeler",
+            "passportLabel": "Pasaport (orijinal)*",
+            "passportDescription": "Orijinal Belgenin Taranmış Kopyası",
+            "passportTooltip": "Lütfen pasaportunuzun biyometrik veri sayfasının net, tam sayfa renkli bir taramasını yükleyin.",
+            "educationLabel": "Eğitim derecesi (orijinal)*",
+            "educationDescription": "Orijinal Belge(ler)in Taranmış Kopyası",
+            "educationTooltip": "Lise diplomanızı, lisans derecenizi veya ilgili herhangi bir akademik sertifikayı yükleyin.",
+            "paymentNote": "Lütfen dikkat: eğitim davetiyeniz ödeme alındıktan sonra düzenlenip gönderilecektir."
+        },
+        "fileUpload": {
+            "upload": "Bir dosya yükle"
+        },
+        "results": {
+            "success": {
+                "title": "Başarılı!",
+                "description": "Belgeniz tüm kontrolleri geçti ve ilgili bilgiler çıkarıldı.",
+                "verificationResults": "Doğrulama Sonuçları",
+                "authenticityCheck": "Orijinallik Kontrolü",
+                "appearsAuthentic": "Belge orijinal görünüyor.",
+                "readabilityCheck": "Okunabilirlik Kontrolü",
+                "isClear": "Belge net ve okunabilir.",
+                "requirementsMet": "Gereksinimler Karşılandı",
+                "meetsRequirements": "Belge üniversite gereksinimlerini karşılıyor.",
+                "extractedInformation": "Çıkarılan Bilgiler",
+                "extractedInformationDescription": "Yapay zekamız belgenizden aşağıdaki bilgileri çıkardı. Lütfen inceleyin.",
+                "newApplication": "Yeni Başvuru Başlat"
+            },
+            "error": {
+                "title": "Hata",
+                "description": "Belgeniz doğrulanamadı. Lütfen aşağıdaki sorunları inceleyin.",
+                "verificationIssues": "Doğrulama Sorunları",
+                "authenticityCheck": "Orijinallik Kontrolü",
+                "appearsAuthentic": "Belge orijinal görünüyor.",
+                "authenticityFailed": "Orijinallik doğrulanamadı.",
+                "readabilityCheck": "Okunabilirlik Kontrolü",
+                "isClear": "Belge net ve okunabilir.",
+                "readabilityFailed": "Belge bulanık veya okunaksız.",
+                "requirementsMet": "Gereksinimler Karşılandı",
+                "meetsRequirements": "Belge üniversite gereksinimlerini karşılıyor.",
+                "requirementsFailed": "Belge üniversite gereksinimlerini karşılamıyor.",
+                "reason": "Sebep",
+                "tryAgain": "Tekrar Dene",
+                "unexpected": "Beklenmeyen bir sunucu hatası oluştu. Lütfen tekrar deneyin."
+            }
+        }
+    }
+}

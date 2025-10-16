@@ -4,59 +4,22 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { default as Lenis } from "lenis/react";
 import React, { useRef } from "react";
 import { CheckCircle } from "lucide-react";
+import { getDictionary } from "@/i18n/get-dictionary";
 
-const projects = [
-  {
-    title: "Submit an Application",
-    stepNumber: 1,
-    steps: [
-      "Complete the online application form with your personal and educational details.",
-      "Prepare and submit all required documents including transcripts and passport copies.",
-      "Our team will review your application and contact you within 3 business days."
-    ]
-  },
-  {
-    title: "Receive an Invitation",
-    stepNumber: 2,
-    steps: [
-      "Once approved, you'll receive an official invitation letter from the Russian university.",
-      "This invitation is your key document for the visa application process.",
-      "The invitation typically arrives within 2-4 weeks after application approval."
-    ]
-  },
-  {
-    title: "Get Your Student Visa",
-    stepNumber: 3,
-    steps: [
-      "Apply for a student visa at the nearest Russian embassy or consulate.",
-      "Complete medical examination and obtain health insurance as required.",
-      "Book your flight to Russia after receiving your visa."
-    ]
-  },
-  {
-    title: "Arrive and Start Studying",
-    stepNumber: 4,
-    steps: [
-      "Once you receive a student visa, you can plan your arrival to the university.",
-      "We'll help you arrange accommodation and get settled in your new city.",
-      "Begin your exciting educational journey in Russia!"
-    ]
-  }
-];
 
 const StickyCard = ({
   i,
   title,
-  stepNumber,
   steps,
+  stepNumber,
   progress,
   range,
   targetScale,
 }: {
   i: number;
   title: string;
-  stepNumber: number;
   steps: string[];
+  stepNumber: number;
   progress: any;
   range: [number, number];
   targetScale: number;
@@ -97,12 +60,14 @@ const StickyCard = ({
   );
 };
 
-export const StickyScroll = () => {
+export const StickyScroll = ({ dictionary }: { dictionary: Awaited<ReturnType<typeof getDictionary>>['stickyScroll']}) => {
   const container = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ["start start", "end end"],
   });
+
+  const projects = Object.values(dictionary.steps);
 
   return (
     <Lenis root>
@@ -111,9 +76,9 @@ export const StickyScroll = () => {
         className="relative flex w-full flex-col items-center justify-center pb-[100vh] pt-[50vh] bg-background"
       >
         <div className="absolute left-1/2 top-[10%] grid -translate-x-1/2 content-start justify-items-center gap-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold">4 Easy Steps to Study in Russia</h2>
+          <h2 className="text-3xl md:text-4xl font-bold">{dictionary.title}</h2>
           <span className="after:from-background after:to-foreground/60 relative max-w-[20ch] text-xs uppercase leading-tight opacity-60 after:absolute after:left-1/2 after:top-full after:h-16 after:w-px after:bg-gradient-to-b after:content-['']">
-            Your journey, simplified
+            {dictionary.subtitle}
           </span>
         </div>
         {projects.map((project, i) => {

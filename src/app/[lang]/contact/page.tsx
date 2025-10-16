@@ -1,9 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Mail, Phone, Send } from 'lucide-react';
+import { getDictionary } from '@/i18n/get-dictionary';
+import { Locale } from '@/i18n/i18n-config';
+import { Mail, Send } from 'lucide-react';
 
 const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg
@@ -28,31 +27,32 @@ const contactMethods = [
     name: 'Telegram',
     value: '@studyinrussia200',
     href: 'https://t.me/studyinrussia200',
-    cta: 'Message Us',
+    ctaKey: 'telegramCta',
   },
   {
     icon: WhatsAppIcon,
     name: 'WhatsApp',
     value: '+7 (919) 126-77-67',
     href: 'https://wa.me/79191267767',
-    cta: 'Chat with Us',
+    ctaKey: 'whatsappCta',
   },
   {
     icon: Mail,
     name: 'Email',
     value: 'studyinrussia200@gmail.com',
     href: 'mailto:studyinrussia200@gmail.com',
-    cta: 'Send an Email',
+    ctaKey: 'emailCta',
   },
 ];
 
-export default function ContactPage() {
+export default async function ContactPage({ params: { lang } }: { params: { lang: Locale } }) {
+    const dictionary = await getDictionary(lang);
   return (
     <div className="container py-12 md:py-20">
       <div className="text-center max-w-3xl mx-auto mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold">Get in Touch</h1>
+        <h1 className="text-4xl md:text-5xl font-bold">{dictionary.contact.title}</h1>
         <p className="mt-4 text-lg text-muted-foreground">
-          Have questions? We're here to help. Reach out to us through any of our channels, or send us a message using the form below.
+          {dictionary.contact.description}
         </p>
       </div>
 
@@ -71,7 +71,7 @@ export default function ContactPage() {
             <div className="p-6 pt-0">
               <Button asChild variant="outline" className="w-full">
                 <a href={method.href} target="_blank" rel="noopener noreferrer">
-                  {method.cta}
+                  {dictionary.contact.cta[method.ctaKey as keyof typeof dictionary.contact.cta]}
                 </a>
               </Button>
             </div>
