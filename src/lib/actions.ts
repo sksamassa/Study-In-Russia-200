@@ -12,9 +12,6 @@ const { serverRuntimeConfig, publicRuntimeConfig } = getConfig()
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
 const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png", "application/pdf"]
 
-// This is the correct way to validate a File object in a Next.js Server Action
-// using Zod. `z.instanceof(File)` does not work because the object's prototype
-// is lost when it's passed from the client to the server.
 const fileSchema = z
   .any()
   .refine((file): file is File => file instanceof File && file.size > 0, "File is required and cannot be empty.")
