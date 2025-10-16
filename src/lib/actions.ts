@@ -13,29 +13,15 @@ const { serverRuntimeConfig, publicRuntimeConfig } = getConfig()
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
 const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png", "application/pdf"]
 
-const fileSchema = z
-  .instanceof(File)
-  .refine((file) => file.size > 0, "File is required.")
-  .refine(
-    (file) => file.size <= MAX_FILE_SIZE,
-    `Max file size is ${MAX_FILE_SIZE / (1024 * 1024)}MB.`
-  )
-  .refine(
-    (file) => ACCEPTED_FILE_TYPES.includes(file.type),
-    "Invalid file type. Only JPG, PNG, and PDF are allowed."
-  )
-
-const applicationSchema = z.object({
+// Schema for text-based fields only
+const applicationTextSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
   middleName: z.string().optional(),
   lastName: z.string().min(1, "Last name is required"),
   citizenship: z.string().min(1, "Citizenship is required"),
   email: z.string().email("Invalid email address"),
   phone: z.string().min(1, "Phone number is required"),
-  passport: fileSchema,
-  education: z.array(fileSchema).min(1, "At least one educational document is required."),
 })
-
 
 export interface ApplicationState {
   status: "idle" | "loading" | "success" | "error"
@@ -263,41 +249,82 @@ export async function handleApplicationSubmit(
   prevState: ApplicationState,
   formData: FormData,
 ): Promise<ApplicationState> {
-  
-  const rawData = {
-      firstName: formData.get("firstName"),
-      middleName: formData.get("middleName"),
-      lastName: formData.get("lastName"),
-      citizenship: formData.get("citizenship"),
-      email: formData.get("email"),
-      phone: formData.get("phone"),
-      passport: formData.get("passport"),
-      education: formData.getAll("education").filter(f => (f as File).size > 0),
-  };
 
-  const parsed = applicationSchema.safeParse(rawData)
+  // 1. Validate text fields first
+  const parsedTextData = applicationTextSchema.safeParse({
+    firstName: formData.get("firstName"),
+    middleName: formData.get("middleName"),
+    lastName: formData.get("lastName"),
+    citizenship: formData.get("citizenship"),
+    email: formData.get("email"),
+    phone: formData.get("phone"),
+  });
 
-  if (!parsed.success) {
+  if (!parsedTextData.success) {
     return {
       status: "error",
       message: "Please correct the errors below.",
-      errors: parsed.error.flatten().fieldErrors,
+      errors: parsedTextData.error.flatten().fieldErrors,
+    };
+  }
+
+  // 2. Manually validate file fields
+  const fileErrors: ApplicationState["errors"] = {};
+  const passportFile = formData.get("passport") as File;
+  const educationFiles = formData.getAll("education").filter(f => (f as File).name) as File[];
+
+  if (!passportFile || passportFile.size === 0) {
+    fileErrors.passport = ["Passport is required."];
+  } else {
+    if (passportFile.size > MAX_FILE_SIZE) {
+      fileErrors.passport = [`Max file size is ${MAX_FILE_SIZE / (1024 * 1024)}MB.`];
+    }
+    if (!ACCEPTED_FILE_TYPES.includes(passportFile.type)) {
+      fileErrors.passport = ["Invalid file type. Only JPG, PNG, and PDF are allowed."];
     }
   }
+
+  if (educationFiles.length === 0) {
+      fileErrors.education = ["At least one educational document is required."];
+  } else {
+      for (const file of educationFiles) {
+          if (file.size > MAX_FILE_SIZE) {
+              fileErrors.education = [`Max file size for all files is ${MAX_FILE_SIZE / (1024 * 1024)}MB.`];
+              break;
+          }
+          if (!ACCEPTED_FILE_TYPES.includes(file.type)) {
+              fileErrors.education = ["Invalid file type. Only JPG, PNG, and PDF are allowed."];
+              break;
+          }
+      }
+  }
   
-  const { passport: passportFile, education: educationFiles, ...otherData } = parsed.data;
+  if (Object.keys(fileErrors).length > 0) {
+    return {
+        status: "error",
+        message: "Please correct the file upload errors.",
+        errors: { ...parsedTextData.data, ...fileErrors },
+    };
+  }
+
+  // If all validations pass, proceed with the action
+  const allValidatedData = {
+    ...parsedTextData.data,
+    passport: passportFile,
+    education: educationFiles,
+  }
 
   try {
     // Create a plain object for notifications before consuming the file buffers
     const notificationData: NotificationData = {
-      ...otherData,
-      passport: passportFile.name,
-      education: educationFiles.map((f) => f.name),
+      ...parsedTextData.data,
+      passport: allValidatedData.passport.name,
+      education: allValidatedData.education.map((f) => f.name),
     }
 
     let arrayBuffer: ArrayBuffer
     try {
-      arrayBuffer = await passportFile.arrayBuffer()
+      arrayBuffer = await allValidatedData.passport.arrayBuffer()
     } catch (err) {
       console.error("Failed to read passport file:", err)
       return {
@@ -307,7 +334,7 @@ export async function handleApplicationSubmit(
     }
 
     const base64 = Buffer.from(arrayBuffer).toString("base64")
-    const dataUri = `data:${passportFile.type};base64,${base64}`
+    const dataUri = `data:${allValidatedData.passport.type};base64,${base64}`
 
     let veracityResult: DocumentVeracityCheckOutput
     try {
@@ -342,7 +369,7 @@ export async function handleApplicationSubmit(
     try {
       extractionResult = await extractAdditionalInfo({
         documentDataUri: dataUri,
-        documentDescription: `Passport for ${parsed.data.firstName} ${parsed.data.lastName}`,
+        documentDescription: `Passport for ${allValidatedData.firstName} ${allValidatedData.lastName}`,
       })
     } catch (err) {
       console.error("AI Extraction failed:", err)
@@ -355,7 +382,7 @@ export async function handleApplicationSubmit(
     const { text, html } = formatApplicationForNotification(notificationData, safeVeracity, safeExtraction)
 
     sendTelegramMessage(text)
-    sendEmail(`New Application: ${parsed.data.firstName} ${parsed.data.lastName}`, html)
+    sendEmail(`New Application: ${allValidatedData.firstName} ${allValidatedData.lastName}`, html)
 
     const result: ApplicationState = {
       status: "success",
@@ -375,3 +402,5 @@ export async function handleApplicationSubmit(
     }
   }
 }
+
+    
