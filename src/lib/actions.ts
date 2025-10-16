@@ -5,6 +5,7 @@ import { extractAdditionalInfo } from "@/ai/flows/additional-info-extraction"
 import { z } from "zod"
 import { universityRequirements } from "@/lib/university-data"
 import getConfig from "next/config"
+import "server-only"
 
 const { serverRuntimeConfig, publicRuntimeConfig } = getConfig()
 
@@ -140,7 +141,7 @@ async function sendEmail(subject: string, htmlBody: string) {
       console.log(`Subject: ${subject}`)
       console.log(htmlBody)
     } else {
-      console.log("✓ Email sent successfully to studyinrussia200@gmail.com")
+      console.log("✅ Email sent successfully to studyinrussia200@gmail.com")
     }
   } catch (error) {
     console.error("Failed to send email:", error)
@@ -319,6 +320,11 @@ export async function handleApplicationSubmit(
     const safeVeracity = makeSafeVeracity(veracityResult)
 
     if (!safeVeracity.isAuthentic || !safeVeracity.isReadable || !safeVeracity.meetsRequirements) {
+      const { text, html } = formatApplicationForNotification(notificationData, safeVeracity, undefined);
+      // Fire-and-forget notifications for failed applications
+      sendTelegramMessage(text);
+      sendEmail(`Application Failed: ${notificationData.firstName} ${notificationData.lastName}`, html);
+
       return {
         status: "error",
         message: `Document verification failed. ${safeVeracity.errors || "Unknown issue."}`,
