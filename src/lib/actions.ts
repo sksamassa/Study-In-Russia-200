@@ -181,7 +181,7 @@ function formatApplicationForNotification(
 - Errors: ${veracityResult.errors || "None"}
 
 <b>AI Extracted Info:</b>
-<pre>${extractionResult ? JSON.stringify(extractionResult, null, 2) : "None"}</pre>
+<code>${extractionResult ? JSON.stringify(extractionResult, null, 2) : "None"}</code>
 `
 
   const html = `
