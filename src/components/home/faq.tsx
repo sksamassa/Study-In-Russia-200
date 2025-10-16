@@ -14,7 +14,7 @@ export function FAQ({ dictionary }: { dictionary: Awaited<ReturnType<typeof getD
   }));
 
   return (
-    <section id="faq" className="py-16 lg:py-24 bg-background">
+    <section id="faq" className="px-4 md:px-8 py-16 lg:py-24 bg-background">
       <div className="container">
         <Tabs defaultValue={faqData[0]?.value} className="h-full grid grid-cols-1 md:grid-cols-3 gap-0 relative">
           <div className="col-span-1 bg-gradient-to-br from-primary to-blue-800 text-primary-foreground p-8 z-0 h-full rounded-l-lg">
@@ -32,7 +32,7 @@ export function FAQ({ dictionary }: { dictionary: Awaited<ReturnType<typeof getD
               </TabsList>
           </div>
 
-          <div className="col-span-2 bg-card p-8 rounded-r-lg relative md:-ml-10 z-10 h-full shadow-lg">
+          <div className="col-span-2 bg-card p-8 rounded-r-lg relative md:-ml-10 z-10 h-full rounded-l-2xl">
                <div className="pl-0 md:pl-6 h-full">
               {faqData.map((category) => (
                   <TabsContent key={category.value} value={category.value} className="h-full mt-0">

@@ -30,7 +30,7 @@ export function ServicesSection({ dictionary }: { dictionary: Awaited<ReturnType
     ];
 
   return (
-    <section className="py-16 lg:py-24 bg-secondary">
+    <section className="py-16 md:py-24 bg-secondary">
       <div className="container">
         <div className="text-center space-y-4 mb-12">
           <h2 className="text-3xl md:text-4xl font-bold">{dictionary.title}</h2>
@@ -38,7 +38,7 @@ export function ServicesSection({ dictionary }: { dictionary: Awaited<ReturnType
             {dictionary.description}
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-4 md:px-8">
           {services.map((service, index) => (
             <Card key={index} className="text-center">
               <CardHeader>
