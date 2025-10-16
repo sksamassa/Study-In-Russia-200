@@ -1,40 +1,76 @@
-import { NextResponse } from 'next/server';
-import { Resend } from 'resend';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { NextResponse } from "next/server"
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const { to, subject, html } = body;
+    const { to, subject, html } = await request.json()
 
-    const from = process.env.EMAIL_FROM;
+    // Check if we have email service credentials
+    const apiKey = process.env.RESEND_API_KEY || process.env.SENDGRID_API_KEY
 
-    if (!from) {
-        console.error("EMAIL_FROM environment variable is not set.");
-        return NextResponse.json({ error: 'Server configuration error: EMAIL_FROM is not set.' }, { status: 500 });
-    }
-     if (!process.env.RESEND_API_KEY) {
-        console.error("RESEND_API_KEY environment variable is not set.");
-        return NextResponse.json({ error: 'Server configuration error: RESEND_API_KEY is not set.' }, { status: 500 });
-    }
+    if (!apiKey) {
+      console.warn("No email service API key found. Email not sent.")
+      console.log("--- Email Details ---")
+      console.log(`To: ${to}`)
+      console.log(`Subject: ${subject}`)
+      console.log(`Body: ${html}`)
+      console.log("--------------------")
 
-    const { data, error } = await resend.emails.send({
-      from: `Study In Russia 200 <${from}>`,
-      to: [to],
-      subject: subject,
-      html: html,
-    });
-
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return NextResponse.json({ message: "Email service not configured. Check console for details." }, { status: 200 })
     }
 
-    return NextResponse.json(data);
+    // Use Resend if available (recommended for Vercel)
+    if (process.env.RESEND_API_KEY) {
+      const response = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        },
+        body: JSON.stringify({
+          from: process.env.EMAIL_FROM || "onboarding@resend.dev",
+          to: [to],
+          subject,
+          html,
+        }),
+      })
+
+      if (!response.ok) {
+        const error = await response.text()
+        console.error("Resend API error:", error)
+        throw new Error("Failed to send email via Resend")
+      }
+
+      return NextResponse.json({ message: "Email sent successfully via Resend" })
+    }
+
+    // Fallback to SendGrid if available
+    if (process.env.SENDGRID_API_KEY) {
+      const response = await fetch("https://api.sendgrid.com/v3/mail/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.SENDGRID_API_KEY}`,
+        },
+        body: JSON.stringify({
+          personalizations: [{ to: [{ email: to }] }],
+          from: { email: process.env.EMAIL_FROM || "noreply@example.com" },
+          subject,
+          content: [{ type: "text/html", value: html }],
+        }),
+      })
+
+      if (!response.ok) {
+        const error = await response.text()
+        console.error("SendGrid API error:", error)
+        throw new Error("Failed to send email via SendGrid")
+      }
+
+      return NextResponse.json({ message: "Email sent successfully via SendGrid" })
+    }
+
+    return NextResponse.json({ message: "No email service configured" }, { status: 500 })
   } catch (error) {
-    if (error instanceof Error) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
-    }
-    return NextResponse.json({ error: 'An unknown error occurred.' }, { status: 500 });
+    console.error("Email sending error:", error)
+    return NextResponse.json({ message: "Failed to send email", error: String(error) }, { status: 500 })
   }
 }
