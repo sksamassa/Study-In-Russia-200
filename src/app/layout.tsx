@@ -11,6 +11,7 @@ import { SmoothScroll } from '@/components/smooth-scroll';
 import { getDictionary } from '@/i18n/get-dictionary';
 import { Locale, i18n } from '@/i18n/i18n-config';
 import { useEffect, useState } from 'react';
+import { FreeConsultationButton } from '@/components/free-consultation-button';
 
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>;
 
@@ -68,6 +69,7 @@ export default function RootLayout({
               {dictionary && <Footer dictionary={dictionary.footer} />}
             </div>
             <Toaster />
+            <FreeConsultationButton />
           </SmoothScroll>
         </ThemeProvider>
       </body>
