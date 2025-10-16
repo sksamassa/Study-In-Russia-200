@@ -162,6 +162,18 @@ function formatApplicationForNotification(
   veracityResult: ApplicationState["data"]["veracity"],
   extractionResult: Record<string, any> | undefined,
 ) {
+  const verificationText = `
+<b>AI Verification:</b>
+- Authentic: ${veracityResult.isAuthentic ? "✅" : "❌"}
+- Readable: ${veracityResult.isReadable ? "✅" : "❌"}
+- Meets Requirements: ${veracityResult.meetsRequirements ? "✅" : "❌"}
+- Errors: ${veracityResult.errors || "None"}`
+
+  const extractionText = extractionResult ? `
+
+<b>AI Extracted Info:</b>
+<code>${JSON.stringify(extractionResult, null, 2)}</code>` : ""
+
   const text = `<b>New University Application:</b>
 
 <b>Personal Info:</b>
@@ -173,15 +185,8 @@ function formatApplicationForNotification(
 <b>Documents:</b>
 - Passport: ${applicationData.passport}
 - Education Docs: ${applicationData.education.join(", ")}
-
-<b>AI Verification:</b>
-- Authentic: ${veracityResult.isAuthentic ? "✅" : "❌"}
-- Readable: ${veracityResult.isReadable ? "✅" : "❌"}
-- Meets Requirements: ${veracityResult.meetsRequirements ? "✅" : "❌"}
-- Errors: ${veracityResult.errors || "None"}
-
-<b>AI Extracted Info:</b>
-<code>${extractionResult ? JSON.stringify(extractionResult, null, 2) : "None"}</code>
+${verificationText}
+${extractionText}
 `
 
   const html = `
