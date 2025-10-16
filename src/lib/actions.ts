@@ -37,6 +37,16 @@ export interface ApplicationState {
   } | null
 }
 
+const applicationSchema = z.object({
+    firstName: z.string().min(1, "First name is required"),
+    middleName: z.string().optional(),
+    lastName: z.string().min(1, "Last name is required"),
+    citizenship: z.string().min(1, "Citizenship is required"),
+    email: z.string().email("Invalid email address"),
+    phone: z.string().min(1, "Phone number is required"),
+});
+
+
 // --- Notification Helpers (fire-and-forget) ---
 async function sendTelegramMessage(message: string) {
   const botToken = serverRuntimeConfig.TELEGRAM_BOT_TOKEN
@@ -239,24 +249,18 @@ export async function handleApplicationSubmit(
   formData: FormData,
 ): Promise<ApplicationState> {
   try {
-    const errors: ApplicationState['errors'] = {};
+    const rawData = Object.fromEntries(formData.entries());
+    const parsed = applicationSchema.safeParse(rawData);
 
-    const firstName = formData.get("firstName") as string || "";
-    const middleName = formData.get("middleName") as string || "";
-    const lastName = formData.get("lastName") as string || "";
-    const citizenship = formData.get("citizenship") as string || "";
-    const email = formData.get("email") as string || "";
-    const phone = formData.get("phone") as string || "";
-    
-    if (!firstName.trim()) errors.firstName = ["First name is required"];
-    if (!lastName.trim()) errors.lastName = ["Last name is required"];
-    if (!citizenship.trim()) errors.citizenship = ["Citizenship is required"];
-    if (!email.trim()) {
-        errors.email = ["Email is required"];
-    } else if (!z.string().email().safeParse(email).success) {
-        errors.email = ["Invalid email address"];
+    if (!parsed.success) {
+        return {
+            status: "error",
+            message: "Please correct the errors below.",
+            errors: parsed.error.flatten().fieldErrors,
+        };
     }
-    if (!phone.trim()) errors.phone = ["Phone number is required"];
+
+    const errors: ApplicationState["errors"] = {};
 
     const passportFile = formData.get("passport") as File;
     if (!passportFile || passportFile.size === 0) {
@@ -284,21 +288,16 @@ export async function handleApplicationSubmit(
     }
 
     if (Object.keys(errors).length > 0) {
-      return {
-        status: "error",
-        message: "Please correct the errors below.",
-        errors: errors,
-      }
+        return {
+            status: "error",
+            message: "Please correct the file upload errors.",
+            errors: { ...parsed.data, ...errors },
+        };
     }
     
     // Create a plain object for notifications before consuming the file buffers
     const notificationData: NotificationData = {
-      firstName,
-      middleName,
-      lastName,
-      citizenship,
-      email,
-      phone,
+      ...parsed.data,
       passport: passportFile.name,
       education: educationFiles.map((f) => f.name),
     }
@@ -350,7 +349,7 @@ export async function handleApplicationSubmit(
     try {
       extractionResult = await extractAdditionalInfo({
         documentDataUri: dataUri,
-        documentDescription: `Passport for ${firstName} ${lastName}`,
+        documentDescription: `Passport for ${parsed.data.firstName} ${parsed.data.lastName}`,
       })
     } catch (err) {
       console.error("AI Extraction failed:", err)
@@ -363,7 +362,7 @@ export async function handleApplicationSubmit(
     const { text, html } = formatApplicationForNotification(notificationData, safeVeracity, safeExtraction)
 
     sendTelegramMessage(text)
-    sendEmail(`New Application: ${firstName} ${lastName}`, html)
+    sendEmail(`New Application: ${parsed.data.firstName} ${parsed.data.lastName}`, html)
 
     const result: ApplicationState = {
       status: "success",
