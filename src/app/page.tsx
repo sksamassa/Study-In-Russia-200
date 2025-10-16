@@ -10,7 +10,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Step01Icon, Step02Icon, Step03Icon, Step04Icon } from '@/components/icons/steps';
 import { StickyScroll } from '@/components/sticky-scroll';
-import { MotionInView } from '@/components/motion-in-view';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 
