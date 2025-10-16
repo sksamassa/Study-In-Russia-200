@@ -4,28 +4,19 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { GraduationCap, Menu, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '../theme-toggle';
 import { LanguageSwitcher } from '../language-switcher';
 import { Locale } from '@/i18n/i18n-config';
-import { getDictionary } from '@/i18n/get-dictionary';
+import type { getDictionary } from '@/i18n/get-dictionary';
 
 
-export function Header({ lang }: { lang: Locale }) {
+export function Header({ lang, dictionary }: { lang: Locale, dictionary: Awaited<ReturnType<typeof getDictionary>>['header'] }) {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [dictionary, setDictionary] = useState<Awaited<ReturnType<typeof getDictionary>>['header'] | null>(null);
-
-  useEffect(() => {
-    getDictionary(lang).then((d) => setDictionary(d.header));
-  }, [lang]);
-
-  if (!dictionary) {
-    return null; // Or a loading skeleton
-  }
-
+  
   const navLinks = [
     { href: `/${lang}/services`, label: dictionary.services },
     { href: `/${lang}/blog`, label: dictionary.blog },

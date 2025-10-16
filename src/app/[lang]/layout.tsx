@@ -10,13 +10,16 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SmoothScroll } from '@/components/smooth-scroll';
 import { Locale } from '@/i18n/i18n-config';
+import type { getDictionary } from '@/i18n/get-dictionary';
 
 export default function RootLayout({
   children,
   params,
+  headerDictionary,
 }: Readonly<{
   children: React.ReactNode;
   params: { lang: Locale };
+  headerDictionary: Awaited<ReturnType<typeof getDictionary>>['header'];
 }>) {
   const pathname = usePathname();
   return (
@@ -42,7 +45,7 @@ export default function RootLayout({
         >
           <SmoothScroll>
             <div className="flex min-h-screen flex-col">
-              <Header lang={params.lang} />
+              <Header lang={params.lang} dictionary={headerDictionary} />
                 <AnimatePresence mode="wait">
                   <motion.main
                     key={pathname}

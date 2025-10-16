@@ -1,3 +1,4 @@
+
 import { getDictionary } from '@/i18n/get-dictionary';
 import { Locale, i18n } from '@/i18n/i18n-config';
 import RootLayout from './[lang]/layout';
@@ -13,8 +14,9 @@ export default async function RootRouteLayout({
   children: React.ReactNode;
   params: { lang: Locale };
 }) {
+    const dictionary = await getDictionary(params.lang);
     return (
-        <RootLayout params={params}>
+        <RootLayout params={params} headerDictionary={dictionary.header}>
             {children}
         </RootLayout>
     )
