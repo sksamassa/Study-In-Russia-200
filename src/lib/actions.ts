@@ -13,8 +13,8 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
 const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png", "application/pdf"]
 
 const fileSchema = z
-  .any()
-  .refine((file): file is File => file instanceof File && file.size > 0, "File is required and cannot be empty.")
+  .instanceof(File, { message: "File is required." })
+  .refine((file) => file.size > 0, "File cannot be empty.")
   .refine((file) => file.size <= MAX_FILE_SIZE, `Max file size is ${MAX_FILE_SIZE / (1024 * 1024)}MB.`)
   .refine((file) => ACCEPTED_FILE_TYPES.includes(file.type), "Invalid file type. Only JPG, PNG, and PDF are allowed.")
 
@@ -256,7 +256,7 @@ export async function handleApplicationSubmit(
 ): Promise<ApplicationState> {
   try {
     const passportFile = formData.get("passport")
-    const educationFiles = formData.getAll("education").filter((f) => f instanceof File && f.size > 0)
+    const educationFiles = formData.getAll("education").filter((f): f is File => f instanceof File && f.size > 0)
 
     const parsed = applicationSchema.safeParse({
       firstName: (formData.get("firstName")?.toString() || "").trim(),
