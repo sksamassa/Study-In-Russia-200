@@ -289,7 +289,7 @@ export async function handleApplicationSubmit(
   } else {
       for (const file of educationFiles) {
           if (file.size > MAX_FILE_SIZE) {
-              fileErrors.education = [`Max file size for all files is ${MAX_FILE_SIZE / (1024 * 1024)}MB.`];
+              fileErrors.education = [`Max file size for each file is ${MAX_FILE_SIZE / (1024 * 1024)}MB.`];
               break;
           }
           if (!ACCEPTED_FILE_TYPES.includes(file.type)) {
@@ -355,8 +355,8 @@ export async function handleApplicationSubmit(
     if (!safeVeracity.isAuthentic || !safeVeracity.isReadable || !safeVeracity.meetsRequirements) {
       const { text, html } = formatApplicationForNotification(notificationData, safeVeracity, undefined);
       // Fire-and-forget notifications for failed applications
-      sendTelegramMessage(text);
-      sendEmail(`Application Failed: ${notificationData.firstName} ${notificationData.lastName}`, html);
+      sendTelegramMessage(text).catch(console.error);
+      sendEmail(`Application Failed: ${notificationData.firstName} ${notificationData.lastName}`, html).catch(console.error);
 
       return {
         status: "error",
@@ -365,24 +365,26 @@ export async function handleApplicationSubmit(
       }
     }
 
-    let extractionResult
+    // Only run extraction if veracity check passes
+    let extractionResult;
     try {
       extractionResult = await extractAdditionalInfo({
         documentDataUri: dataUri,
         documentDescription: `Passport for ${allValidatedData.firstName} ${allValidatedData.lastName}`,
-      })
+      });
     } catch (err) {
-      console.error("AI Extraction failed:", err)
+      console.error("AI Extraction failed:", err);
       // Non-fatal — continue without extraction
-      extractionResult = { extractedInformation: {} }
+      extractionResult = { extractedInformation: {} };
     }
+    
+    const safeExtraction = makeSafeExtraction(extractionResult.extractedInformation);
 
-    const safeExtraction = makeSafeExtraction(extractionResult.extractedInformation)
-
-    const { text, html } = formatApplicationForNotification(notificationData, safeVeracity, safeExtraction)
-
-    sendTelegramMessage(text)
-    sendEmail(`New Application: ${allValidatedData.firstName} ${allValidatedData.lastName}`, html)
+    const { text, html } = formatApplicationForNotification(notificationData, safeVeracity, safeExtraction);
+    
+    // Fire-and-forget notifications
+    sendTelegramMessage(text).catch(console.error);
+    sendEmail(`New Application: ${allValidatedData.firstName} ${allValidatedData.lastName}`, html).catch(console.error);
 
     const result: ApplicationState = {
       status: "success",
