@@ -4,6 +4,9 @@ import { documentVeracityCheck, type DocumentVeracityCheckOutput } from "@/ai/fl
 import { extractAdditionalInfo } from "@/ai/flows/additional-info-extraction"
 import { z } from "zod"
 import { universityRequirements } from "@/lib/university-data"
+import getConfig from "next/config"
+
+const { serverRuntimeConfig, publicRuntimeConfig } = getConfig()
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
 const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png", "application/pdf"]
@@ -54,8 +57,8 @@ export interface ApplicationState {
 
 // --- Notification Helpers (fire-and-forget) ---
 async function sendTelegramMessage(message: string) {
-  const botToken = process.env.TELEGRAM_BOT_TOKEN
-  const chatId = process.env.TELEGRAM_CHAT_ID
+  const botToken = serverRuntimeConfig.TELEGRAM_BOT_TOKEN
+  const chatId = serverRuntimeConfig.TELEGRAM_CHAT_ID
 
   if (!botToken) {
     console.warn("⚠️  TELEGRAM_BOT_TOKEN not set. Skipping Telegram notification.")
@@ -120,7 +123,8 @@ async function sendTelegramMessage(message: string) {
 
 async function sendEmail(subject: string, htmlBody: string) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/api/send-email`, {
+    const appUrl = publicRuntimeConfig.NEXT_PUBLIC_APP_URL || "http://localhost:9002";
+    const response = await fetch(`${appUrl}/api/send-email`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

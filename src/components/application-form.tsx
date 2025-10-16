@@ -343,7 +343,7 @@ export function ApplicationForm() {
         </div>
       </div>
 
-      <div className="space-y-4">
+      {/* <div className="space-y-4">
         <h3 className="text-lg font-medium text-foreground">Documents</h3>
         <FileUploadField
           name="passport"
@@ -365,7 +365,7 @@ export function ApplicationForm() {
           error={state.errors?.education?.[0]}
           multiple
         />
-      </div>
+      </div> */}
 
       <SubmitButton />
     </form>

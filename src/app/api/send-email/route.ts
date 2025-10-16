@@ -1,11 +1,14 @@
 import { NextResponse } from "next/server"
+import getConfig from 'next/config'
+
+const { serverRuntimeConfig } = getConfig()
 
 export async function POST(request: Request) {
   try {
     const { to, subject, html } = await request.json()
 
     // Check if we have email service credentials
-    const apiKey = process.env.RESEND_API_KEY || process.env.SENDGRID_API_KEY
+    const apiKey = serverRuntimeConfig.RESEND_API_KEY || serverRuntimeConfig.SENDGRID_API_KEY
 
     if (!apiKey) {
       console.warn("No email service API key found. Email not sent.")
@@ -19,15 +22,15 @@ export async function POST(request: Request) {
     }
 
     // Use Resend if available (recommended for Vercel)
-    if (process.env.RESEND_API_KEY) {
+    if (serverRuntimeConfig.RESEND_API_KEY) {
       const response = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+          Authorization: `Bearer ${serverRuntimeConfig.RESEND_API_KEY}`,
         },
         body: JSON.stringify({
-          from: process.env.EMAIL_FROM || "onboarding@resend.dev",
+          from: serverRuntimeConfig.EMAIL_FROM || "onboarding@resend.dev",
           to: [to],
           subject,
           html,
@@ -44,16 +47,16 @@ export async function POST(request: Request) {
     }
 
     // Fallback to SendGrid if available
-    if (process.env.SENDGRID_API_KEY) {
+    if (serverRuntimeConfig.SENDGRID_API_KEY) {
       const response = await fetch("https://api.sendgrid.com/v3/mail/send", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.SENDGRID_API_KEY}`,
+          Authorization: `Bearer ${serverRuntimeConfig.SENDGRID_API_KEY}`,
         },
         body: JSON.stringify({
           personalizations: [{ to: [{ email: to }] }],
-          from: { email: process.env.EMAIL_FROM || "noreply@example.com" },
+          from: { email: serverRuntimeConfig.EMAIL_FROM || "noreply@example.com" },
           subject,
           content: [{ type: "text/html", value: html }],
         }),
