@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { GraduationCap } from 'lucide-react';
-import { getDictionary } from '@/i18n/get-dictionary';
+import type { getDictionary } from '@/i18n/get-dictionary';
 import { Locale } from '@/i18n/i18n-config';
 
 const TelegramIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -62,12 +62,11 @@ const contactMethods = [
 ];
 
 
-export async function Footer({ lang }: { lang: Locale }) {
-    const dictionary = await getDictionary(lang);
+export function Footer({ lang, dictionary }: { lang: Locale, dictionary: Awaited<ReturnType<typeof getDictionary>>['footer'] }) {
     const quickLinks = [
-        { href: `/${lang}/services`, label: dictionary.footer.links.services },
-        { href: `/${lang}/blog`, label: dictionary.footer.links.blog },
-        { href: `/${lang}/contact`, label: dictionary.footer.links.contact },
+        { href: `/${lang}/services`, label: dictionary.links.services },
+        { href: `/${lang}/blog`, label: dictionary.links.blog },
+        { href: `/${lang}/contact`, label: dictionary.links.contact },
     ];
   return (
     <footer className="border-t bg-card">
@@ -78,18 +77,18 @@ export async function Footer({ lang }: { lang: Locale }) {
             <Link href={`/${lang}`} className="flex items-center space-x-2">
               <GraduationCap className="h-8 w-8 text-primary" />
               <span className="text-2xl font-bold font-headline">
-                {dictionary.footer.title}
+                {dictionary.title}
               </span>
             </Link>
             <p className="text-sm text-muted-foreground max-w-xs">
-              {dictionary.footer.description}
+              {dictionary.description}
             </p>
           </div>
 
           {/* Column 2: Contact Us */}
           <div className="space-y-4">
             <h3 className="font-semibold tracking-wider uppercase">
-              {dictionary.footer.contactUs}
+              {dictionary.contactUs}
             </h3>
             <ul className="space-y-2">
               {contactMethods.map((item) => (
@@ -111,7 +110,7 @@ export async function Footer({ lang }: { lang: Locale }) {
           {/* Column 3: Quick Links */}
           <div className="space-y-4">
             <h3 className="font-semibold tracking-wider uppercase">
-              {dictionary.footer.quickLinks}
+              {dictionary.quickLinks}
             </h3>
             <ul className="space-y-2 text-lg">
                 {quickLinks.map(link => (
@@ -126,7 +125,7 @@ export async function Footer({ lang }: { lang: Locale }) {
         </div>
         <div className="mt-8 border-t pt-4 text-center text-sm text-muted-foreground">
           <p>
-            &copy; {new Date().getFullYear()} {dictionary.footer.copyright}
+            &copy; {new Date().getFullYear()} {dictionary.copyright}
           </p>
         </div>
       </div>

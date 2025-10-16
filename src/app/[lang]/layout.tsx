@@ -16,10 +16,12 @@ export default function RootLayout({
   children,
   params,
   headerDictionary,
+  footerDictionary,
 }: Readonly<{
   children: React.ReactNode;
   params: { lang: Locale };
   headerDictionary: Awaited<ReturnType<typeof getDictionary>>['header'];
+  footerDictionary: Awaited<ReturnType<typeof getDictionary>>['footer'];
 }>) {
   const pathname = usePathname();
   return (
@@ -58,7 +60,7 @@ export default function RootLayout({
                     {children}
                   </motion.main>
                 </AnimatePresence>
-              <Footer lang={params.lang} />
+              <Footer lang={params.lang} dictionary={footerDictionary} />
             </div>
             <Toaster />
           </SmoothScroll>

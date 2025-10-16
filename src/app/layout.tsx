@@ -1,13 +1,13 @@
 
 import { getDictionary } from '@/i18n/get-dictionary';
 import { Locale, i18n } from '@/i18n/i18n-config';
-import RootLayout from './[lang]/layout';
+import RootLayoutComponent from './[lang]/layout';
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }))
 }
 
-export default async function RootRouteLayout({
+export default async function RootLayout({
   children,
   params,
 }: {
@@ -16,8 +16,8 @@ export default async function RootRouteLayout({
 }) {
     const dictionary = await getDictionary(params.lang);
     return (
-        <RootLayout params={params} headerDictionary={dictionary.header}>
+        <RootLayoutComponent params={params} headerDictionary={dictionary.header} footerDictionary={dictionary.footer}>
             {children}
-        </RootLayout>
+        </RootLayoutComponent>
     )
 }
