@@ -315,82 +315,50 @@ export async function handleApplicationSubmit(
   }
 
   try {
+    const arrayBuffer = await allValidatedData.passport.arrayBuffer()
+    const base64 = Buffer.from(arrayBuffer).toString("base64")
+    const dataUri = `data:${allValidatedData.passport.type};base64,${base64}`
+
+    // Run AI checks in parallel to save time
+    const [veracityResult, extractionResult] = await Promise.all([
+      documentVeracityCheck({
+        documentDataUri: dataUri,
+        universityRequirements: universityRequirements["Lomonosov Moscow State University"],
+      }),
+      extractAdditionalInfo({
+        documentDataUri: dataUri,
+        documentDescription: `Passport for ${allValidatedData.firstName} ${allValidatedData.lastName}`,
+      })
+    ]);
+
+    const safeVeracity = makeSafeVeracity(veracityResult)
+    const safeExtraction = makeSafeExtraction(extractionResult.extractedInformation)
+    
     const notificationData: NotificationData = {
       ...parsedTextData.data,
       passport: allValidatedData.passport.name,
       education: allValidatedData.education.map((f) => f.name),
     }
 
-    let arrayBuffer: ArrayBuffer;
-    try {
-      arrayBuffer = await allValidatedData.passport.arrayBuffer()
-    } catch (err) {
-      console.error("Failed to read passport file:", err)
-      return {
-        status: "error",
-        message: "Could not read passport file. Please re-upload.",
-      }
-    }
-
-    const base64 = Buffer.from(arrayBuffer).toString("base64")
-    const dataUri = `data:${allValidatedData.passport.type};base64,${base64}`
-
-    let veracityResult: DocumentVeracityCheckOutput
-    try {
-      veracityResult = await documentVeracityCheck({
-        documentDataUri: dataUri,
-        universityRequirements: universityRequirements["Lomonosov Moscow State University"],
-      })
-    } catch (err) {
-      console.error("AI Veracity Check failed:", err)
-      return {
-        status: "error",
-        message: "Document verification service is unavailable. Please try again later.",
-      }
-    }
-
-    const safeVeracity = makeSafeVeracity(veracityResult)
+    // Fire-and-forget notifications
+    const { text, html } = formatApplicationForNotification(notificationData, safeVeracity, safeExtraction);
+    sendTelegramMessage(text).catch(console.error);
+    sendEmail(`Application from: ${allValidatedData.firstName} ${allValidatedData.lastName}`, html).catch(console.error);
 
     if (!safeVeracity.isAuthentic || !safeVeracity.isReadable || !safeVeracity.meetsRequirements) {
-      const { text, html } = formatApplicationForNotification(notificationData, safeVeracity, undefined);
-      sendTelegramMessage(text).catch(console.error);
-      sendEmail(`Application Failed: ${notificationData.firstName} ${notificationData.lastName}`, html).catch(console.error);
-
       return {
         status: "error",
         message: `Document verification failed. ${safeVeracity.errors || "Unknown issue."}`,
-        data: { veracity: safeVeracity },
+        data: { veracity: safeVeracity, extraction: safeExtraction },
       }
     }
-
-    // Fire-and-forget extraction and notifications in the background.
-    // The UI will respond immediately after the veracity check.
-    (async () => {
-        let extractionResult;
-        try {
-            extractionResult = await extractAdditionalInfo({
-                documentDataUri: dataUri,
-                documentDescription: `Passport for ${allValidatedData.firstName} ${allValidatedData.lastName}`,
-            });
-        } catch (err) {
-            console.error("AI Extraction failed in background:", err);
-            extractionResult = { extractedInformation: {} };
-        }
-        const safeExtraction = makeSafeExtraction(extractionResult.extractedInformation);
-        const { text, html } = formatApplicationForNotification(notificationData, safeVeracity, safeExtraction);
-        
-        sendTelegramMessage(text).catch(console.error);
-        sendEmail(`New Application: ${allValidatedData.firstName} ${allValidatedData.lastName}`, html).catch(console.error);
-    })();
     
-    // Return a successful response to the client immediately.
-    // The extraction data is not included here because it runs in the background.
     return {
       status: "success",
       message: "Application submitted and verified successfully!",
       data: {
         veracity: safeVeracity,
-        extraction: undefined, // This will be processed in the background
+        extraction: safeExtraction,
       },
     }
 
