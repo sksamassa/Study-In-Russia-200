@@ -270,7 +270,7 @@ export function ApplicationForm() {
           <AlertTitle>Error</AlertTitle>
           <AlertDescription>
             {state.message ||
-              'An unexpected error occurred. Please try again.'}
+              'An unexpected server error occurred. Please try again.'}
           </AlertDescription>
         </Alert>
       )}
@@ -351,3 +351,5 @@ export function ApplicationForm() {
     </form>
   );
 }
+
+    
