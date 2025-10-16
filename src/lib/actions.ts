@@ -13,6 +13,30 @@ const { serverRuntimeConfig, publicRuntimeConfig } = getConfig()
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
 const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png", "application/pdf"]
 
+const fileSchema = z
+  .instanceof(File)
+  .refine((file) => file.size > 0, "File is required.")
+  .refine(
+    (file) => file.size <= MAX_FILE_SIZE,
+    `Max file size is ${MAX_FILE_SIZE / (1024 * 1024)}MB.`
+  )
+  .refine(
+    (file) => ACCEPTED_FILE_TYPES.includes(file.type),
+    "Invalid file type. Only JPG, PNG, and PDF are allowed."
+  )
+
+const applicationSchema = z.object({
+  firstName: z.string().min(1, "First name is required"),
+  middleName: z.string().optional(),
+  lastName: z.string().min(1, "Last name is required"),
+  citizenship: z.string().min(1, "Citizenship is required"),
+  email: z.string().email("Invalid email address"),
+  phone: z.string().min(1, "Phone number is required"),
+  passport: fileSchema,
+  education: z.array(fileSchema).min(1, "At least one educational document is required."),
+})
+
+
 export interface ApplicationState {
   status: "idle" | "loading" | "success" | "error"
   message: string | null
@@ -36,15 +60,6 @@ export interface ApplicationState {
     education?: string[]
   } | null
 }
-
-const applicationSchema = z.object({
-    firstName: z.string().min(1, "First name is required"),
-    middleName: z.string().optional(),
-    lastName: z.string().min(1, "Last name is required"),
-    citizenship: z.string().min(1, "Citizenship is required"),
-    email: z.string().email("Invalid email address"),
-    phone: z.string().min(1, "Phone number is required"),
-});
 
 
 // --- Notification Helpers (fire-and-forget) ---
@@ -248,56 +263,34 @@ export async function handleApplicationSubmit(
   prevState: ApplicationState,
   formData: FormData,
 ): Promise<ApplicationState> {
+  
+  const rawData = {
+      firstName: formData.get("firstName"),
+      middleName: formData.get("middleName"),
+      lastName: formData.get("lastName"),
+      citizenship: formData.get("citizenship"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      passport: formData.get("passport"),
+      education: formData.getAll("education").filter(f => (f as File).size > 0),
+  };
+
+  const parsed = applicationSchema.safeParse(rawData)
+
+  if (!parsed.success) {
+    return {
+      status: "error",
+      message: "Please correct the errors below.",
+      errors: parsed.error.flatten().fieldErrors,
+    }
+  }
+  
+  const { passport: passportFile, education: educationFiles, ...otherData } = parsed.data;
+
   try {
-    const rawData = Object.fromEntries(formData.entries());
-    const parsed = applicationSchema.safeParse(rawData);
-
-    if (!parsed.success) {
-        return {
-            status: "error",
-            message: "Please correct the errors below.",
-            errors: parsed.error.flatten().fieldErrors,
-        };
-    }
-
-    const errors: ApplicationState["errors"] = {};
-
-    const passportFile = formData.get("passport") as File;
-    if (!passportFile || passportFile.size === 0) {
-        errors.passport = ["Passport file is required."];
-    } else if (passportFile.size > MAX_FILE_SIZE) {
-        errors.passport = [`Max file size is ${MAX_FILE_SIZE / (1024 * 1024)}MB.`];
-    } else if (!ACCEPTED_FILE_TYPES.includes(passportFile.type)) {
-        errors.passport = ["Invalid file type. Only JPG, PNG, and PDF are allowed."];
-    }
-
-    const educationFiles = formData.getAll("education").filter((f): f is File => f instanceof File && f.size > 0);
-    if (educationFiles.length === 0) {
-      errors.education = ["At least one educational document is required."];
-    } else {
-        for (const file of educationFiles) {
-            if (file.size > MAX_FILE_SIZE) {
-                errors.education = [`File "${file.name}" exceeds max size of ${MAX_FILE_SIZE / (1024 * 1024)}MB.`];
-                break;
-            }
-            if (!ACCEPTED_FILE_TYPES.includes(file.type)) {
-                errors.education = [`File "${file.name}" has an invalid type. Only JPG, PNG, and PDF are allowed.`];
-                break;
-            }
-        }
-    }
-
-    if (Object.keys(errors).length > 0) {
-        return {
-            status: "error",
-            message: "Please correct the file upload errors.",
-            errors: { ...parsed.data, ...errors },
-        };
-    }
-    
     // Create a plain object for notifications before consuming the file buffers
     const notificationData: NotificationData = {
-      ...parsed.data,
+      ...otherData,
       passport: passportFile.name,
       education: educationFiles.map((f) => f.name),
     }
