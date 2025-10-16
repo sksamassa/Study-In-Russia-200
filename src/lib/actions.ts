@@ -13,12 +13,6 @@ const { serverRuntimeConfig, publicRuntimeConfig } = getConfig()
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
 const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png", "application/pdf"]
 
-const fileSchema = z
-  .instanceof(File, { message: "File is required." })
-  .refine((file) => file.size > 0, "File cannot be empty.")
-  .refine((file) => file.size <= MAX_FILE_SIZE, `Max file size is ${MAX_FILE_SIZE / (1024 * 1024)}MB.`)
-  .refine((file) => ACCEPTED_FILE_TYPES.includes(file.type), "Invalid file type. Only JPG, PNG, and PDF are allowed.")
-
 export interface ApplicationState {
   status: "idle" | "loading" | "success" | "error"
   message: string | null
@@ -257,28 +251,36 @@ export async function handleApplicationSubmit(
     if (!firstName.trim()) errors.firstName = ["First name is required"];
     if (!lastName.trim()) errors.lastName = ["Last name is required"];
     if (!citizenship.trim()) errors.citizenship = ["Citizenship is required"];
-    if (!email.trim()) errors.email = ["Email is required"];
-    else if (!z.string().email().safeParse(email).success) errors.email = ["Invalid email address"];
+    if (!email.trim()) {
+        errors.email = ["Email is required"];
+    } else if (!z.string().email().safeParse(email).success) {
+        errors.email = ["Invalid email address"];
+    }
     if (!phone.trim()) errors.phone = ["Phone number is required"];
 
     const passportFile = formData.get("passport") as File;
-    const passportResult = fileSchema.safeParse(passportFile);
-    if (!passportResult.success) {
-      errors.passport = passportResult.error.flatten().formErrors;
+    if (!passportFile || passportFile.size === 0) {
+        errors.passport = ["Passport file is required."];
+    } else if (passportFile.size > MAX_FILE_SIZE) {
+        errors.passport = [`Max file size is ${MAX_FILE_SIZE / (1024 * 1024)}MB.`];
+    } else if (!ACCEPTED_FILE_TYPES.includes(passportFile.type)) {
+        errors.passport = ["Invalid file type. Only JPG, PNG, and PDF are allowed."];
     }
 
     const educationFiles = formData.getAll("education").filter((f): f is File => f instanceof File && f.size > 0);
     if (educationFiles.length === 0) {
       errors.education = ["At least one educational document is required."];
     } else {
-      const educationResult = z.array(fileSchema).safeParse(educationFiles);
-       if (!educationResult.success) {
-          const formattedErrors = educationResult.error.flatten().formErrors;
-          // Attempt to find a more specific error for the user
-          const fileErrors = educationResult.error.flatten().fieldErrors;
-          const specificError = Object.values(fileErrors).flat()[0];
-          errors.education = specificError ? [specificError] : formattedErrors;
-       }
+        for (const file of educationFiles) {
+            if (file.size > MAX_FILE_SIZE) {
+                errors.education = [`File "${file.name}" exceeds max size of ${MAX_FILE_SIZE / (1024 * 1024)}MB.`];
+                break;
+            }
+            if (!ACCEPTED_FILE_TYPES.includes(file.type)) {
+                errors.education = [`File "${file.name}" has an invalid type. Only JPG, PNG, and PDF are allowed.`];
+                break;
+            }
+        }
     }
 
     if (Object.keys(errors).length > 0) {
@@ -288,8 +290,6 @@ export async function handleApplicationSubmit(
         errors: errors,
       }
     }
-
-    const passport = passportResult.data!;
     
     // Create a plain object for notifications before consuming the file buffers
     const notificationData: NotificationData = {
@@ -299,13 +299,13 @@ export async function handleApplicationSubmit(
       citizenship,
       email,
       phone,
-      passport: passport.name,
+      passport: passportFile.name,
       education: educationFiles.map((f) => f.name),
     }
 
     let arrayBuffer: ArrayBuffer
     try {
-      arrayBuffer = await passport.arrayBuffer()
+      arrayBuffer = await passportFile.arrayBuffer()
     } catch (err) {
       console.error("Failed to read passport file:", err)
       return {
@@ -315,7 +315,7 @@ export async function handleApplicationSubmit(
     }
 
     const base64 = Buffer.from(arrayBuffer).toString("base64")
-    const dataUri = `data:${passport.type};base64,${base64}`
+    const dataUri = `data:${passportFile.type};base64,${base64}`
 
     let veracityResult: DocumentVeracityCheckOutput
     try {
