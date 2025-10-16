@@ -19,18 +19,6 @@ const fileSchema = z
   .refine((file) => file.size <= MAX_FILE_SIZE, `Max file size is ${MAX_FILE_SIZE / (1024 * 1024)}MB.`)
   .refine((file) => ACCEPTED_FILE_TYPES.includes(file.type), "Invalid file type. Only JPG, PNG, and PDF are allowed.")
 
-// Adjusted schema to handle files more safely for serialization
-const applicationSchema = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  middleName: z.string().optional(),
-  lastName: z.string().min(1, "Last name is required"),
-  citizenship: z.string().min(1, "Citizenship is required"),
-  email: z.string().email("Invalid email address"),
-  phone: z.string().min(1, "Phone number is required"),
-  passport: z.any(),
-  education: z.any(),
-})
-
 export interface ApplicationState {
   status: "idle" | "loading" | "success" | "error"
   message: string | null
@@ -257,56 +245,62 @@ export async function handleApplicationSubmit(
   formData: FormData,
 ): Promise<ApplicationState> {
   try {
-    const passportFile = formData.get("passport")
-    const educationFiles = formData.getAll("education").filter((f): f is File => f instanceof File && f.size > 0)
+    const errors: ApplicationState['errors'] = {};
 
-    const parsed = applicationSchema.safeParse({
-      firstName: (formData.get("firstName")?.toString() || "").trim(),
-      middleName: (formData.get("middleName")?.toString() || "").trim() || undefined,
-      lastName: (formData.get("lastName")?.toString() || "").trim(),
-      citizenship: (formData.get("citizenship")?.toString() || "").trim(),
-      email: (formData.get("email")?.toString() || "").trim(),
-      phone: (formData.get("phone")?.toString() || "").trim(),
-      passport: passportFile,
-      education: educationFiles,
-    })
+    const firstName = formData.get("firstName") as string || "";
+    const middleName = formData.get("middleName") as string || "";
+    const lastName = formData.get("lastName") as string || "";
+    const citizenship = formData.get("citizenship") as string || "";
+    const email = formData.get("email") as string || "";
+    const phone = formData.get("phone") as string || "";
+    
+    if (!firstName.trim()) errors.firstName = ["First name is required"];
+    if (!lastName.trim()) errors.lastName = ["Last name is required"];
+    if (!citizenship.trim()) errors.citizenship = ["Citizenship is required"];
+    if (!email.trim()) errors.email = ["Email is required"];
+    else if (!z.string().email().safeParse(email).success) errors.email = ["Invalid email address"];
+    if (!phone.trim()) errors.phone = ["Phone number is required"];
 
-    if (!parsed.success) {
-      return {
-        status: "error",
-        message: "Please correct the errors below.",
-        errors: parsed.error.flatten().fieldErrors,
-      }
-    }
-
-    const { passport: rawPassport, education: rawEducation, ...otherData } = parsed.data;
-
-    // Manual file validation
-    const passportResult = fileSchema.safeParse(rawPassport)
+    const passportFile = formData.get("passport") as File;
+    const passportResult = fileSchema.safeParse(passportFile);
     if (!passportResult.success) {
+      errors.passport = passportResult.error.flatten().formErrors;
+    }
+
+    const educationFiles = formData.getAll("education").filter((f): f is File => f instanceof File && f.size > 0);
+    if (educationFiles.length === 0) {
+      errors.education = ["At least one educational document is required."];
+    } else {
+      const educationResult = z.array(fileSchema).safeParse(educationFiles);
+       if (!educationResult.success) {
+          const formattedErrors = educationResult.error.flatten().formErrors;
+          // Attempt to find a more specific error for the user
+          const fileErrors = educationResult.error.flatten().fieldErrors;
+          const specificError = Object.values(fileErrors).flat()[0];
+          errors.education = specificError ? [specificError] : formattedErrors;
+       }
+    }
+
+    if (Object.keys(errors).length > 0) {
       return {
         status: "error",
         message: "Please correct the errors below.",
-        errors: { passport: passportResult.error.flatten().formErrors },
+        errors: errors,
       }
     }
-    const passport = passportResult.data
 
-    const educationResult = z.array(fileSchema).min(1, "At least one educational document is required.").safeParse(rawEducation)
-    if (!educationResult.success) {
-        return {
-          status: "error",
-          message: "Please correct the errors below.",
-          errors: { education: educationResult.error.flatten().formErrors },
-        }
-    }
-    const education = educationResult.data
-
+    const passport = passportResult.data!;
+    
     // Create a plain object for notifications before consuming the file buffers
     const notificationData: NotificationData = {
-      ...otherData,
+      firstName,
+      middleName,
+      lastName,
+      citizenship,
+      email,
+      phone,
       passport: passport.name,
-      education: education.map((f) => f.name),
+      education: educationFiles.map((f) => f.name),
     }
 
     let arrayBuffer: ArrayBuffer
@@ -356,7 +350,7 @@ export async function handleApplicationSubmit(
     try {
       extractionResult = await extractAdditionalInfo({
         documentDataUri: dataUri,
-        documentDescription: `Passport for ${otherData.firstName} ${otherData.lastName}`,
+        documentDescription: `Passport for ${firstName} ${lastName}`,
       })
     } catch (err) {
       console.error("AI Extraction failed:", err)
@@ -369,7 +363,7 @@ export async function handleApplicationSubmit(
     const { text, html } = formatApplicationForNotification(notificationData, safeVeracity, safeExtraction)
 
     sendTelegramMessage(text)
-    sendEmail(`New Application: ${otherData.firstName} ${otherData.lastName}`, html)
+    sendEmail(`New Application: ${firstName} ${lastName}`, html)
 
     const result: ApplicationState = {
       status: "success",
