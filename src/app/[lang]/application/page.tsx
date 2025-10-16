@@ -1,3 +1,4 @@
+
 import { ApplicationForm } from '@/components/application-form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { getDictionary } from '@/i18n/get-dictionary';
@@ -8,6 +9,8 @@ export const metadata = {
     title: 'Application - Study In Russia 200',
     description: 'Submit your application to study in Russia. Our AI-powered system will help verify your documents.',
 };
+
+export const maxDuration = 120;
 
 export default async function ApplicationPage({ params }: { params: { lang: Locale } }) {
     const dictionary = await getDictionary(params.lang);
