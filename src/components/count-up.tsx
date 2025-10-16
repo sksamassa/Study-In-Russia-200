@@ -1,7 +1,7 @@
 
 'use client';
 
-import { animate } from 'framer-motion';
+import { animate, useInView } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 
 interface CountUpProps {
@@ -13,10 +13,13 @@ interface CountUpProps {
 
 export function CountUp({ from = 0, to, duration = 2, suffix = '' }: CountUpProps) {
   const nodeRef = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(nodeRef, { once: true, amount: 0.5 });
   const endValue = typeof to === 'string' ? parseInt(to, 10) : to;
 
 
   useEffect(() => {
+    if (!isInView) return;
+    
     const node = nodeRef.current;
     if (!node) return;
 
@@ -31,7 +34,7 @@ export function CountUp({ from = 0, to, duration = 2, suffix = '' }: CountUpProp
     });
 
     return () => controls.stop();
-  }, [from, endValue, duration, suffix]);
+  }, [from, endValue, duration, suffix, isInView]);
 
   return <span ref={nodeRef} />;
 }
