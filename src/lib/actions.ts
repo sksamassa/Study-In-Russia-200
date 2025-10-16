@@ -315,14 +315,13 @@ export async function handleApplicationSubmit(
   }
 
   try {
-    // Create a plain object for notifications before consuming the file buffers
     const notificationData: NotificationData = {
       ...parsedTextData.data,
       passport: allValidatedData.passport.name,
       education: allValidatedData.education.map((f) => f.name),
     }
 
-    let arrayBuffer: ArrayBuffer
+    let arrayBuffer: ArrayBuffer;
     try {
       arrayBuffer = await allValidatedData.passport.arrayBuffer()
     } catch (err) {
@@ -354,7 +353,6 @@ export async function handleApplicationSubmit(
 
     if (!safeVeracity.isAuthentic || !safeVeracity.isReadable || !safeVeracity.meetsRequirements) {
       const { text, html } = formatApplicationForNotification(notificationData, safeVeracity, undefined);
-      // Fire-and-forget notifications for failed applications
       sendTelegramMessage(text).catch(console.error);
       sendEmail(`Application Failed: ${notificationData.firstName} ${notificationData.lastName}`, html).catch(console.error);
 
@@ -365,37 +363,37 @@ export async function handleApplicationSubmit(
       }
     }
 
-    // Only run extraction if veracity check passes
-    let extractionResult;
-    try {
-      extractionResult = await extractAdditionalInfo({
-        documentDataUri: dataUri,
-        documentDescription: `Passport for ${allValidatedData.firstName} ${allValidatedData.lastName}`,
-      });
-    } catch (err) {
-      console.error("AI Extraction failed:", err);
-      // Non-fatal — continue without extraction
-      extractionResult = { extractedInformation: {} };
-    }
+    // Fire-and-forget extraction and notifications in the background.
+    // The UI will respond immediately after the veracity check.
+    (async () => {
+        let extractionResult;
+        try {
+            extractionResult = await extractAdditionalInfo({
+                documentDataUri: dataUri,
+                documentDescription: `Passport for ${allValidatedData.firstName} ${allValidatedData.lastName}`,
+            });
+        } catch (err) {
+            console.error("AI Extraction failed in background:", err);
+            extractionResult = { extractedInformation: {} };
+        }
+        const safeExtraction = makeSafeExtraction(extractionResult.extractedInformation);
+        const { text, html } = formatApplicationForNotification(notificationData, safeVeracity, safeExtraction);
+        
+        sendTelegramMessage(text).catch(console.error);
+        sendEmail(`New Application: ${allValidatedData.firstName} ${allValidatedData.lastName}`, html).catch(console.error);
+    })();
     
-    const safeExtraction = makeSafeExtraction(extractionResult.extractedInformation);
-
-    const { text, html } = formatApplicationForNotification(notificationData, safeVeracity, safeExtraction);
-    
-    // Fire-and-forget notifications
-    sendTelegramMessage(text).catch(console.error);
-    sendEmail(`New Application: ${allValidatedData.firstName} ${allValidatedData.lastName}`, html).catch(console.error);
-
-    const result: ApplicationState = {
+    // Return a successful response to the client immediately.
+    // The extraction data is not included here because it runs in the background.
+    return {
       status: "success",
       message: "Application submitted and verified successfully!",
       data: {
         veracity: safeVeracity,
-        extraction: Object.keys(safeExtraction).length > 0 ? safeExtraction : undefined,
+        extraction: undefined, // This will be processed in the background
       },
     }
 
-    return result
   } catch (error) {
     console.error("Unhandled error in handleApplicationSubmit:", error)
     return {
@@ -404,5 +402,3 @@ export async function handleApplicationSubmit(
     }
   }
 }
-
-    
