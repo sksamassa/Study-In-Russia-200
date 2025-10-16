@@ -69,9 +69,9 @@ export function Header() {
           </nav>
           <div className="flex items-center">
             <ThemeToggle />
-             <Button asChild className="ml-4">
+             {/* <Button asChild className="ml-4">
                 <Link href="/application">Apply Now</Link>
-             </Button>
+             </Button> */}
           </div>
         </div>
       </div>
@@ -94,9 +94,9 @@ export function Header() {
                   {link.label}
                 </Link>
               ))}
-              <Button asChild className="w-full">
+              {/* <Button asChild className="w-full">
                 <Link href="/application" onClick={() => setIsMenuOpen(false)}>Apply Now</Link>
-              </Button>
+              </Button> */}
             </nav>
           </div>
         </div>

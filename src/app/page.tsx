@@ -191,9 +191,9 @@ export default function Home() {
             Study In Russia 200 provides comprehensive support for international students, from application to arrival.
           </p>
           <div className="mt-8 flex justify-center">
-            <Button size="lg" className="text-lg px-8 py-6" asChild>
+            {/* <Button size="lg" className="text-lg px-8 py-6" asChild>
               <Link href="/application">Apply Now</Link>
-            </Button>
+            </Button> */}
           </div>
         </motion.div>
       </section>
