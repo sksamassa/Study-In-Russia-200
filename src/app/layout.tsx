@@ -45,11 +45,11 @@ export default async function RootLayout({
         >
           <SmoothScroll>
             <div className="flex min-h-screen flex-col">
-              <Header lang={params.lang} dictionary={dictionary.header} />
+              <Header dictionary={dictionary.header} />
               <main className="flex-1">
                 {children}
               </main>
-              <Footer lang={params.lang} dictionary={dictionary.footer} />
+              <Footer dictionary={dictionary.footer} />
             </div>
             <Toaster />
           </SmoothScroll>

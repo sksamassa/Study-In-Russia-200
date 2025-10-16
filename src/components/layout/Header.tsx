@@ -9,14 +9,15 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '../theme-toggle';
 import { LanguageSwitcher } from '../language-switcher';
-import { Locale } from '@/i18n/i18n-config';
 import type { getDictionary } from '@/i18n/get-dictionary';
 
 
-export function Header({ lang, dictionary }: { lang: Locale, dictionary: Awaited<ReturnType<typeof getDictionary>>['header'] }) {
+export function Header({ dictionary }: { dictionary: Awaited<ReturnType<typeof getDictionary>>['header'] }) {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
+  const lang = pathname.split('/')[1];
+
   const navLinks = [
     { href: `/${lang}/services`, label: dictionary.services },
     { href: `/${lang}/blog`, label: dictionary.blog },

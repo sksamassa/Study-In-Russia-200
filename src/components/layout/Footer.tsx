@@ -1,7 +1,10 @@
+
+'use client';
+
 import Link from 'next/link';
 import { GraduationCap } from 'lucide-react';
 import type { getDictionary } from '@/i18n/get-dictionary';
-import { Locale } from '@/i18n/i18n-config';
+import { usePathname } from 'next/navigation';
 
 const TelegramIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg
@@ -62,7 +65,10 @@ const contactMethods = [
 ];
 
 
-export function Footer({ lang, dictionary }: { lang: Locale, dictionary: Awaited<ReturnType<typeof getDictionary>>['footer'] }) {
+export function Footer({ dictionary }: { dictionary: Awaited<ReturnType<typeof getDictionary>>['footer'] }) {
+    const pathname = usePathname();
+    const lang = pathname.split('/')[1];
+
     const quickLinks = [
         { href: `/${lang}/services`, label: dictionary.links.services },
         { href: `/${lang}/blog`, label: dictionary.links.blog },
