@@ -1,3 +1,4 @@
+
 "use server"
 
 import { documentVeracityCheck, type DocumentVeracityCheckOutput } from "@/ai/flows/document-veracity-check"
@@ -8,27 +9,14 @@ import { universityRequirements } from "@/lib/university-data"
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
 const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png", "application/pdf", "image/jpg"]
 
-// This is the correct way to validate a File object in a Next.js Server Action
-// using Zod. `z.instanceof(File)` does not work because the object's prototype
-// is lost when it's passed from the client to the server.
-const fileSchema = z
-  .any()
-  .refine((file): file is File => file instanceof File && file.size > 0, "File is required and cannot be empty.")
-  .refine((file) => file.size <= MAX_FILE_SIZE, `Max file size is ${MAX_FILE_SIZE / (1024 * 1024)}MB.`)
-  .refine(
-    (file) => ACCEPTED_FILE_TYPES.includes(file.type),
-    "Invalid file type. Only JPG, PNG, and PDF are allowed."
-  )
-
-const applicationSchema = z.object({
+// A simplified schema for text-based fields.
+const applicationTextSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
   middleName: z.string().optional(),
   lastName: z.string().min(1, "Last name is required"),
   citizenship: z.string().min(1, "Citizenship is required"),
   email: z.string().email("Invalid email address"),
   phone: z.string().min(1, "Phone number is required"),
-  passport: fileSchema,
-  education: z.array(fileSchema).min(1, "At least one educational document is required."),
 })
 
 export interface ApplicationState {
@@ -251,40 +239,74 @@ export async function handleApplicationSubmit(
   formData: FormData,
 ): Promise<ApplicationState> {
   try {
-    const passportFile = formData.get("passport")
-    const educationFiles = formData.getAll("education").filter((f) => f instanceof File && f.size > 0)
-
-    const parsed = applicationSchema.safeParse({
-      firstName: (formData.get("firstName")?.toString() || "").trim(),
-      middleName: (formData.get("middleName")?.toString() || "").trim() || undefined,
-      lastName: (formData.get("lastName")?.toString() || "").trim(),
-      citizenship: (formData.get("citizenship")?.toString() || "").trim(),
-      email: (formData.get("email")?.toString() || "").trim(),
-      phone: (formData.get("phone")?.toString() || "").trim(),
-      passport: passportFile,
-      education: educationFiles,
+    const parsedText = applicationTextSchema.safeParse({
+      firstName: formData.get("firstName"),
+      middleName: formData.get("middleName") || undefined,
+      lastName: formData.get("lastName"),
+      citizenship: formData.get("citizenship"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
     })
 
-    if (!parsed.success) {
+    if (!parsedText.success) {
       return {
         status: "error",
         message: "Please correct the errors below.",
-        errors: parsed.error.flatten().fieldErrors,
+        errors: parsedText.error.flatten().fieldErrors,
       }
     }
 
-    const { passport, education, ...otherData } = parsed.data
+    const passportFile = formData.get("passport") as File | null;
+    const educationFiles = formData.getAll("education").filter((f): f is File => f instanceof File && f.size > 0);
+
+    const fileErrors: { passport?: string[]; education?: string[] } = {};
+
+    if (!passportFile || passportFile.size === 0) {
+      fileErrors.passport = ["Passport is required."];
+    } else {
+      if (passportFile.size > MAX_FILE_SIZE) {
+        fileErrors.passport = [`Passport must be less than ${MAX_FILE_SIZE / (1024 * 1024)}MB.`];
+      }
+      if (!ACCEPTED_FILE_TYPES.includes(passportFile.type)) {
+        fileErrors.passport = ["Invalid passport file type. Only JPG, PNG, and PDF are allowed."];
+      }
+    }
+
+    if (educationFiles.length === 0) {
+      fileErrors.education = ["At least one educational document is required."];
+    } else {
+      for(const file of educationFiles) {
+        if (file.size > MAX_FILE_SIZE) {
+          fileErrors.education = [`Educational documents must be less than ${MAX_FILE_SIZE / (1024 * 1024)}MB.`];
+          break;
+        }
+        if (!ACCEPTED_FILE_TYPES.includes(file.type)) {
+          fileErrors.education = ["Invalid educational document file type. Only JPG, PNG, and PDF are allowed."];
+          break;
+        }
+      }
+    }
+    
+    if (Object.keys(fileErrors).length > 0) {
+        return {
+            status: "error",
+            message: "Please correct the file errors below.",
+            errors: { ...parsedText.error?.flatten().fieldErrors, ...fileErrors },
+        };
+    }
+
+    const { ...otherData } = parsedText.data;
 
     // Create a plain object for notifications before consuming the file buffers
     const notificationData: NotificationData = {
       ...otherData,
-      passport: passport.name,
-      education: education.map((f) => f.name),
-    }
+      passport: passportFile!.name,
+      education: educationFiles.map((f) => f.name),
+    };
 
     let arrayBuffer: ArrayBuffer
     try {
-      arrayBuffer = await passport.arrayBuffer()
+      arrayBuffer = await passportFile!.arrayBuffer()
     } catch (err) {
       console.error("Failed to read passport file:", err)
       return {
@@ -294,7 +316,7 @@ export async function handleApplicationSubmit(
     }
 
     const base64 = Buffer.from(arrayBuffer).toString("base64")
-    const dataUri = `data:${passport.type};base64,${base64}`
+    const dataUri = `data:${passportFile!.type};base64,${base64}`
 
     let veracityResult: DocumentVeracityCheckOutput
     try {
@@ -324,7 +346,7 @@ export async function handleApplicationSubmit(
     try {
       extractionResult = await extractAdditionalInfo({
         documentDataUri: dataUri,
-        documentDescription: `Passport for ${parsed.data.firstName} ${parsed.data.lastName}`,
+        documentDescription: `Passport for ${parsedText.data.firstName} ${parsedText.data.lastName}`,
       })
     } catch (err) {
       console.error("AI Extraction failed:", err)
@@ -338,7 +360,7 @@ export async function handleApplicationSubmit(
 
     // Fire and forget notifications
     sendTelegramMessage(text)
-    sendEmail(`New Application: ${parsed.data.firstName} ${parsed.data.lastName}`, html)
+    sendEmail(`New Application: ${parsedText.data.firstName} ${parsedText.data.lastName}`, html)
 
     const result: ApplicationState = {
       status: "success",
@@ -358,3 +380,5 @@ export async function handleApplicationSubmit(
     }
   }
 }
+
+    
