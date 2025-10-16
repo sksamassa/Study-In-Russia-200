@@ -69,7 +69,7 @@ export default function RootLayout({
               {dictionary && <Footer dictionary={dictionary.footer} />}
             </div>
             <Toaster />
-            <FreeConsultationButton />
+            {dictionary && <FreeConsultationButton dictionary={dictionary.footer} />}
           </SmoothScroll>
         </ThemeProvider>
       </body>

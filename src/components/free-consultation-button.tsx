@@ -5,6 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Button } from '@/components/ui/button';
 import { MessageSquare } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import type { getDictionary } from '@/i18n/get-dictionary';
 
 const TelegramIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -50,8 +51,9 @@ const contactMethods = [
     },
 ];
 
-export function FreeConsultationButton() {
+export function FreeConsultationButton({ dictionary }: { dictionary: Awaited<ReturnType<typeof getDictionary>>['footer'] }) {
   const [isOpen, setIsOpen] = useState(false);
+  const circularText = `${dictionary.freeConsultation} ${dictionary.freeConsultation}`;
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
@@ -64,7 +66,7 @@ export function FreeConsultationButton() {
                     </defs>
                     <text dy="6" fill="hsl(var(--primary-foreground))" className="text-[10.5px] font-semibold uppercase tracking-wider">
                         <textPath xlinkHref="#circle">
-                            • FREE • CONSULTATION • FREE • CONSULTATION
+                            {circularText}
                         </textPath>
                     </text>
                 </svg>
@@ -74,7 +76,7 @@ export function FreeConsultationButton() {
       </PopoverTrigger>
       <PopoverContent className="w-60 p-2 mb-2" align="end">
         <div className="flex flex-col gap-1">
-            <p className="text-sm font-medium text-center text-muted-foreground p-2">Free Consultation</p>
+            <p className="text-sm font-medium text-center text-muted-foreground p-2">{dictionary.freeConsultationTitle}</p>
             {contactMethods.map((method) => (
                 <a
                     key={method.name}
