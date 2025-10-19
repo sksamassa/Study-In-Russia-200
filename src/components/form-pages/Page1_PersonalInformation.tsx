@@ -30,9 +30,10 @@ import { cn } from "@/lib/utils";
 import { countries } from "@/lib/countries";
 import { DateOfBirthPicker } from "../ui/date-picker";
 import { format } from "date-fns";
+import { Input } from "@/components/ui/input";
 
 export default function Page1_PersonalInformation() {
-  const { control, setValue, getValues } = useFormContext<MultiPageFormData>();
+  const { control, setValue } = useFormContext<MultiPageFormData>();
   const [popoverOpen, setPopoverOpen] = useState(false);
 
   return (
