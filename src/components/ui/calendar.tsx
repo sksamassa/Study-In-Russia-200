@@ -17,6 +17,12 @@ function Calendar({
   showOutsideDays = true,
   ...props
 }: CalendarProps) {
+  const handleWheel = (e: React.WheelEvent) => {
+    e.stopPropagation();
+    const element = e.currentTarget;
+    element.scrollTop += e.deltaY;
+  };
+
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
@@ -81,7 +87,7 @@ function Calendar({
                 <SelectValue>{selected?.props?.children}</SelectValue>
               </SelectTrigger>
               <SelectContent position="popper">
-                <ScrollArea className="h-80">
+                <div className="max-h-80 overflow-y-auto" onWheel={handleWheel}>
                   {options.map((option, id: number) => (
                     <SelectItem
                       key={`${option.props.value}-${id}`}
@@ -90,7 +96,7 @@ function Calendar({
                       {option.props.children}
                     </SelectItem>
                   ))}
-                </ScrollArea>
+               </div>
               </SelectContent>
             </Select>
           );

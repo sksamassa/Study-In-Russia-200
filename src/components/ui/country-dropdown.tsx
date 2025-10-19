@@ -54,6 +54,12 @@ const countryOptions: Country[] = countries.all.filter(
 export const CountryDropdown = ({ value, onChange, disabled }: CountryDropdownProps) => {
   const [open, setOpen] = useState(false);
 
+  const handleWheel = (e: React.WheelEvent) => {
+    e.stopPropagation();
+    const element = e.currentTarget;
+    element.scrollTop += e.deltaY;
+  };
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
