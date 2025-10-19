@@ -132,11 +132,11 @@ export default function MultiPageApplicationForm() {
   const CurrentPageComponent = steps[currentStep].component;
 
   return (
-    <div className="container mx-auto p-4 max-w-2xl">
+    <div className="container mx-auto p-4 max-w-4xl">
       <h1 className="text-2xl font-bold mb-8 text-center">Student Application Form</h1>
 
       <div className="mb-12 px-4 md:px-8">
-        <StepProgress totalSteps={steps.length} currentStep={currentStep + 1} />
+        <StepProgress steps={steps} currentStep={currentStep + 1} />
       </div>
 
       <div className="mb-8 text-center">
@@ -144,7 +144,7 @@ export default function MultiPageApplicationForm() {
       </div>
 
       <FormProvider {...methods}>
-        <form onSubmit={handleHookFormSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={handleHookFormSubmit(onSubmit)} className="space-y-6 max-w-2xl mx-auto">
           <CurrentPageComponent />
 
           <div className="flex justify-between mt-8">
