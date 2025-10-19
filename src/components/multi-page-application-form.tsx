@@ -14,7 +14,6 @@ import {
   MultiPageFormData,
 } from "@/lib/form-schemas";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
 import { submitApplication } from "@/lib/actions";
 
@@ -24,6 +23,7 @@ import Page2_ContactInformation from "./form-pages/Page2_ContactInformation";
 import Page3_EducationProgram from "./form-pages/Page3_EducationProgram";
 import Page4_LanguageProficiency from "./form-pages/Page4_LanguageProficiency";
 import Page5_Documents from "./form-pages/Page5_Documents";
+import { StepProgress } from "./ui/step-progress";
 
 const steps = [
   { id: "personalInfo", name: "Personal Information", schema: personalInfoSchema, component: Page1_PersonalInformation },
@@ -60,31 +60,42 @@ export default function MultiPageApplicationForm() {
 
   const { trigger, handleSubmit: handleHookFormSubmit } = methods;
 
-  const processAndNotify = (data: MultiPageFormData) => {
-    submitApplication(data).then(result => {
-        if (!result.success) {
-            console.error("Background submission failed:", result.message);
-            // Here you could implement a more robust error handling,
-            // like notifying your team or logging the error to a service.
-        }
-    }).catch(error => {
-        console.error("Error in background processing:", error);
-    });
+  const processForm = async (data: MultiPageFormData) => {
+    try {
+      const result = await submitApplication(data);
+      if (!result.success) {
+        console.error("Background submission failed:", result.message);
+        toast({
+          title: "Submission Error",
+          description: "There was a problem with your application. Please try again later.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Application Submitted!",
+          description: "Your application has been successfully submitted.",
+        });
+      }
+    } catch (error) {
+      console.error("Error in background processing:", error);
+      toast({
+        title: "Submission Error",
+        description: "An unexpected error occurred. Please try again later.",
+        variant: "destructive",
+      });
+    }
   };
 
   const onSubmit = async (data: MultiPageFormData) => {
     setIsLoading(true);
 
-    // Immediately give feedback to the user
     toast({
       title: "Application Received",
       description: "We've received your application and will start processing it. You'll get a final confirmation soon.",
     });
 
-    // Perform the long-running task in the background
-    processAndNotify(data);
+    await processForm(data);
 
-    // Reset form and UI state
     methods.reset();
     setCurrentStep(0);
     setIsLoading(false);
@@ -119,13 +130,14 @@ export default function MultiPageApplicationForm() {
 
 
   const CurrentPageComponent = steps[currentStep].component;
-  const progress = ((currentStep + 1) / steps.length) * 100;
 
   return (
     <div className="container mx-auto p-4 max-w-2xl">
-      <h1 className="text-2xl font-bold mb-6 text-center">Student Application Form</h1>
+      <h1 className="text-2xl font-bold mb-8 text-center">Student Application Form</h1>
 
-      <Progress value={progress} className="w-full mb-8" />
+      <div className="mb-12 px-4 md:px-8">
+        <StepProgress totalSteps={steps.length} currentStep={currentStep + 1} />
+      </div>
 
       <div className="mb-8 text-center">
         <p className="text-lg font-medium">Step {currentStep + 1} of {steps.length}: {steps[currentStep].name}</p>
