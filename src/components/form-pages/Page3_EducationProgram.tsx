@@ -1,6 +1,7 @@
+
 "use client";
 
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 import { MultiPageFormData } from "@/lib/form-schemas";
 import {
@@ -20,7 +21,24 @@ import {
 import { educationLevels, generalFieldsOfStudy, fieldsOfStudy } from "@/lib/education-data";
 
 export default function Page3_EducationProgram() {
-  const { control } = useFormContext<MultiPageFormData>();
+  const { control, watch, setValue } = useFormContext<MultiPageFormData>();
+  const generalField = watch("generalFieldOfStudy");
+  const specificField = watch("fieldOfStudy");
+
+  const filteredFieldsOfStudy = useMemo(() => {
+    if (!generalField) {
+      return [];
+    }
+    const prefix = generalField.split('.')[0];
+    return fieldsOfStudy.filter(field => field.startsWith(prefix + '.'));
+  }, [generalField]);
+
+  useEffect(() => {
+    const currentSpecificFieldIsValid = filteredFieldsOfStudy.includes(specificField);
+    if (generalField && !currentSpecificFieldIsValid && specificField) {
+      setValue("fieldOfStudy", "", { shouldValidate: true });
+    }
+  }, [generalField, specificField, filteredFieldsOfStudy, setValue]);
 
   return (
     <div className="space-y-4">
@@ -78,14 +96,14 @@ export default function Page3_EducationProgram() {
         render={({ field }) => (
           <FormItem>
             <FormLabel>Field of Study*</FormLabel>
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <Select onValueChange={field.onChange} value={field.value} disabled={!generalField}>
               <FormControl>
                 <SelectTrigger>
                   <SelectValue placeholder="Select specific field of study" />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                {fieldsOfStudy.map((specificField) => (
+                {filteredFieldsOfStudy.map((specificField) => (
                   <SelectItem key={specificField} value={specificField}>
                     {specificField}
                   </SelectItem>
