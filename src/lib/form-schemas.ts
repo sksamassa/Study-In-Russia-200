@@ -1,5 +1,17 @@
 import { z } from 'zod';
 
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
+const MAX_TOTAL_SIZE = 50 * 1024 * 1024; // 50 MB
+const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png", "application/pdf"];
+
+// Base file schema for individual file validation
+const fileSchema = z.instanceof(File)
+  .refine((file) => file.size <= MAX_FILE_SIZE, `File size must not exceed 5 MB.`)
+  .refine(
+    (file) => ACCEPTED_FILE_TYPES.includes(file.type),
+    "Unsupported file format. Only JPEG, PNG, PDF are allowed."
+  );
+
 // Page 1: Personal Information
 export const personalInfoSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -9,10 +21,10 @@ export const personalInfoSchema = z.object({
   dateOfBirth: z.string().min(1, "Date of birth is required").refine((val) => {
     const dob = new Date(val);
     const today = new Date();
-    const age = today.getFullYear() - dob.getFullYear();
+    let age = today.getFullYear() - dob.getFullYear();
     const m = today.getMonth() - dob.getMonth();
     if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
-      return age - 1 >= 16;
+      age--;
     }
     return age >= 16;
   }, "You must be at least 16 years old."),
@@ -43,17 +55,11 @@ export const languageProficiencySchema = z.object({
 });
 
 // Page 5: Documents
-export const documentFileSchema = z.object({
-  name: z.string().min(1, "File name is required"),
-  url: z.string().url("Invalid URL for file").min(1, "File URL is required"),
-  size: z.number().max(5 * 1024 * 1024, "File size must not exceed 5 MB"), // 5 MB limit
-  type: z.string().regex(/^(image\/(jpeg|png)|application\/pdf)$/, "Unsupported file format. Only JPEG, PNG, PDF are allowed."),
+export const documentsSchema = z.object({
+  passport: z.array(fileSchema).min(1, "Passport (original) is required"),
+  educationalDegree: z.array(fileSchema).min(1, "Educational degree (original) is required"),
 });
 
-export const documentsBaseSchema = z.object({
-  passport: z.array(documentFileSchema).min(1, "Passport (original) is required"),
-  educationalDegree: z.array(documentFileSchema).min(1, "Educational degree (original) is required"),
-});
 
 // Combined schema for the entire form
 export const multiPageFormSchema = z.object({
@@ -61,13 +67,13 @@ export const multiPageFormSchema = z.object({
   ...contactInfoSchema.shape,
   ...educationProgramSchema.shape,
   ...languageProficiencySchema.shape,
-  ...documentsBaseSchema.shape, // Use the base schema's shape
+  ...documentsSchema.shape,
 }).refine((data) => {
-  const totalSize = data.passport.reduce((sum, file) => sum + file.size, 0) +
-                    data.educationalDegree.reduce((sum, file) => sum + file.size, 0);
-  return totalSize <= 50 * 1024 * 1024; // 50 MB total limit
-}, "Total file size may not exceed 50 MB.");
+  const totalSize = 
+    data.passport.reduce((sum, file) => sum + file.size, 0) +
+    data.educationalDegree.reduce((sum, file) => sum + file.size, 0);
+  return totalSize <= MAX_TOTAL_SIZE;
+}, `Total file size may not exceed ${MAX_TOTAL_SIZE / 1024 / 1024} MB.`);
 
-export const documentsSchema = documentsBaseSchema; // Keep documentsSchema for individual page validation
 
 export type MultiPageFormData = z.infer<typeof multiPageFormSchema>;

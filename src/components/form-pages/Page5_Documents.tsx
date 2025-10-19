@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useFormContext, useFieldArray } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { MultiPageFormData } from "@/lib/form-schemas";
 import {
   FormControl,
@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { PlusCircle, MinusCircle, Info } from "lucide-react";
+import { MinusCircle, Info } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -22,27 +22,21 @@ import {
 
 // This is a placeholder for a more complex file upload component
 const FileUpload = ({ onChange, value, label, description, tooltipText }: {
-  onChange: (files: { name: string; url: string; size: number; type: string; }[]) => void;
-  value: { name: string; url: string; size: number; type: string; }[]; // Array of file objects from schema
+  onChange: (files: File[]) => void;
+  value: File[];
   label: string;
   description: string;
   tooltipText: string;
 }) => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
-      // For now, just simulate file objects with name, size, type, url
-      const newFiles = Array.from(event.target.files).map(file => ({
-        name: file.name,
-        url: URL.createObjectURL(file), // Placeholder URL
-        size: file.size,
-        type: file.type,
-      }));
-      onChange([...value, ...newFiles]);
+      const newFiles = Array.from(event.target.files);
+      onChange([...(value || []), ...newFiles]);
     }
   };
 
   const handleDeleteFile = (index: number) => {
-    const updatedFiles = value.filter((_, i) => i !== index);
+    const updatedFiles = (value || []).filter((_, i) => i !== index);
     onChange(updatedFiles);
   };
 
@@ -64,7 +58,7 @@ const FileUpload = ({ onChange, value, label, description, tooltipText }: {
       <p className="text-sm text-muted-foreground">{description}</p>
       <Input type="file" multiple onChange={handleFileChange} />
       <div className="space-y-1">
-        {value.map((file, index) => (
+        {(value || []).map((file, index) => (
           <div key={index} className="flex items-center justify-between rounded-md bg-muted p-2 text-sm">
             <span>{file.name} ({Math.round(file.size / 1024)} KB)</span>
             <Button type="button" variant="ghost" size="sm" onClick={() => handleDeleteFile(index)}>

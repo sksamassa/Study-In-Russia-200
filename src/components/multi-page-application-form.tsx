@@ -9,7 +9,7 @@ import {
   contactInfoSchema,
   educationProgramSchema,
   languageProficiencySchema,
-  documentsSchema, // Import documentsSchema
+  documentsSchema,
   MultiPageFormData,
 } from "@/lib/form-schemas";
 import { Button } from "@/components/ui/button";
@@ -17,19 +17,19 @@ import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
 import { submitApplication } from "@/lib/actions";
 
-// Page Components (to be created)
+// Page Components
 import Page1_PersonalInformation from "./form-pages/Page1_PersonalInformation";
 import Page2_ContactInformation from "./form-pages/Page2_ContactInformation";
 import Page3_EducationProgram from "./form-pages/Page3_EducationProgram";
 import Page4_LanguageProficiency from "./form-pages/Page4_LanguageProficiency";
-import Page5_Documents from "./form-pages/Page5_Documents"; // New import
+import Page5_Documents from "./form-pages/Page5_Documents";
 
 const steps = [
   { id: "personalInfo", name: "Personal Information", schema: personalInfoSchema, component: Page1_PersonalInformation },
   { id: "contactInfo", name: "Contact Information", schema: contactInfoSchema, component: Page2_ContactInformation },
   { id: "educationProgram", name: "Education Program", schema: educationProgramSchema, component: Page3_EducationProgram },
   { id: "languageProficiency", name: "Language Proficiency", schema: languageProficiencySchema, component: Page4_LanguageProficiency },
-  { id: "documents", name: "Documents", schema: documentsSchema, component: Page5_Documents }, // New step
+  { id: "documents", name: "Documents", schema: documentsSchema, component: Page5_Documents },
 ];
 
 export default function MultiPageApplicationForm() {
@@ -50,27 +50,73 @@ export default function MultiPageApplicationForm() {
       educationLevel: "",
       generalFieldOfStudy: "",
       fieldOfStudy: "",
-      languages: [{ language: "", level: "" }], // Updated default
+      languages: [{ language: "", level: "" }],
       preparatoryCourse: false,
-      passport: [], // New default
-      educationalDegree: [], // New default
+      passport: [],
+      educationalDegree: [],
     },
   });
 
-  const { trigger, getValues, formState: { errors } } = methods;
+  const { trigger, handleSubmit: handleHookFormSubmit } = methods;
+
+  const processAndNotify = async (formData: FormData) => {
+    try {
+        const result = await submitApplication(formData);
+        if (!result.success) {
+            console.error("Background submission failed:", result.message);
+            // Here you could implement a more robust error handling,
+            // like notifying your team or logging the error to a service.
+        }
+    } catch (error) {
+        console.error("Error in background processing:", error);
+    }
+  };
+
+  const onSubmit = async (data: MultiPageFormData) => {
+    setIsLoading(true);
+
+    const formData = new FormData();
+    Object.entries(data).forEach(([key, value]) => {
+      if (key === 'passport' || key === 'educationalDegree') {
+        value.forEach((file: File) => {
+          formData.append(key, file);
+        });
+      } else if (key === 'languages') {
+        formData.append(key, JSON.stringify(value));
+      }
+      else {
+        formData.append(key, String(value));
+      }
+    });
+
+    // Immediately give feedback to the user
+    toast({
+      title: "Application Received",
+      description: "We've received your application and will start processing it. You'll get a final confirmation soon.",
+    });
+
+    // Reset form and UI state
+    methods.reset();
+    setCurrentStep(0);
+    setIsLoading(false);
+
+    // Perform the long-running task in the background
+    processAndNotify(formData);
+  };
 
   const handleNext = async () => {
     const currentStepSchema = steps[currentStep].schema;
-    const isValid = await trigger(Object.keys(currentStepSchema.shape) as (keyof MultiPageFormData)[]);
+    const fieldsToValidate = Object.keys(currentStepSchema.shape) as (keyof MultiPageFormData)[];
+    const isValid = await trigger(fieldsToValidate);
 
     if (isValid) {
       if (currentStep < steps.length - 1) {
         setCurrentStep((prev) => prev + 1);
       } else {
-        // This is the last step, handle submission
-        await handleSubmit();
+        await handleHookFormSubmit(onSubmit)();
       }
     } else {
+        console.log(methods.formState.errors)
       toast({
         title: "Validation Error",
         description: "Please correct the errors in the current step.",
@@ -85,38 +131,6 @@ export default function MultiPageApplicationForm() {
     }
   };
 
-  const handleSubmit = async () => {
-    setIsLoading(true);
-    try {
-      const allFields = getValues();
-      const result = await submitApplication(allFields);
-
-      if (result.success) {
-        toast({
-          title: "Success",
-          description: result.message,
-        });
-        // Optionally reset form or navigate
-        methods.reset();
-        setCurrentStep(0);
-      } else {
-        toast({
-          title: "Submission Failed",
-          description: result.message,
-          variant: "destructive",
-        });
-      }
-    } catch (error) {
-      console.error("Form submission error:", error);
-      toast({
-        title: "Error",
-        description: "An unexpected error occurred during submission.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const CurrentPageComponent = steps[currentStep].component;
   const progress = ((currentStep + 1) / steps.length) * 100;
@@ -132,7 +146,7 @@ export default function MultiPageApplicationForm() {
       </div>
 
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(handleSubmit)} className="space-y-6">
+        <form onSubmit={handleHookFormSubmit(onSubmit)} className="space-y-6">
           <CurrentPageComponent />
 
           <div className="flex justify-between mt-8">

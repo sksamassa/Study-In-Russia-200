@@ -1,9 +1,7 @@
 
 "use server"
 
-import { MultiPageFormData } from "./form-schemas";
-
-export async function submitApplication(data: MultiPageFormData) {
+export async function submitApplication(formData: FormData) {
   try {
     const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
     const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
@@ -12,6 +10,9 @@ export async function submitApplication(data: MultiPageFormData) {
       console.error("Telegram bot token or chat ID is not set.");
       return { success: false, message: "Server configuration error: Telegram credentials missing." };
     }
+    
+    const data = Object.fromEntries(formData.entries());
+    const languages = JSON.parse(data.languages as string);
 
     const message = `
 New Student Application Submission:
@@ -33,30 +34,9 @@ General Field of Study: ${data.generalFieldOfStudy}
 Field of Study: ${data.fieldOfStudy}
 
 *Language Proficiency:*
-${data.languages.map(lang => `  - ${lang.language}: ${lang.level}`).join('\n')}
-Preparatory Course: ${data.preparatoryCourse ? "Yes" : "No"}
+${languages.map((lang: {language: string, level: string}) => `  - ${lang.language}: ${lang.level}`).join('\n')}
+Preparatory Course: ${data.preparatoryCourse === 'true' ? "Yes" : "No"}
     `;
-
-    const formData = new FormData();
-    formData.append('chat_id', TELEGRAM_CHAT_ID);
-    formData.append('caption', message);
-    formData.append('parse_mode', 'Markdown');
-
-    const media: any[] = [];
-
-    for (const file of data.passport) {
-        const response = await fetch(file.url);
-        const blob = await response.blob();
-        formData.append(file.name, blob, file.name);
-        media.push({ type: 'document', media: `attach://${file.name}`, caption: `Passport: ${file.name}` });
-    }
-
-    for (const file of data.educationalDegree) {
-        const response = await fetch(file.url);
-        const blob = await response.blob();
-        formData.append(file.name, blob, file.name);
-        media.push({ type: 'document', media: `attach://${file.name}`, caption: `Educational Degree: ${file.name}` });
-    }
 
     // Send the text message first
     const telegramApiUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
@@ -78,34 +58,45 @@ Preparatory Course: ${data.preparatoryCourse ? "Yes" : "No"}
         return { success: false, message: `Failed to send application text: ${errorData.description || textResponse.statusText}` };
     }
 
+    const passportFiles = formData.getAll('passport') as File[];
+    const educationalDegreeFiles = formData.getAll('educationalDegree') as File[];
+    
+    const allFiles = [...passportFiles, ...educationalDegreeFiles];
 
-    // Then send the documents
-    if (media.length > 0) {
-        const mediaFormData = new FormData();
-        mediaFormData.append('chat_id', TELEGRAM_CHAT_ID);
+    if (allFiles.length > 0) {
+      const mediaFormData = new FormData();
+      mediaFormData.append('chat_id', TELEGRAM_CHAT_ID);
 
-        const filesToAttach: { [key: string]: Blob } = {};
-        
-        const mediaPayload = await Promise.all(
-            [...data.passport, ...data.educationalDegree].map(async (file, index) => {
-                const response = await fetch(file.url);
-                const blob = await response.blob();
-                const attachmentName = `file${index}`;
-                mediaFormData.append(attachmentName, blob, file.name);
-                return {
-                    type: 'document',
-                    media: `attach://${attachmentName}`,
-                    caption: file.name
-                };
-            })
-        );
+      const mediaPayload = allFiles.map((file, index) => {
+        mediaFormData.append(file.name, file);
+        return {
+          type: 'document',
+          media: `attach://${file.name}`,
+          caption: file.name
+        };
+      });
 
-        mediaFormData.append('media', JSON.stringify(mediaPayload));
-        
+      // Telegram's sendMediaGroup has a limit of 10 items per request
+      const mediaChunks = [];
+      for (let i = 0; i < mediaPayload.length; i += 10) {
+          mediaChunks.push(mediaPayload.slice(i, i + 10));
+      }
+
+      for (const chunk of mediaChunks) {
+        const chunkFormData = new FormData();
+        chunkFormData.append('chat_id', TELEGRAM_CHAT_ID);
+        chunkFormData.append('media', JSON.stringify(chunk));
+
+        allFiles.forEach(file => {
+          if (chunk.some(media => `attach://${file.name}` === media.media)) {
+            chunkFormData.append(file.name, file);
+          }
+        });
+
         const sendMediaUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMediaGroup`;
         const mediaResponse = await fetch(sendMediaUrl, {
             method: "POST",
-            body: mediaFormData,
+            body: chunkFormData,
         });
 
         if (!mediaResponse.ok) {
@@ -113,6 +104,7 @@ Preparatory Course: ${data.preparatoryCourse ? "Yes" : "No"}
             console.error("Failed to send Telegram media:", errorData);
             return { success: false, message: `Failed to send application documents: ${errorData.description || mediaResponse.statusText}` };
         }
+      }
     }
 
     return { success: true, message: "Application submitted successfully!" };
