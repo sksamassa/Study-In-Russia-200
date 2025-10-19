@@ -1,3 +1,4 @@
+
 "use server"
 
 import { MultiPageFormData } from "./form-schemas";
@@ -34,14 +35,32 @@ Field of Study: ${data.fieldOfStudy}
 *Language Proficiency:*
 ${data.languages.map(lang => `  - ${lang.language}: ${lang.level}`).join('\n')}
 Preparatory Course: ${data.preparatoryCourse ? "Yes" : "No"}
-
-*Documents:*
-Passport Files: ${data.passport.map(file => file.name).join(', ')}
-Educational Degree Files: ${data.educationalDegree.map(file => file.name).join(', ')}
     `;
 
+    const formData = new FormData();
+    formData.append('chat_id', TELEGRAM_CHAT_ID);
+    formData.append('caption', message);
+    formData.append('parse_mode', 'Markdown');
+
+    const media: any[] = [];
+
+    for (const file of data.passport) {
+        const response = await fetch(file.url);
+        const blob = await response.blob();
+        formData.append(file.name, blob, file.name);
+        media.push({ type: 'document', media: `attach://${file.name}`, caption: `Passport: ${file.name}` });
+    }
+
+    for (const file of data.educationalDegree) {
+        const response = await fetch(file.url);
+        const blob = await response.blob();
+        formData.append(file.name, blob, file.name);
+        media.push({ type: 'document', media: `attach://${file.name}`, caption: `Educational Degree: ${file.name}` });
+    }
+
+    // Send the text message first
     const telegramApiUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-    const response = await fetch(telegramApiUrl, {
+    const textResponse = await fetch(telegramApiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -53,15 +72,55 @@ Educational Degree Files: ${data.educationalDegree.map(file => file.name).join('
       }),
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Failed to send Telegram message:", errorData);
-      return { success: false, message: `Failed to send application: ${errorData.description || response.statusText}` };
+    if (!textResponse.ok) {
+        const errorData = await textResponse.json();
+        console.error("Failed to send Telegram message:", errorData);
+        return { success: false, message: `Failed to send application text: ${errorData.description || textResponse.statusText}` };
+    }
+
+
+    // Then send the documents
+    if (media.length > 0) {
+        const mediaFormData = new FormData();
+        mediaFormData.append('chat_id', TELEGRAM_CHAT_ID);
+
+        const filesToAttach: { [key: string]: Blob } = {};
+        
+        const mediaPayload = await Promise.all(
+            [...data.passport, ...data.educationalDegree].map(async (file, index) => {
+                const response = await fetch(file.url);
+                const blob = await response.blob();
+                const attachmentName = `file${index}`;
+                mediaFormData.append(attachmentName, blob, file.name);
+                return {
+                    type: 'document',
+                    media: `attach://${attachmentName}`,
+                    caption: file.name
+                };
+            })
+        );
+
+        mediaFormData.append('media', JSON.stringify(mediaPayload));
+        
+        const sendMediaUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMediaGroup`;
+        const mediaResponse = await fetch(sendMediaUrl, {
+            method: "POST",
+            body: mediaFormData,
+        });
+
+        if (!mediaResponse.ok) {
+            const errorData = await mediaResponse.json();
+            console.error("Failed to send Telegram media:", errorData);
+            return { success: false, message: `Failed to send application documents: ${errorData.description || mediaResponse.statusText}` };
+        }
     }
 
     return { success: true, message: "Application submitted successfully!" };
   } catch (error) {
     console.error("Error submitting application:", error);
+    if (error instanceof Error) {
+        return { success: false, message: `An unexpected error occurred during submission: ${error.message}` };
+    }
     return { success: false, message: "An unexpected error occurred during submission." };
   }
 }
