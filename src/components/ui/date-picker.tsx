@@ -35,7 +35,7 @@ export function DatePicker({ date, onDateChange, placeholder = "Pick a date", cl
           onSelect={onDateChange}
           disabled={disabled}
           initialFocus
-          captionLayout="dropdown"
+          captionLayout="dropdown-buttons"
           fromYear={1900}
           toYear={new Date().getFullYear()}
         />
@@ -101,7 +101,14 @@ export function DateRangePicker({
               ))}
             </div>
           )}
-          <Calendar mode="range" selected={dateRange} onSelect={onDateRangeChange} numberOfMonths={2} initialFocus />
+          <Calendar
+            mode="range"
+            selected={dateRange}
+            onSelect={onDateRangeChange}
+            numberOfMonths={2}
+            initialFocus
+            captionLayout="dropdown-buttons"
+          />
         </div>
       </PopoverContent>
     </Popover>
