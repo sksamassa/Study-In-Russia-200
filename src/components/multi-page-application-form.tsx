@@ -112,8 +112,8 @@ export default function MultiPageApplicationForm() {
     } else {
         console.log(methods.formState.errors)
       toast({
-        title: "Validation Error",
-        description: "Please correct the errors on the page.",
+        title: "Missing Information",
+        description: "Please fill out all required fields on the page.",
         variant: "destructive",
       });
     }
