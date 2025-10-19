@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -17,7 +18,7 @@ const StepProgress = React.forwardRef<HTMLDivElement, StepProgressProps>(
     return (
       <div
         ref={ref}
-        className={cn("flex w-full items-start justify-center", className)}
+        className={cn("relative flex w-full items-start justify-between", className)}
         {...props}
       >
         {steps.map((step, index) => {
@@ -28,10 +29,10 @@ const StepProgress = React.forwardRef<HTMLDivElement, StepProgressProps>(
 
           return (
             <React.Fragment key={step.name}>
-              <div className="flex flex-col items-center gap-2">
+              <div className="relative z-10 flex flex-col items-center gap-2">
                 <div
                   className={cn(
-                    "flex h-8 w-8 items-center justify-center rounded-full border-2 text-sm font-bold",
+                    "flex h-8 w-8 items-center justify-center rounded-full border-2 text-sm font-bold bg-background",
                     isCompleted
                       ? "border-primary bg-primary text-primary-foreground"
                       : "",
@@ -46,23 +47,22 @@ const StepProgress = React.forwardRef<HTMLDivElement, StepProgressProps>(
                   {stepNumber}
                 </div>
                 <p className={cn(
-                  "text-center text-xs",
+                  "text-center text-xs max-w-[80px]",
                   isCurrent ? "font-bold text-primary" : "text-muted-foreground"
                 )}>
                   {step.name}
                 </p>
               </div>
-              {stepNumber < steps.length && (
-                <div
-                  className={cn(
-                    "h-0.5 flex-1 translate-y-3.5",
-                    stepNumber < currentStep ? "bg-primary" : "bg-muted-foreground/30"
-                  )}
-                />
-              )}
             </React.Fragment>
           )
         })}
+        <div className="absolute top-4 left-0 w-full h-0.5 -z-1">
+          <div className="w-full h-full bg-muted-foreground/30"></div>
+          <div 
+            className="absolute top-0 left-0 h-full bg-primary transition-all duration-300"
+            style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
+          ></div>
+        </div>
       </div>
     )
   }
