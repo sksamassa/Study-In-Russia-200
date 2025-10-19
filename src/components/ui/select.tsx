@@ -93,7 +93,7 @@ const SelectContent = React.forwardRef<
       position={position}
       {...props}
     >
-      <SelectScrollUpButton />
+      {/* <SelectScrollUpButton /> */}
       <SelectPrimitive.Viewport
         onWheel={handleWheel}
         className={cn(
@@ -104,7 +104,7 @@ const SelectContent = React.forwardRef<
       >
         {children}
       </SelectPrimitive.Viewport>
-      <SelectScrollDownButton />
+      {/* <SelectScrollDownButton /> */}
     </SelectPrimitive.Content>
   </SelectPrimitive.Portal>
 )})

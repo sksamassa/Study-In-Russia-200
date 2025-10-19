@@ -70,7 +70,6 @@ export const generalFieldsOfStudy = [
 ];
 
 export const fieldsOfStudy = [
-  '03.05.01 Astronomy',
   '01.03.01 Mathematics',
   '01.03.02 Applied Mathematics and Informatics',
   '01.03.03 Mechanics and Mathematical Modelling',
@@ -601,7 +600,6 @@ export const fieldsOfStudy = [
   '3.1.2 Oral and maxillofacial surgery',
   '3.1.30 Gastroenterology and dietetics',
   '3.1.31 Gerontology and geriatrics',
-  '3.1.32 Nephrology',
   '3.1.3 Otorhinolaryngology',
   '3.1.4 Obstetrics and gynecology',
   '3.1.5 Ophthalmology',

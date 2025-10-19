@@ -21,7 +21,7 @@ export const personalInfoSchema = z.object({
 // Page 2: Contact Information
 export const contactInfoSchema = z.object({
   email: z.string().email("Invalid email address").min(1, "Email is required"),
-  telegramWhatsAppNumber: z.string().min(1, "Phone number is required").regex(/^\+?[1-9]\d{1,14}$/, "Invalid phone number format (e.g., +1234567890)"),
+  telegramWhatsAppNumber: z.string().min(1, "Phone number is required").regex(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/, "Invalid phone number format (e.g., +1234567890)"),
 });
 
 // Page 3: Education Program
