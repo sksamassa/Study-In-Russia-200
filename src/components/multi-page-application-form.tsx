@@ -60,9 +60,13 @@ export default function MultiPageApplicationForm() {
 
   const { trigger, handleSubmit: handleHookFormSubmit } = methods;
 
-  const processForm = async (data: MultiPageFormData) => {
-    try {
-      const result = await submitApplication(data);
+  const processForm = (data: MultiPageFormData) => {
+    toast({
+      title: "Application Received",
+      description: "We've received your application and will start processing it. You'll get a final confirmation soon.",
+    });
+    
+    submitApplication(data).then(result => {
       if (!result.success) {
         console.error("Background submission failed:", result.message);
         toast({
@@ -76,26 +80,19 @@ export default function MultiPageApplicationForm() {
           description: "Your application has been successfully submitted.",
         });
       }
-    } catch (error) {
+    }).catch(error => {
       console.error("Error in background processing:", error);
       toast({
         title: "Submission Error",
         description: "An unexpected error occurred. Please try again later.",
         variant: "destructive",
       });
-    }
+    });
   };
 
-  const onSubmit = async (data: MultiPageFormData) => {
+  const onSubmit = (data: MultiPageFormData) => {
     setIsLoading(true);
-
-    toast({
-      title: "Application Received",
-      description: "We've received your application and will start processing it. You'll get a final confirmation soon.",
-    });
-
-    await processForm(data);
-
+    processForm(data);
     methods.reset();
     setCurrentStep(0);
     setIsLoading(false);
@@ -110,13 +107,13 @@ export default function MultiPageApplicationForm() {
       if (currentStep < steps.length - 1) {
         setCurrentStep((prev) => prev + 1);
       } else {
-        await handleHookFormSubmit(onSubmit)();
+        handleHookFormSubmit(onSubmit)();
       }
     } else {
         console.log(methods.formState.errors)
       toast({
         title: "Validation Error",
-        description: "Please correct the errors in the current step.",
+        description: "Please correct the errors on the page.",
         variant: "destructive",
       });
     }
@@ -124,7 +121,7 @@ export default function MultiPageApplicationForm() {
 
   const handlePrevious = () => {
     if (currentStep > 0) {
-      setCurrentStep((prev) => prev + 1);
+      setCurrentStep((prev) => prev - 1);
     }
   };
 
@@ -132,7 +129,7 @@ export default function MultiPageApplicationForm() {
   const CurrentPageComponent = steps[currentStep].component;
 
   return (
-    <div className="container mx-auto p-4 max-w-4xl">
+    <div className="bg-card shadow-lg rounded-xl p-8 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-8 text-center">Student Application Form</h1>
 
       <div className="mb-12 px-4 md:px-8">
@@ -140,7 +137,7 @@ export default function MultiPageApplicationForm() {
       </div>
 
       <FormProvider {...methods}>
-        <form onSubmit={handleHookFormSubmit(onSubmit)} className="space-y-6 max-w-2xl mx-auto">
+        <form className="space-y-6 max-w-2xl mx-auto">
           <CurrentPageComponent />
 
           <div className="flex justify-between mt-8">
