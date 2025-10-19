@@ -77,15 +77,17 @@ export default function Page5_Documents() {
 
   return (
     <div className="space-y-6">
-      <p className="text-sm text-muted-foreground">
-        <span className="font-semibold">Supported file formats:</span> .jpeg, .jpg, .png, .pdf
-      </p>
-      <p className="text-sm text-muted-foreground">
-        <span className="font-semibold">The size of each file should not exceed 5 MB</span>
-      </p>
-      <p className="text-sm text-muted-foreground">
-        <span className="font-semibold">All files together may not exceed 50 MB</span>
-      </p>
+      <div className="rounded-lg bg-secondary/50 p-4 space-y-1">
+        <p className="text-sm text-muted-foreground">
+          <span className="font-semibold text-foreground">Supported file formats:</span> .jpeg, .jpg, .png, .pdf
+        </p>
+        <p className="text-sm text-muted-foreground">
+          <span className="font-semibold text-foreground">The size of each file should not exceed 5 MB</span>
+        </p>
+        <p className="text-sm text-muted-foreground">
+          <span className="font-semibold text-foreground">All files together may not exceed 50 MB</span>
+        </p>
+      </div>
 
       <FormField
         control={control}
