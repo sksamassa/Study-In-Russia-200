@@ -1,6 +1,7 @@
+
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { MultiPageFormData } from "@/lib/form-schemas";
 import {
@@ -10,20 +11,29 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { countries } from "../../lib/countries"; // Changed to relative path
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { Check, ChevronsUpDown } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { countries } from "@/lib/countries";
 import { DateOfBirthPicker } from "../ui/date-picker";
 import { format } from "date-fns";
 
 export default function Page1_PersonalInformation() {
-  const { control } = useFormContext<MultiPageFormData>();
+  const { control, setValue, getValues } = useFormContext<MultiPageFormData>();
+  const [popoverOpen, setPopoverOpen] = useState(false);
 
   return (
     <div className="space-y-4">
@@ -70,22 +80,59 @@ export default function Page1_PersonalInformation() {
         control={control}
         name="citizenship"
         render={({ field }) => (
-          <FormItem>
+          <FormItem className="flex flex-col">
             <FormLabel>Citizenship*</FormLabel>
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
-              <FormControl>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select your country" />
-                </SelectTrigger>
-              </FormControl>
-              <SelectContent>
-                {countries.map((country: string) => (
-                  <SelectItem key={country} value={country}>
-                    {country}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
+              <PopoverTrigger asChild>
+                <FormControl>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    className={cn(
+                      "w-full justify-between",
+                      !field.value && "text-muted-foreground"
+                    )}
+                  >
+                    {field.value
+                      ? countries.find(
+                          (country) => country === field.value
+                        )
+                      : "Select your country"}
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  </Button>
+                </FormControl>
+              </PopoverTrigger>
+              <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
+                <Command>
+                  <CommandInput placeholder="Search country..." />
+                  <CommandList>
+                    <CommandEmpty>No country found.</CommandEmpty>
+                    <CommandGroup>
+                      {countries.map((country) => (
+                        <CommandItem
+                          value={country}
+                          key={country}
+                          onSelect={() => {
+                            setValue("citizenship", country, { shouldValidate: true });
+                            setPopoverOpen(false);
+                          }}
+                        >
+                          <Check
+                            className={cn(
+                              "mr-2 h-4 w-4",
+                              country === field.value
+                                ? "opacity-100"
+                                : "opacity-0"
+                            )}
+                          />
+                          {country}
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
             <FormMessage />
           </FormItem>
         )}
