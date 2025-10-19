@@ -274,28 +274,49 @@
             "firstName": "First Name",
             "firstNamePlaceholder": "Your first name",
             "middleName": "Middle Name",
-            "middleNamePlaceholder": "Optional",
+            "middleNamePlaceholder": "Your middle name",
             "lastName": "Last Name",
             "lastNamePlaceholder": "Your last name",
-            "citizenship": "Citizenship"
+            "citizenship": "Citizenship",
+            "dateOfBirth": "Date of Birth"
         },
         "contactInfo": {
             "title": "Contact Information",
             "email": "Email",
-            "phone": "Telegram/WhatsApp Number"
+            "emailPlaceholder": "john.doe@example.com",
+            "telegramWhatsAppNumber": "Telegram/WhatsApp Number",
+            "telegramWhatsAppNumberPlaceholder": "+1234567890"
+        },
+        "educationProgram": {
+            "title": "Education Program",
+            "educationLevel": "Education Level",
+            "educationLevelPlaceholder": "Select your education level",
+            "generalFieldOfStudy": "General Field of Study",
+            "generalFieldOfStudyPlaceholder": "Select general field of study",
+            "fieldOfStudy": "Field of Study",
+            "fieldOfStudyPlaceholder": "Select specific field of study"
+        },
+        "languageProficiency": {
+            "title": "Language Proficiency",
+            "languageProficiency": "Language Proficiency",
+            "languagePlaceholder": "Select language",
+            "levelPlaceholder": "Select level",
+            "addLanguage": "Add",
+            "deleteLanguage": "Delete",
+            "preparatoryCourse": "I would like to attend a preparatory Russian course"
         },
         "documents": {
             "title": "Documents",
+            "supportedFormats": "Supported file formats: .jpeg, .jpg, .png, .pdf",
+            "maxFileSize": "The size of each file should not exceed 5 MB",
+            "maxTotalSize": "All files together may not exceed 50 MB",
             "passportLabel": "Passport (original)*",
             "passportDescription": "Scanned Copy of the Original Document",
-            "passportTooltip": "Please upload a clear, full-page color scan of your passport's bio-data page.",
-            "educationLabel": "Educational degree (original)*",
-            "educationDescription": "Scanned Copy of the Original Document(s)",
-            "educationTooltip": "Upload your high school diploma, bachelor's degree, or any relevant academic certificates.",
-            "paymentNote": "Please note: Your study invitation will be issued and sent upon receipt of payment."
-        },
-        "fileUpload": {
-            "upload": "Upload a file"
+            "passportTooltip": "Upload a copy of the passport by which you plan to enter Russia. The passport should be valid for at least 18 months from the date of your arrival in Russia.",
+            "educationalDegreeLabel": "Educational degree (original)*",
+            "educationalDegreeDescription": "Scanned Copy of the Original Document(s)",
+            "educationalDegreeTooltip": "Upload your high school diploma, bachelor's degree, or any relevant academic certificates.",
+            "uploadFile": "Upload a file"
         },
         "results": {
             "success": {

@@ -1,36 +1,26 @@
+import MultiPageApplicationForm from "@/components/multi-page-application-form";
+import { getDictionary } from "@/i18n/get-dictionary";
+import { Locale } from "@/i18n/i18n-config";
 
-import { ApplicationForm } from '@/components/application-form';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { getDictionary } from '@/i18n/get-dictionary';
-import { Locale } from '@/i18n/i18n-config';
+export default async function ApplicationPage({
+  params,
+}: {
+  params: { lang: Locale };
+}) {
+  const { lang } = await params;
+  const dictionary = await getDictionary(lang);
 
-
-export const metadata = {
-    title: 'Application - Study In Russia 200',
-    description: 'Submit your application to study in Russia. Our AI-powered system will help verify your documents.',
-};
-
-export const maxDuration = 120;
-
-export default async function ApplicationPage({ params }: { params: { lang: Locale } }) {
-    const dictionary = await getDictionary(params.lang);
-    return (
-        <div className="container py-12 md:py-20">
-            <div className="max-w-4xl mx-auto">
-                <Card>
-                    <CardHeader className="text-center">
-                        <CardTitle className="text-3xl md:text-4xl">{dictionary.application.title}</CardTitle>
-                        <CardDescription className="text-lg">
-                            {dictionary.application.description}
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                         <div className="p-1 pr-4">
-                            <ApplicationForm dictionary={dictionary.applicationForm}/>
-                        </div>
-                    </CardContent>
-                </Card>
-            </div>
-        </div>
-    );
+  return (
+    <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
+      <div className="flex max-w-[980px] flex-col items-start gap-2">
+        <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
+          {dictionary.application.title}
+        </h1>
+        <p className="max-w-[700px] text-lg text-muted-foreground">
+          {dictionary.application.description}
+        </p>
+      </div>
+      <MultiPageApplicationForm />
+    </section>
+  );
 }

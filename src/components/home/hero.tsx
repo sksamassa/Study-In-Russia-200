@@ -37,7 +37,7 @@ export function Hero({ dictionary, lang }: { dictionary: Awaited<ReturnType<type
         </p>
         <div className="mt-8 flex justify-center">
             <Button size="lg" className="text-lg px-8 py-6" asChild>
-              <Link href={`/${lang}/application`}>{dictionary.cta}</Link>
+              <Link href={`/${lang}`}>{dictionary.cta}</Link>
             </Button>
         </div>
       </motion.div>

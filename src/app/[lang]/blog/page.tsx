@@ -21,7 +21,8 @@ export const metadata = {
 };
 
 export default async function BlogPage({ params }: { params: { lang: Locale } }) {
-    const dictionary = await getDictionary(params.lang);
+    const { lang } = await params;
+    const dictionary = await getDictionary(lang);
     const posts = Object.values(dictionary.blog.posts);
   return (
     <div className="container px-10 py-12 md:py-20">
@@ -36,7 +37,7 @@ export default async function BlogPage({ params }: { params: { lang: Locale } })
         {blogPosts.map((post) => (
           <Card key={post.slug} className="flex flex-col justify-between h-full">
             <CardHeader className="p-0 w-full">
-              <Link href={`/${params.lang}/blog/${post.slug}`}>
+              <Link href={`/${lang}/blog/${post.slug}`}>
                 <Image
                   src={post.image.imageUrl}
                   alt={post.title}
@@ -50,7 +51,7 @@ export default async function BlogPage({ params }: { params: { lang: Locale } })
             <CardContent className="flex-grow p-6 flex flex-col justify-center">
               <CardTitle className="text-xl leading-snug text-center">
                 <Link
-                  href={`/${params.lang}/blog/${post.slug}`}
+                  href={`/${lang}/blog/${post.slug}`}
                   className="hover:text-primary transition-colors"
                 >
                   {dictionary.blog.posts[post.slug as keyof typeof dictionary.blog.posts].title}

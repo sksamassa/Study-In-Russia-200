@@ -33,13 +33,15 @@ const nextConfig: NextConfig = {
   serverRuntimeConfig: {
     TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN,
     TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID,
-    RESEND_API_KEY: process.env.RESEND_API_KEY,
-    SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
-    EMAIL_FROM: process.env.EMAIL_FROM,
   },
   publicRuntimeConfig: {
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
-  }
+  },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '10mb',
+    },
+  },
 };
 
 export default nextConfig;

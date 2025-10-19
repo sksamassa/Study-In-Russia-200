@@ -5,7 +5,8 @@ import { School, FileText, Bot, Plane, CheckCircle, DollarSign, Banknote, Bitcoi
 
 
 export default async function ServicesPage({ params }: { params: { lang: Locale } }) {
-    const dictionary = await getDictionary(params.lang);
+    const { lang } = await params;
+    const dictionary = await getDictionary(lang);
     const services = [
         {
             icon: School,

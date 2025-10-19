@@ -67,7 +67,7 @@ export const StickyScroll = ({ dictionary }: { dictionary: Awaited<ReturnType<ty
     offset: ["start start", "end end"],
   });
 
-  const projects = Object.values(dictionary.steps);
+  const projects = Object.values(dictionary?.steps || {});
 
   return (
     <Lenis root>
@@ -76,9 +76,9 @@ export const StickyScroll = ({ dictionary }: { dictionary: Awaited<ReturnType<ty
         className="relative flex w-full flex-col items-center justify-center pb-[100vh] pt-[50vh] bg-background"
       >
         <div className="absolute left-1/2 top-[10%] grid -translate-x-1/2 content-start justify-items-center gap-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold">{dictionary.title}</h2>
+          <h2 className="text-3xl md:text-4xl font-bold">{dictionary?.title || ''}</h2>
           <span className="after:from-background after:to-foreground/60 relative max-w-[20ch] text-xs uppercase leading-tight opacity-60 after:absolute after:left-1/2 after:top-full after:h-16 after:w-px after:bg-gradient-to-b after:content-['']">
-            {dictionary.subtitle}
+            {dictionary?.subtitle || ''}
           </span>
         </div>
         {projects.map((project, i) => {
