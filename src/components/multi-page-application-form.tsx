@@ -124,7 +124,7 @@ export default function MultiPageApplicationForm() {
 
   const handlePrevious = () => {
     if (currentStep > 0) {
-      setCurrentStep((prev) => prev - 1);
+      setCurrentStep((prev) => prev + 1);
     }
   };
 
@@ -137,10 +137,6 @@ export default function MultiPageApplicationForm() {
 
       <div className="mb-12 px-4 md:px-8">
         <StepProgress steps={steps} currentStep={currentStep + 1} />
-      </div>
-
-      <div className="mb-8 text-center">
-        <p className="text-lg font-medium">Step {currentStep + 1} of {steps.length}: {steps[currentStep].name}</p>
       </div>
 
       <FormProvider {...methods}>
