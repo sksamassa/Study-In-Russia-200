@@ -25,16 +25,14 @@ const StepProgress = React.forwardRef<HTMLDivElement, StepProgressProps>(
         {...props}
       >
         <div className="relative flex justify-between items-start">
-            <div className="absolute top-4 left-0 w-full h-0.5 -translate-y-1/2">
-                <div 
-                  className="absolute top-0 left-0 h-full bg-muted-foreground/30"
-                  style={{ width: `calc(100% - 32px)`, left: '16px' }}
-                ></div>
-                <div 
-                  className="absolute top-0 left-0 h-full bg-primary transition-all duration-300"
-                  style={{ width: `calc(${progressPercentage}% - ${progressPercentage > 0 ? 32 : 0}px)`, left: '16px' }}
-                ></div>
-            </div>
+          <div className="absolute top-4 left-0 w-full h-0.5 -translate-y-1/2 px-4">
+              <div className="w-full h-full bg-muted-foreground/30 relative">
+                  <div 
+                    className="absolute top-0 left-0 h-full bg-primary transition-all duration-300"
+                    style={{ width: `${progressPercentage}%` }}
+                  ></div>
+              </div>
+          </div>
 
             {steps.map((step, index) => {
             const stepNumber = index + 1
