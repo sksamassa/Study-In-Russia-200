@@ -73,10 +73,10 @@ const SelectContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
 >(({ className, children, position = "popper", ...props }, ref) => {
   const handleWheel = (e: React.WheelEvent) => {
-    const a = e.currentTarget;
-    if (a) {
-      if (e.deltaY > 0) a.scrollTop = a.scrollTop + 100;
-      else a.scrollTop = a.scrollTop - 100;
+    e.stopPropagation();
+    const element = e.currentTarget;
+    if (element) {
+        element.scrollTop += e.deltaY;
     }
   };
 
