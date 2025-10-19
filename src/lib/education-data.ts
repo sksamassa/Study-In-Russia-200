@@ -93,7 +93,6 @@ export const fieldsOfStudy = [
   '03.04.01 Applied Mathematics and Physics',
   '03.04.02 Physics',
   '03.04.03 Radio Physics',
-  '03.05.01 Astronomy',
   '03.05.02 Fundamental and Applied Physics',
   '03.13.02 Electric power and electrical engineering',
   '03.29.05 Design of light industry products',
