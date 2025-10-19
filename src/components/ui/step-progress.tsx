@@ -16,7 +16,7 @@ interface StepProgressProps extends React.HTMLAttributes<HTMLDivElement> {
 const StepProgress = React.forwardRef<HTMLDivElement, StepProgressProps>(
   ({ className, steps, currentStep, ...props }, ref) => {
     const totalSteps = steps.length;
-    const progressPercentage = ((currentStep - 1) / (totalSteps - 1)) * 100;
+    const progressPercentage = totalSteps > 1 ? ((currentStep - 1) / (totalSteps - 1)) * 100 : 0;
 
     return (
       <div
@@ -24,15 +24,18 @@ const StepProgress = React.forwardRef<HTMLDivElement, StepProgressProps>(
         className={cn("relative w-full", className)}
         {...props}
       >
-        <div className="absolute top-4 left-0 w-full h-0.5 -translate-y-1/2">
-            <div className="w-full h-full bg-muted-foreground/30"></div>
-            <div 
-              className="absolute top-0 left-0 h-full bg-primary transition-all duration-300"
-              style={{ width: `${progressPercentage}%` }}
-            ></div>
-        </div>
+        <div className="relative flex justify-between items-start">
+            <div className="absolute top-4 left-0 w-full h-0.5 -translate-y-1/2">
+                <div 
+                  className="absolute top-0 left-0 h-full bg-muted-foreground/30"
+                  style={{ width: `calc(100% - 32px)`, left: '16px' }}
+                ></div>
+                <div 
+                  className="absolute top-0 left-0 h-full bg-primary transition-all duration-300"
+                  style={{ width: `calc(${progressPercentage}% - ${progressPercentage > 0 ? 32 : 0}px)`, left: '16px' }}
+                ></div>
+            </div>
 
-        <div className="relative flex justify-between">
             {steps.map((step, index) => {
             const stepNumber = index + 1
             const isCompleted = stepNumber < currentStep
