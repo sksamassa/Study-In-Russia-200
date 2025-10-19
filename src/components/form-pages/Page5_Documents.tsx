@@ -10,24 +10,32 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { MinusCircle, Info } from "lucide-react";
+import { Info, Plus, X, File as FileIcon } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 
 // This is a placeholder for a more complex file upload component
-const FileUpload = ({ onChange, value, label, description, tooltipText }: {
+const FileUpload = ({
+  onChange,
+  value,
+  label,
+  description,
+  tooltipText,
+}: {
   onChange: (files: File[]) => void;
   value: File[];
   label: string;
   description: string;
   tooltipText: string;
 }) => {
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const newFiles = Array.from(event.target.files);
@@ -40,29 +48,70 @@ const FileUpload = ({ onChange, value, label, description, tooltipText }: {
     onChange(updatedFiles);
   };
 
+  const handleUploadClick = () => {
+    fileInputRef.current?.click();
+  };
+
   return (
-    <div className="space-y-2">
-      <div className="flex items-center gap-2">
-        <FormLabel>{label}</FormLabel>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Info className="h-4 w-4 text-muted-foreground" />
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>{tooltipText}</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+    <div className="space-y-4 border-b pb-4">
+      <div className="flex justify-between items-start">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <FormLabel>{label}</FormLabel>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-4 w-4 text-muted-foreground" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{tooltipText}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
+          <p className="text-sm text-muted-foreground">{description}</p>
+        </div>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          onClick={handleUploadClick}
+        >
+          <Plus className="mr-2 h-4 w-4" />
+          Upload a file
+        </Button>
+        <input
+          type="file"
+          ref={fileInputRef}
+          multiple
+          onChange={handleFileChange}
+          className="hidden"
+          accept=".jpg, .jpeg, .png, .pdf"
+        />
       </div>
-      <p className="text-sm text-muted-foreground">{description}</p>
-      <Input type="file" multiple onChange={handleFileChange} />
-      <div className="space-y-1">
+
+      <div className="space-y-2">
         {(value || []).map((file, index) => (
-          <div key={index} className="flex items-center justify-between rounded-md bg-muted p-2 text-sm">
-            <span>{file.name} ({Math.round(file.size / 1024)} KB)</span>
-            <Button type="button" variant="ghost" size="sm" onClick={() => handleDeleteFile(index)}>
-              <MinusCircle className="h-4 w-4 text-red-500" />
+          <div
+            key={index}
+            className="flex items-center justify-between rounded-md bg-muted/50 p-2 text-sm"
+          >
+            <div className="flex items-center gap-2">
+              <FileIcon className="h-5 w-5 text-muted-foreground" />
+              <span className="font-medium text-foreground">{file.name}</span>
+              <span className="text-xs text-muted-foreground">
+                ({(file.size / 1024).toFixed(1)} KB)
+              </span>
+            </div>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="h-6 w-6"
+              onClick={() => handleDeleteFile(index)}
+            >
+              <X className="h-4 w-4 text-destructive" />
+              <span className="sr-only">Remove file</span>
             </Button>
           </div>
         ))}
