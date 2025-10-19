@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState } from "react";
@@ -59,35 +60,20 @@ export default function MultiPageApplicationForm() {
 
   const { trigger, handleSubmit: handleHookFormSubmit } = methods;
 
-  const processAndNotify = async (formData: FormData) => {
-    try {
-        const result = await submitApplication(formData);
+  const processAndNotify = (data: MultiPageFormData) => {
+    submitApplication(data).then(result => {
         if (!result.success) {
             console.error("Background submission failed:", result.message);
             // Here you could implement a more robust error handling,
             // like notifying your team or logging the error to a service.
         }
-    } catch (error) {
+    }).catch(error => {
         console.error("Error in background processing:", error);
-    }
+    });
   };
 
   const onSubmit = async (data: MultiPageFormData) => {
     setIsLoading(true);
-
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-      if (key === 'passport' || key === 'educationalDegree') {
-        value.forEach((file: File) => {
-          formData.append(key, file);
-        });
-      } else if (key === 'languages') {
-        formData.append(key, JSON.stringify(value));
-      }
-      else {
-        formData.append(key, String(value));
-      }
-    });
 
     // Immediately give feedback to the user
     toast({
@@ -95,13 +81,13 @@ export default function MultiPageApplicationForm() {
       description: "We've received your application and will start processing it. You'll get a final confirmation soon.",
     });
 
+    // Perform the long-running task in the background
+    processAndNotify(data);
+
     // Reset form and UI state
     methods.reset();
     setCurrentStep(0);
     setIsLoading(false);
-
-    // Perform the long-running task in the background
-    processAndNotify(formData);
   };
 
   const handleNext = async () => {

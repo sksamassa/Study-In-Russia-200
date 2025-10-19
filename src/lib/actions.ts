@@ -1,7 +1,7 @@
 
 "use server"
 
-export async function submitApplication(formData: FormData) {
+export async function submitApplication(data: any) {
   try {
     const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
     const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
@@ -11,9 +11,6 @@ export async function submitApplication(formData: FormData) {
       return { success: false, message: "Server configuration error: Telegram credentials missing." };
     }
     
-    const data = Object.fromEntries(formData.entries());
-    const languages = JSON.parse(data.languages as string);
-
     const message = `
 New Student Application Submission:
 
@@ -34,8 +31,8 @@ General Field of Study: ${data.generalFieldOfStudy}
 Field of Study: ${data.fieldOfStudy}
 
 *Language Proficiency:*
-${languages.map((lang: {language: string, level: string}) => `  - ${lang.language}: ${lang.level}`).join('\n')}
-Preparatory Course: ${data.preparatoryCourse === 'true' ? "Yes" : "No"}
+${data.languages.map((lang: {language: string, level: string}) => `  - ${lang.language}: ${lang.level}`).join('\n')}
+Preparatory Course: ${data.preparatoryCourse ? "Yes" : "No"}
     `;
 
     // Send the text message first
@@ -58,8 +55,8 @@ Preparatory Course: ${data.preparatoryCourse === 'true' ? "Yes" : "No"}
         return { success: false, message: `Failed to send application text: ${errorData.description || textResponse.statusText}` };
     }
 
-    const passportFiles = formData.getAll('passport') as File[];
-    const educationalDegreeFiles = formData.getAll('educationalDegree') as File[];
+    const passportFiles = data.passport as File[];
+    const educationalDegreeFiles = data.educationalDegree as File[];
     
     const allFiles = [...passportFiles, ...educationalDegreeFiles];
 
@@ -67,7 +64,7 @@ Preparatory Course: ${data.preparatoryCourse === 'true' ? "Yes" : "No"}
       const mediaFormData = new FormData();
       mediaFormData.append('chat_id', TELEGRAM_CHAT_ID);
 
-      const mediaPayload = allFiles.map((file, index) => {
+      const mediaPayload = allFiles.map((file) => {
         mediaFormData.append(file.name, file);
         return {
           type: 'document',
