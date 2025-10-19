@@ -31,7 +31,7 @@ const StepProgress = React.forwardRef<HTMLDivElement, StepProgressProps>(
               <div className="flex flex-col items-center gap-2">
                 <div
                   className={cn(
-                    "flex h-6 w-6 items-center justify-center rounded-full border-2 text-xs font-bold",
+                    "flex h-8 w-8 items-center justify-center rounded-full border-2 text-sm font-bold",
                     isCompleted
                       ? "border-primary bg-primary text-primary-foreground"
                       : "",
@@ -55,7 +55,7 @@ const StepProgress = React.forwardRef<HTMLDivElement, StepProgressProps>(
               {stepNumber < steps.length && (
                 <div
                   className={cn(
-                    "h-0.5 flex-1 translate-y-3",
+                    "h-0.5 flex-1 translate-y-3.5",
                     stepNumber < currentStep ? "bg-primary" : "bg-muted-foreground/30"
                   )}
                 />
