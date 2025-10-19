@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -33,6 +33,9 @@ const steps = [
   { id: "documents", name: "Documents", schema: documentsSchema, component: Page5_Documents },
 ];
 
+const LOCAL_STORAGE_KEY = 'multi-page-form-data';
+
+
 export default function MultiPageApplicationForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -58,7 +61,45 @@ export default function MultiPageApplicationForm() {
     },
   });
 
-  const { trigger, handleSubmit: handleHookFormSubmit } = methods;
+  const { trigger, handleSubmit: handleHookFormSubmit, watch, reset } = methods;
+  const watchedData = watch();
+
+  useEffect(() => {
+    try {
+        const savedState = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (savedState) {
+            const { step, formData } = JSON.parse(savedState);
+            // We don't restore files, but we restore the rest of the form data
+            const restoredData = {
+                ...formData,
+                passport: [],
+                educationalDegree: [],
+            };
+            reset(restoredData);
+            if (typeof step === 'number') {
+                setCurrentStep(step);
+            }
+        }
+    } catch (error) {
+        console.error("Failed to load form state from localStorage", error);
+    }
+  }, [reset]);
+
+  useEffect(() => {
+    try {
+        const stateToSave = {
+            step: currentStep,
+            formData: watchedData,
+        };
+        // We don't save files to localStorage
+        delete stateToSave.formData.passport;
+        delete stateToSave.formData.educationalDegree;
+
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(stateToSave));
+    } catch (error) {
+        console.error("Failed to save form state to localStorage", error);
+    }
+  }, [watchedData, currentStep]);
 
   const processForm = (data: MultiPageFormData) => {
     toast({
@@ -79,6 +120,7 @@ export default function MultiPageApplicationForm() {
           title: "Application Submitted!",
           description: "Your application has been successfully submitted.",
         });
+        localStorage.removeItem(LOCAL_STORAGE_KEY);
       }
     }).catch(error => {
       console.error("Error in background processing:", error);
@@ -110,7 +152,6 @@ export default function MultiPageApplicationForm() {
         handleHookFormSubmit(onSubmit)();
       }
     } else {
-        console.log(methods.formState.errors)
       toast({
         title: "Missing Information",
         description: "Please fill out all required fields on the page.",
@@ -130,8 +171,6 @@ export default function MultiPageApplicationForm() {
 
   return (
     <div className="bg-card shadow-lg rounded-xl p-8 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-8 text-center">Student Application Form</h1>
-
       <div className="mb-12 px-4 md:px-8">
         <StepProgress steps={steps} currentStep={currentStep + 1} />
       </div>
