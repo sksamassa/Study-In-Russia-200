@@ -762,6 +762,7 @@ export const fieldsOfStudy = [
   '45.04.03 Fundamental and Applied Linguistics',
   '45.04.04 Intellectual systems in humanitarian sphere',
   '45.05.01 Practice and Theory of Translation',
+  '03.05.01 Astronomy',
   '46.03.01 History',
   '46.03.02 Document studies and Archives',
   '46.03.03 Anthropology and ethnology',
