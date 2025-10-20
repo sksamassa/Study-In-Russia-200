@@ -60,6 +60,14 @@ export const documentsSchema = z.object({
   educationalDegree: z.array(fileSchema).min(1, "An educational degree scan is required"),
 });
 
+// Page 6: Final Step with reCAPTCHA and consent
+export const finalStepSchema = z.object({
+  recaptcha: z.string().min(1, "Please complete the reCAPTCHA"),
+  privacyPolicyConsent: z.boolean().refine((val) => val === true, {
+    message: "You must agree to the privacy policy to submit the application.",
+  }),
+});
+
 
 // Combined schema for the entire form
 export const multiPageFormSchema = z.object({
@@ -68,6 +76,7 @@ export const multiPageFormSchema = z.object({
   ...educationProgramSchema.shape,
   ...languageProficiencySchema.shape,
   ...documentsSchema.shape,
+  ...finalStepSchema.shape,
 }).refine((data) => {
   const totalSize = 
     data.passport.reduce((sum, file) => sum + file.size, 0) +

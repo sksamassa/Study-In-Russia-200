@@ -1,9 +1,12 @@
 
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import ReCAPTCHA from "react-google-recaptcha";
+import Link from 'next/link';
+
 import {
   multiPageFormSchema,
   personalInfoSchema,
@@ -11,6 +14,7 @@ import {
   educationProgramSchema,
   languageProficiencySchema,
   documentsSchema,
+  finalStepSchema,
   MultiPageFormData,
 } from "@/lib/form-schemas";
 import { Button } from "@/components/ui/button";
@@ -25,6 +29,10 @@ import Page4_LanguageProficiency from "./form-pages/Page4_LanguageProficiency";
 import Page5_Documents from "./form-pages/Page5_Documents";
 import { StepProgress } from "./ui/step-progress";
 import { getDictionary } from "@/i18n/get-dictionary";
+import { FormField, FormItem, FormControl, FormLabel, FormMessage } from "./ui/form";
+import { Checkbox } from "./ui/checkbox";
+import { usePathname } from "next/navigation";
+
 
 const LOCAL_STORAGE_KEY = 'multi-page-form-data';
 
@@ -36,6 +44,8 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const lang = usePathname().split('/')[1] || 'en';
 
   const steps = [
     { id: "personalInfo", name: dictionary.applicationForm.personalInfo.title, schema: personalInfoSchema, component: Page1_PersonalInformation },
@@ -43,6 +53,7 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
     { id: "educationProgram", name: dictionary.applicationForm.educationProgram.title, schema: educationProgramSchema, component: Page3_EducationProgram },
     { id: "languageProficiency", name: dictionary.applicationForm.languageProficiency.title, schema: languageProficiencySchema, component: Page4_LanguageProficiency },
     { id: "documents", name: dictionary.applicationForm.documents.title, schema: documentsSchema, component: Page5_Documents },
+    { id: "finalStep", name: dictionary.applicationForm.finalStep.title, schema: finalStepSchema, component: () => <></> },
   ];
 
   const methods = useForm<MultiPageFormData>({
@@ -62,10 +73,12 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
       preparatoryCourse: false,
       passport: [],
       educationalDegree: [],
+      recaptcha: "",
+      privacyPolicyConsent: false,
     },
   });
 
-  const { trigger, handleSubmit: handleHookFormSubmit, watch, reset } = methods;
+  const { trigger, handleSubmit: handleHookFormSubmit, watch, reset, setValue } = methods;
   const watchedData = watch();
 
   useEffect(() => {
@@ -73,11 +86,12 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
         const savedState = localStorage.getItem(LOCAL_STORAGE_KEY);
         if (savedState) {
             const { step, formData } = JSON.parse(savedState);
-            // We don't restore files, but we restore the rest of the form data
             const restoredData = {
                 ...formData,
                 passport: [],
                 educationalDegree: [],
+                recaptcha: "",
+                privacyPolicyConsent: false,
             };
             reset(restoredData);
             if (typeof step === 'number') {
@@ -95,9 +109,10 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
             step: currentStep,
             formData: watchedData,
         };
-        // We don't save files to localStorage
         delete stateToSave.formData.passport;
         delete stateToSave.formData.educationalDegree;
+        delete stateToSave.formData.recaptcha;
+        delete stateToSave.formData.privacyPolicyConsent;
 
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(stateToSave));
     } catch (error) {
@@ -181,7 +196,52 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
 
       <FormProvider {...methods}>
         <form className="space-y-6 max-w-2xl mx-auto">
-          <CurrentPageComponent dictionary={dictionary} />
+          {currentStep < steps.length - 1 ? (
+             <CurrentPageComponent dictionary={dictionary} />
+          ) : (
+            <div className="space-y-6">
+                 <FormField
+                    control={methods.control}
+                    name="recaptcha"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormControl>
+                                <ReCAPTCHA
+                                    ref={recaptchaRef}
+                                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
+                                    onChange={(value) => field.onChange(value || "")}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                <FormField
+                    control={methods.control}
+                    name="privacyPolicyConsent"
+                    render={({ field }) => (
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                            <FormControl>
+                                <Checkbox
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                />
+                            </FormControl>
+                            <div className="space-y-1 leading-none">
+                                <FormLabel className="text-sm font-normal">
+                                    {dictionary.applicationForm.finalStep.consentText}
+                                    <Link href={`/${lang}/privacy-policy`} className="underline text-primary hover:text-primary/80" target="_blank">
+                                        {dictionary.applicationForm.finalStep.privacyPolicyLink}
+                                    </Link>.
+                                </FormLabel>
+                                <FormMessage />
+                            </div>
+                        </FormItem>
+                    )}
+                />
+            </div>
+          )}
 
           <div className="flex justify-between mt-8">
             <Button
@@ -190,14 +250,14 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
               disabled={currentStep === 0 || isLoading}
               variant="outline"
             >
-              Previous
+              {dictionary.applicationForm.previous}
             </Button>
             <Button
               type="button"
               onClick={handleNext}
               disabled={isLoading}
             >
-              {currentStep === steps.length - 1 ? (isLoading ? dictionary.applicationForm.submitting : dictionary.applicationForm.submit) : "Next"}
+              {currentStep === steps.length - 1 ? (isLoading ? dictionary.applicationForm.submitting : dictionary.applicationForm.submit) : dictionary.applicationForm.next}
             </Button>
           </div>
         </form>
