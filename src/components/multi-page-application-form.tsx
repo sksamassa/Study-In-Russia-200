@@ -5,6 +5,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from 'next/link';
+import ReCAPTCHA from "react-google-recaptcha";
 
 import {
   multiPageFormSchema,
@@ -44,6 +45,9 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const lang = usePathname().split('/')[1] || 'en';
+  const recaptchaRef = React.createRef<ReCAPTCHA>();
+  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+
 
   const steps = [
     { id: "personalInfo", name: dictionary.applicationForm.personalInfo.title, schema: personalInfoSchema, component: Page1_PersonalInformation },
@@ -72,6 +76,7 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
       passport: [],
       educationalDegree: [],
       privacyPolicyConsent: false,
+      recaptcha: "",
     },
   });
 
@@ -108,6 +113,7 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
         delete (stateToSave.formData as Partial<MultiPageFormData>).passport;
         delete (stateToSave.formData as Partial<MultiPageFormData>).educationalDegree;
         delete (stateToSave.formData as Partial<MultiPageFormData>).privacyPolicyConsent;
+        delete (stateToSave.formData as Partial<MultiPageFormData>).recaptcha;
 
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(stateToSave));
     } catch (error) {
@@ -218,6 +224,28 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
                         </FormItem>
                     )}
                 />
+                 {siteKey ? (
+                  <FormField
+                    control={methods.control}
+                    name="recaptcha"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <ReCAPTCHA
+                            ref={recaptchaRef}
+                            sitekey={siteKey}
+                            onChange={(value) => field.onChange(value || "")}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                ) : (
+                  <p className="text-sm text-destructive">
+                    reCAPTCHA is not configured. Please set NEXT_PUBLIC_RECAPTCHA_SITE_KEY.
+                  </p>
+                )}
             </div>
           )}
 

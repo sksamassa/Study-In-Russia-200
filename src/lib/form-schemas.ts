@@ -65,6 +65,7 @@ export const finalStepSchema = z.object({
   privacyPolicyConsent: z.boolean().refine((val) => val === true, {
     message: "You must agree to the privacy policy to submit the application.",
   }),
+  recaptcha: z.string().min(1, "Please complete the reCAPTCHA."),
 });
 
 

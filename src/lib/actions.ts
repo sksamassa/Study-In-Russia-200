@@ -3,6 +3,20 @@
 
 export async function submitApplication(data: any) {
   try {
+    const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
+    if (RECAPTCHA_SECRET_KEY) {
+        const recaptchaResponse = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `secret=${RECAPTCHA_SECRET_KEY}&response=${data.recaptcha}`,
+        });
+        const recaptchaData = await recaptchaResponse.json();
+        if (!recaptchaData.success) {
+            return { success: false, message: "reCAPTCHA verification failed." };
+        }
+    }
+
+
     const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
     const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
