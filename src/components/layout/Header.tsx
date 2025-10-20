@@ -57,7 +57,7 @@ export function Header({ dictionary }: { dictionary: Awaited<ReturnType<typeof g
         <div className="flex flex-1 items-center justify-end space-x-2">
           <nav className="hidden items-center space-x-6 text-lg font-medium md:flex">
             {navLinks.map((link) => {
-              const isActive = link.href.includes('/blog') ? pathname.startsWith(link.href) : pathname === link.href;
+              const isActive = pathname.startsWith(link.href);
               return (
               <Link
                 key={link.href}
@@ -76,9 +76,9 @@ export function Header({ dictionary }: { dictionary: Awaited<ReturnType<typeof g
           <div className="flex items-center">
             <LanguageSwitcher />
             <ThemeToggle />
-             {/* <Button asChild className="ml-4">
+             <Button asChild className="ml-4">
                 <Link href={`/${lang}/application`}>{dictionary.applyNow}</Link>
-             </Button> */}
+             </Button>
           </div>
         </div>
       </div>
@@ -87,7 +87,7 @@ export function Header({ dictionary }: { dictionary: Awaited<ReturnType<typeof g
           <div className="container py-4">
             <nav className="grid gap-4">
               {navLinks.map((link) => {
-                 const isActive = link.href.includes('/blog') ? pathname.startsWith(link.href) : pathname === link.href;
+                 const isActive = pathname.startsWith(link.href);
                 return (
                 <Link
                   key={link.href}
@@ -103,9 +103,9 @@ export function Header({ dictionary }: { dictionary: Awaited<ReturnType<typeof g
                   {link.label}
                 </Link>
               )})}
-              {/* <Button asChild className="w-full">
+              <Button asChild className="w-full">
                 <Link href={`/${lang}/application`} onClick={() => setIsMenuOpen(false)}>{dictionary.applyNow}</Link>
-              </Button> */}
+              </Button>
             </nav>
           </div>
         </div>

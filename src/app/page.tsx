@@ -1,3 +1,4 @@
+
 'use client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -51,7 +52,7 @@ const metrics = [
   },
   {
     icon: Building,
-    value: '50',
+    value: '200',
     suffix: '+',
     label: 'Partner Universities',
   },
@@ -270,18 +271,14 @@ export default function Home() {
     <>
       {/* Hero Section */}
       <section className="relative h-screen w-full flex items-center justify-center text-white overflow-hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          className="absolute top-0 left-0 w-full h-full object-cover"
-          key="hero-video"
-        >
-          <source src="/videos/St Basil Cathedral in Russia - Free Stock Video.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        <Image
+          src="/images/moscow-cathedral.jpeg"
+          alt="Saint Basil's Cathedral in Moscow"
+          fill
+          className="object-cover"
+          priority
+          data-ai-hint="moscow cathedral"
+        />
         <div className="absolute top-0 left-0 z-10 w-full h-full bg-black/60"></div>
         <motion.div 
           className="z-20 text-center px-4"
@@ -296,9 +293,9 @@ export default function Home() {
             Study In Russia 200 provides comprehensive support for international students, from application to arrival.
           </p>
           <div className="mt-8 flex justify-center">
-            {/* <Button size="lg" className="text-lg px-8 py-6" asChild>
+            <Button size="lg" className="text-lg px-8 py-6" asChild>
               <Link href="/application">Apply Now</Link>
-            </Button> */}
+            </Button>
           </div>
         </motion.div>
       </section>
