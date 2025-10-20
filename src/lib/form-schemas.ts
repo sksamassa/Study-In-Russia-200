@@ -60,9 +60,8 @@ export const documentsSchema = z.object({
   educationalDegree: z.array(fileSchema).min(1, "An educational degree scan is required"),
 });
 
-// Page 6: Final Step with reCAPTCHA and consent
+// Page 6: Final Step with consent
 export const finalStepSchema = z.object({
-  recaptcha: z.string().min(1, "Please complete the reCAPTCHA"),
   privacyPolicyConsent: z.boolean().refine((val) => val === true, {
     message: "You must agree to the privacy policy to submit the application.",
   }),

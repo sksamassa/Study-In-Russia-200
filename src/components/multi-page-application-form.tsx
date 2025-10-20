@@ -4,7 +4,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import ReCAPTCHA from "react-google-recaptcha";
 import Link from 'next/link';
 
 import {
@@ -44,9 +43,7 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
   const lang = usePathname().split('/')[1] || 'en';
-  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
   const steps = [
     { id: "personalInfo", name: dictionary.applicationForm.personalInfo.title, schema: personalInfoSchema, component: Page1_PersonalInformation },
@@ -74,12 +71,11 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
       preparatoryCourse: false,
       passport: [],
       educationalDegree: [],
-      recaptcha: "",
       privacyPolicyConsent: false,
     },
   });
 
-  const { trigger, handleSubmit: handleHookFormSubmit, watch, reset, setValue } = methods;
+  const { trigger, handleSubmit: handleHookFormSubmit, watch, reset } = methods;
   const watchedData = watch();
 
   useEffect(() => {
@@ -91,7 +87,6 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
                 ...formData,
                 passport: [],
                 educationalDegree: [],
-                recaptcha: "",
                 privacyPolicyConsent: false,
             };
             reset(restoredData);
@@ -110,10 +105,9 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
             step: currentStep,
             formData: watchedData,
         };
-        delete stateToSave.formData.passport;
-        delete stateToSave.formData.educationalDegree;
-        delete stateToSave.formData.recaptcha;
-        delete stateToSave.formData.privacyPolicyConsent;
+        delete (stateToSave.formData as Partial<MultiPageFormData>).passport;
+        delete (stateToSave.formData as Partial<MultiPageFormData>).educationalDegree;
+        delete (stateToSave.formData as Partial<MultiPageFormData>).privacyPolicyConsent;
 
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(stateToSave));
     } catch (error) {
@@ -196,32 +190,11 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
       </div>
 
       <FormProvider {...methods}>
-        <form className="space-y-6 max-w-2xl mx-auto">
+        <form onSubmit={handleHookFormSubmit(onSubmit)} className="space-y-6 max-w-2xl mx-auto">
           {currentStep < steps.length - 1 ? (
              <CurrentPageComponent dictionary={dictionary} />
           ) : (
             <div className="space-y-6">
-                 <FormField
-                    control={methods.control}
-                    name="recaptcha"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormControl>
-                                {siteKey ? (
-                                    <ReCAPTCHA
-                                        ref={recaptchaRef}
-                                        sitekey={siteKey}
-                                        onChange={(value) => field.onChange(value || "")}
-                                    />
-                                ) : (
-                                    <p className="text-sm text-destructive">reCAPTCHA is not configured. Please set NEXT_PUBLIC_RECAPTCHA_SITE_KEY.</p>
-                                )}
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-
                 <FormField
                     control={methods.control}
                     name="privacyPolicyConsent"

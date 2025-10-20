@@ -57,7 +57,6 @@
     "react-circle-flags": "^0.0.20",
     "react-day-picker": "^8.10.1",
     "react-dom": "^18.3.1",
-    "react-google-recaptcha": "^3.1.0",
     "react-hook-form": "^7.54.2",
     "recharts": "^2.15.1",
     "resend": "^3.5.0",
