@@ -49,6 +49,7 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
 
+
   const steps = [
     { id: "personalInfo", name: dictionary.applicationForm.personalInfo.title, schema: personalInfoSchema, component: Page1_PersonalInformation },
     { id: "contactInfo", name: dictionary.applicationForm.contactInfo.title, schema: contactInfoSchema, component: Page2_ContactInformation },
