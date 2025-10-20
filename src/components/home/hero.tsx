@@ -6,22 +6,24 @@ import { getDictionary } from '@/i18n/get-dictionary';
 import { Locale } from '@/i18n/i18n-config';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export function Hero({ dictionary, lang }: { dictionary: Awaited<ReturnType<typeof getDictionary>>['hero'], lang: Locale }) {
+  const heroImage = PlaceHolderImages.find(img => img.id === 'city-moscow');
+
   return (
     <section className="relative h-screen w-full flex items-center justify-center text-white overflow-hidden">
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        className="absolute top-0 left-0 w-full h-full object-cover"
-        key="hero-video"
-      >
-        <source src="/videos/St Basil Cathedral in Russia - Free Stock Video.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+        {heroImage && (
+            <Image
+                src={heroImage.imageUrl}
+                alt="Background of Moscow"
+                fill
+                className="object-cover"
+                priority
+                data-ai-hint={heroImage.imageHint}
+            />
+        )}
       <div className="absolute top-0 left-0 z-10 w-full h-full bg-black/60"></div>
       <motion.div 
         className="z-20 text-center px-4"
@@ -37,7 +39,7 @@ export function Hero({ dictionary, lang }: { dictionary: Awaited<ReturnType<type
         </p>
         <div className="mt-8 flex justify-center">
             <Button size="lg" className="text-lg px-8 py-6" asChild>
-              <Link href={`/${lang}`}>{dictionary.cta}</Link>
+              <Link href={`/${lang}/application`}>{dictionary.cta}</Link>
             </Button>
         </div>
       </motion.div>
