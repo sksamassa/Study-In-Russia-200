@@ -77,9 +77,9 @@ export function Footer({ dictionary }: { dictionary: Awaited<ReturnType<typeof g
   return (
     <footer className="border-t bg-card">
       <div className="container py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left  justify-items-center items-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left justify-items-center items-center">
           {/* Column 1: Logo & Description */}
-          <div className="space-y-4">
+          <div className="space-y-4 flex flex-col items-center md:items-start">
             <Link href={`/${lang}`} className="flex items-center space-x-2">
               <GraduationCap className="h-8 w-8 text-primary" />
               <span className="text-2xl font-bold font-headline">
@@ -103,7 +103,7 @@ export function Footer({ dictionary }: { dictionary: Awaited<ReturnType<typeof g
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 text-lg text-muted-foreground transition-colors hover:text-primary"
+                    className="flex items-center justify-center md:justify-start gap-3 text-lg text-muted-foreground transition-colors hover:text-primary"
                   >
                     <item.icon className="h-6 w-6" />
                     {item.value}

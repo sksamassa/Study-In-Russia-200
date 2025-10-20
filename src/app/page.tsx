@@ -345,6 +345,7 @@ export default function Home() {
       {/* Sticky Scroll Section */}
       <StickyScroll content={content} />
 
+
       {/* Success Metrics Section */}
       <section className="py-16 lg:py-24 bg-secondary">
           <div className="container">

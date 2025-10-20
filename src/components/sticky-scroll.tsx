@@ -38,23 +38,23 @@ const StickyCard = ({
   return (
     <div
       ref={container}
-      className="sticky top-1/2 -translate-y-1/2 flex items-center justify-center"
+      className="sticky top-1/2  flex items-center justify-center"
       style={{
-        top: `calc(50% + ${i * 40}px)`,
+        top: `calc(20% + ${i * 70}px)`,
       }}
     >
       <motion.div
         style={{
           scale,
         }}
-        className="relative flex flex-col w-[550px] min-h-[250px] origin-center rounded-2xl bg-card p-8 shadow-xl"
+        className="relative flex flex-col w-[550px] min-h-[300px] origin-center rounded-3xl bg-card p-8 shadow-xl"
       >
         <div className="flex justify-between items-start mb-4">
           <div className="flex items-center gap-4">
             <div className="text-primary">{icon}</div>
             <h3 className="text-xl font-bold">{title}</h3>
           </div>
-          <div className="text-5xl font-bold text-red-500 opacity-80">
+          <div className="text-5xl font-bold text-primary opacity-80">
             0{i + 1}
           </div>
         </div>
@@ -101,17 +101,17 @@ export const StickyScroll = ({ dictionary }: { dictionary: Awaited<ReturnType<ty
   return (
       <section
         ref={container}
-        className="relative w-full py-20 bg-background"
+        className="relative px-4 md:px-16 w-full bg-background"
       >
-        <div className="container grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            <div className="lg:sticky top-32 space-y-6">
+        <div className="container grid grid-cols-1 lg:grid-cols-2 gap-16 py-16 items-start">
+            <div className="lg:sticky top-32 mb-10 space-y-6">
                 <h2 className="text-4xl md:text-5xl font-bold">{dictionary?.title || ''}</h2>
                 <p className="text-muted-foreground text-lg">{dictionary?.leftColumn.description || ''}</p>
                 <Button asChild size="lg" className="text-lg px-10 py-7">
                     <Link href={`/${lang}/application`}>{dictionary?.leftColumn.cta || ''}</Link>
                 </Button>
             </div>
-            <div className="relative h-[200vh]">
+            <div className="relative h-[200vh] space-y-6 border-6">
                 {content.map((project, i) => {
                     const targetScale = 1 - (content.length - 1 - i) * 0.05;
                     return (

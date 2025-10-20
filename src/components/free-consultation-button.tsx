@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -58,19 +59,19 @@ export function FreeConsultationButton({ dictionary }: { dictionary: Awaited<Ret
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <div className="fixed bottom-8 right-8 z-50">
-            <button className="group relative w-28 h-28 flex items-center justify-center rounded-full bg-primary text-primary-foreground transition-transform hover:scale-105 active:scale-95 shadow-2xl">
+        <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50">
+            <button className="group relative w-24 h-24 md:w-28 md:h-28 flex items-center justify-center rounded-full bg-primary text-primary-foreground transition-transform hover:scale-105 active:scale-95 shadow-2xl">
                 <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full animate-[spin_10s_linear_infinite] group-hover:animate-[spin_4s_linear_infinite]">
                     <defs>
                         <path id="circle" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/>
                     </defs>
-                    <text dy="6" fill="hsl(var(--primary-foreground))" className="text-[10.5px] font-semibold uppercase tracking-wider">
+                    <text dy="6" fill="hsl(var(--primary-foreground))" className="text-[10px] md:text-[10.5px] font-semibold uppercase tracking-wider">
                         <textPath xlinkHref="#circle">
                             {circularText}
                         </textPath>
                     </text>
                 </svg>
-                <MessageSquare className="w-8 h-8" />
+                <MessageSquare className="w-7 h-7 md:w-8 md:h-8" />
             </button>
         </div>
       </PopoverTrigger>
