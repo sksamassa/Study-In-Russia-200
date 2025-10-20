@@ -1,3 +1,4 @@
+
 {
     "header": {
         "title": "Studeer In Rusland 200",
@@ -43,6 +44,10 @@
     "stickyScroll": {
         "title": "4 Maklike Stappe om in Rusland te Studeer",
         "subtitle": "Jou reis, vereenvoudig",
+        "leftColumn": {
+            "description": "Ons vaartbelynde proses verwyder die kompleksiteit van aansoek by Russiese universiteite. Volg ons begeleide stappe om jou dokumente voor te berei, jou uitnodiging te kry en jou studentevisum te verseker. Ons is by elke stap by jou.",
+            "cta": "Begin Jou Aansoek"
+        },
         "steps": {
             "step1": {
                 "title": "Dien 'n Aansoek in",

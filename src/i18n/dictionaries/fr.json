@@ -1,3 +1,4 @@
+
 {
     "header": {
         "title": "Étudier En Russie 200",
@@ -43,6 +44,10 @@
     "stickyScroll": {
         "title": "4 Étapes Faciles pour Étudier en Russie",
         "subtitle": "Votre voyage, simplifié",
+        "leftColumn": {
+            "description": "Notre processus simplifié élimine la complexité de la candidature aux universités russes. Suivez nos étapes guidées pour préparer vos documents, obtenir votre invitation et sécuriser votre visa étudiant. Nous sommes avec vous à chaque étape.",
+            "cta": "Commencez Votre Candidature"
+        },
         "steps": {
             "step1": {
                 "title": "Soumettre une Candidature",

@@ -1,10 +1,13 @@
+
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { default as Lenis } from "lenis/react";
 import React, { useRef } from "react";
 import { CheckCircle } from "lucide-react";
 import { getDictionary } from "@/i18n/get-dictionary";
+import { Button } from "./ui/button";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 
 const StickyCard = ({
@@ -31,7 +34,10 @@ const StickyCard = ({
   return (
     <div
       ref={container}
-      className="sticky top-0 flex items-center justify-center"
+      className="sticky top-1/2 flex items-center justify-center"
+      style={{
+        top: `calc(50% - ${(i * 20 + 250) / 2}px)`,
+      }}
     >
       <motion.div
         style={{
@@ -68,36 +74,40 @@ export const StickyScroll = ({ dictionary }: { dictionary: Awaited<ReturnType<ty
   });
 
   const projects = Object.values(dictionary?.steps || {});
+  const lang = usePathname().split('/')[1];
 
   return (
-    <Lenis root>
       <main
         ref={container}
-        className="relative flex w-full flex-col items-center justify-center pb-[100vh] pt-[50vh] bg-background"
+        className="relative w-full py-20 bg-background"
       >
-        <div className="absolute left-1/2 top-[10%] grid -translate-x-1/2 content-start justify-items-center gap-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold">{dictionary?.title || ''}</h2>
-          <span className="after:from-background after:to-foreground/60 relative max-w-[20ch] text-xs uppercase leading-tight opacity-60 after:absolute after:left-1/2 after:top-full after:h-16 after:w-px after:bg-gradient-to-b after:content-['']">
-            {dictionary?.subtitle || ''}
-          </span>
+        <div className="container grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            <div className="lg:sticky top-32 space-y-6">
+                <h2 className="text-3xl md:text-4xl font-bold">{dictionary?.title || ''}</h2>
+                <p className="text-muted-foreground text-lg">{dictionary?.leftColumn.description || ''}</p>
+                <Button asChild size="lg">
+                    <Link href={`/${lang}/application`}>{dictionary?.leftColumn.cta || ''}</Link>
+                </Button>
+            </div>
+            <div className="relative h-[250vh]">
+                {projects.map((project, i) => {
+                    const targetScale = Math.max(
+                        0.5,
+                        1 - (projects.length - i - 1) * 0.1,
+                    );
+                    return (
+                        <StickyCard
+                        key={`p_${i}`}
+                        i={i}
+                        {...project}
+                        progress={scrollYProgress}
+                        range={[i * 0.25, 1]}
+                        targetScale={targetScale}
+                        />
+                    );
+                })}
+            </div>
         </div>
-        {projects.map((project, i) => {
-          const targetScale = Math.max(
-            0.5,
-            1 - (projects.length - i - 1) * 0.1,
-          );
-          return (
-            <StickyCard
-              key={`p_${i}`}
-              i={i}
-              {...project}
-              progress={scrollYProgress}
-              range={[i * 0.25, 1]}
-              targetScale={targetScale}
-            />
-          );
-        })}
       </main>
-    </Lenis>
   );
 };

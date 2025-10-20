@@ -1,3 +1,4 @@
+
 {
     "header": {
         "title": "Estudiar En Rusia 200",
@@ -43,6 +44,10 @@
     "stickyScroll": {
         "title": "4 Pasos Fáciles para Estudiar en Rusia",
         "subtitle": "Tu viaje, simplificado",
+        "leftColumn": {
+            "description": "Nuestro proceso simplificado elimina la complejidad de solicitar ingreso a las universidades rusas. Sigue nuestros pasos guiados para preparar tus documentos, obtener tu invitación y asegurar tu visa de estudiante. Estamos contigo en cada etapa.",
+            "cta": "Comienza tu Solicitud"
+        },
         "steps": {
             "step1": {
                 "title": "Presenta una Solicitud",

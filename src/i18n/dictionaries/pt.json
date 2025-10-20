@@ -1,3 +1,4 @@
+
 {
     "header": {
         "title": "Estudar Na Rússia 200",
@@ -43,6 +44,10 @@
     "stickyScroll": {
         "title": "4 Passos Fáceis para Estudar na Rússia",
         "subtitle": "Sua jornada, simplificada",
+        "leftColumn": {
+            "description": "Nosso processo simplificado elimina a complexidade de se inscrever em universidades russas. Siga nossos passos guiados para preparar seus documentos, obter seu convite e garantir seu visto de estudante. Estamos com você em todas as etapas.",
+            "cta": "Comece sua Inscrição"
+        },
         "steps": {
             "step1": {
                 "title": "Envie uma Inscrição",
@@ -67,7 +72,7 @@
                 "stepNumber": 3,
                 "steps": [
                     "Solicite um visto de estudante na embaixada ou consulado russo mais próximo.",
-                    "Complete o exame médico и obtenha um seguro de saúde conforme necessário.",
+                    "Complete o exame médico e obtenha um seguro de saúde conforme necessário.",
                     "Reserve seu voo para a Rússia após receber seu visto."
                 ]
             },

@@ -1,3 +1,4 @@
+
 {
     "header": {
         "title": "Study In Russia 200",
@@ -43,6 +44,10 @@
     "stickyScroll": {
         "title": "4 Easy Steps to Study in Russia",
         "subtitle": "Your journey, simplified",
+        "leftColumn": {
+            "description": "Our streamlined process takes the complexity out of applying to Russian universities. Follow our guided steps to prepare your documents, get your invitation, and secure your student visa. We're with you at every stage.",
+            "cta": "Start Your Application"
+        },
         "steps": {
             "step1": {
                 "title": "Submit an Application",

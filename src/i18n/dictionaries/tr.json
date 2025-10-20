@@ -1,3 +1,4 @@
+
 {
     "header": {
         "title": "Rusya'da Eğitim 200",
@@ -43,6 +44,10 @@
     "stickyScroll": {
         "title": "Rusya'da Eğitim Almak İçin 4 Kolay Adım",
         "subtitle": "Yolculuğunuz, basitleştirildi",
+        "leftColumn": {
+            "description": "Basitleştirilmiş sürecimiz, Rus üniversitelerine başvurmanın karmaşıklığını ortadan kaldırır. Belgelerinizi hazırlamak, davetiyenizi almak ve öğrenci vizenizi güvence altına almak için rehberli adımlarımızı izleyin. Her aşamada yanınızdayız.",
+            "cta": "Başvurunuza Başlayın"
+        },
         "steps": {
             "step1": {
                 "title": "Başvuru Yapın",
