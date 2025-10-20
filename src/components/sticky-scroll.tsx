@@ -82,7 +82,7 @@ export const StickyScroll = ({ dictionary }: { dictionary: Awaited<ReturnType<ty
         className="relative w-full py-20 bg-background mb-[50vh]"
       >
         <div className="container grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            <div className="lg:sticky top-32 space-y-6">
+            <div className="lg:sticky top-1/4 space-y-6">
                 <h2 className="text-3xl md:text-4xl font-bold">{dictionary?.title || ''}</h2>
                 <p className="text-muted-foreground text-lg">{dictionary?.leftColumn.description || ''}</p>
                 <Button asChild size="lg">
