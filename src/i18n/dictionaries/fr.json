@@ -272,6 +272,8 @@
         "description": "Remplissez le formulaire ci-dessous pour commencer votre candidature. Notre équipe vérifiera vos documents à l'aide de l'IA."
     },
     "applicationForm": {
+        "next": "Suivant",
+        "previous": "Précédent",
         "submit": "Soumettre la Candidature",
         "submitting": "Vérification et Soumission...",
         "personalInfo": {
@@ -323,6 +325,11 @@
             "educationalDegreeTooltip": "Téléchargez votre diplôme d'études secondaires, votre licence ou tout certificat académique pertinent.",
             "uploadFile": "Télécharger un fichier"
         },
+        "finalStep": {
+            "title": "Soumettre",
+            "consentText": "Je confirme mon consentement au transfert et au traitement de mes données personnelles conformément à la ",
+            "privacyPolicyLink": "Politique de Confidentialité"
+        },
         "results": {
             "success": {
                 "title": "Succès !",
@@ -356,5 +363,67 @@
                 "unexpected": "Une erreur de serveur inattendue s'est produite. Veuillez réessayer."
             }
         }
+    },
+    "privacyPolicy": {
+        "title": "Politique de Confidentialité",
+        "lastUpdated": "Dernière mise à jour : 21 août 2024",
+        "sections": [
+            {
+                "title": "1. Introduction",
+                "content": [
+                    "Bienvenue chez Study In Russia 200. Nous nous engageons à protéger votre vie privée et à traiter vos données personnelles de manière ouverte et transparente. Cette politique de confidentialité explique comment nous collectons, utilisons et protégeons les informations personnelles que vous nous fournissez."
+                ]
+            },
+            {
+                "title": "2. Informations que nous collectons",
+                "content": [
+                    "Nous pouvons collecter et traiter les données personnelles suivantes vous concernant :",
+                    "- Informations d'identification personnelle (Nom, date de naissance, citoyenneté, etc.)",
+                    "- Coordonnées (Adresse e-mail, numéro de téléphone, etc.)",
+                    "- Informations sur le parcours scolaire (relevés de notes, diplômes, etc.)",
+                    "- Documents requis pour l'admission à l'université et la demande de visa (scans de passeport, etc.)",
+                    "- Données techniques (adresse IP, type de navigateur, etc.) lorsque vous interagissez avec notre site Web."
+                ]
+            },
+            {
+                "title": "3. Comment nous utilisons vos informations",
+                "content": [
+                    "Nous utilisons les informations que nous collectons aux fins suivantes :",
+                    "- Pour vous fournir nos services, y compris l'aide aux candidatures universitaires et le soutien aux visas.",
+                    "- Pour communiquer avec vous concernant votre candidature et nos services.",
+                    "- Pour traiter votre candidature auprès des établissements d'enseignement russes.",
+                    "- Pour nous conformer aux obligations légales et réglementaires.",
+                    "- Pour améliorer notre site Web et nos services."
+                ]
+            },
+            {
+                "title": "4. Partage et transfert de données",
+                "content": [
+                    "Nous pouvons partager vos données personnelles avec des tiers dans les situations suivantes :",
+                    "- Avec les universités russes et les organismes gouvernementaux (par exemple, le ministère de l'Intérieur) dans le but d'obtenir votre invitation d'étude et votre visa étudiant.",
+                    "- Avec nos partenaires de confiance qui fournissent des services de traduction, de légalisation et autres services connexes.",
+                    "- Lorsque la loi l'exige ou pour répondre à une procédure judiciaire.",
+                    "Vos données peuvent être transférées et stockées dans une destination en dehors de votre pays de résidence, y compris en Russie. Nous prendrons toutes les mesures raisonnablement nécessaires pour garantir que vos données sont traitées en toute sécurité et conformément à cette politique de confidentialité."
+                ]
+            },
+            {
+                "title": "5. Sécurité des données",
+                "content": [
+                    "Nous avons mis en place des mesures de sécurité appropriées pour empêcher que vos données personnelles ne soient accidentellement perdues, utilisées ou consultées de manière non autorisée. Nous limitons l'accès à vos données personnelles aux employés et aux tiers qui ont un besoin professionnel de les connaître."
+                ]
+            },
+            {
+                "title": "6. Vos droits",
+                "content": [
+                    "Vous avez le droit d'accéder, de corriger ou de supprimer vos informations personnelles. Vous pouvez également vous opposer au traitement de vos données personnelles. Pour exercer ces droits, veuillez nous contacter à studyinrussia200@gmail.com."
+                ]
+            },
+            {
+                "title": "7. Modifications de cette politique",
+                "content": [
+                    "Nous pouvons mettre à jour cette politique de confidentialité de temps à autre. Nous vous informerons de tout changement en publiant la nouvelle politique de confidentialité sur cette page. Il est conseillé de consulter périodiquement cette politique de confidentialité pour tout changement."
+                ]
+            }
+        ]
     }
 }

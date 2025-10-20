@@ -155,7 +155,7 @@
                 "questions": [
                     {
                         "question": "Wat moet ek inpak?",
-                        "answer": "Pak vir alle seisoene, veral warm winterklere. Bring ook enige nodige voorskrifmedikasie, belangrike dokumente en adapters vir Europese-styl kragpunte (Tipe C en F) saam."
+                        "answer": "Pak vir alle seisoene, veral warm winterklere. Bring ook enige nodige voorskrifmedikasie, belangrike dokumente en adapters for Europese-styl kragpunte (Tipe C en F) saam."
                     },
                     {
                         "question": "Hoe lyk studente-akkommodasie?",
@@ -249,7 +249,7 @@
             "life-as-an-international-student-in-moscow": {
                 "title": "Die Lewe as 'n Internasionale Student in Moskou",
                 "description": "Hoe is dit regtig om in Rusland se bedrywige hoofstad te woon en te studeer? Ons deel insigte oor akkommodasie, vervoer en hoe om die meeste van jou tyd in Moskou te maak.",
-                "content": "<p>Moskou is 'n lewendige, 24/7 stad wat eindelose geleenthede vir verkenning en pret bied. As student sal jy 'n verwelkomende gemeenskap en 'n wye verskeidenheid aktiwiteite vind om buite die klaskamer te geniet.</p><h2>Om Rond te Kom:</h2><p>Die Moskouse Metro is een van die doeltreffendste en mooiste moltreinstelsels ter wêreld. 'n Studentereiskaart bied afslagtariewe, wat dit die gerieflikste manier maak om die stad te navigeer.</p><h2>Akkommodasie:</h2><p>Die meeste universiteite bied studentekoshuise aan, wat 'n bekostigbare en wonderlike manier is om ander studente te ontmoet. Alternatiewelik kan jy 'n privaat woonstel huur, hoewel dit 'n duurder opsie is.</p><p>Van wêreldklas-museums soos die Tretjakof-galery tot uitgestrekte parke soos Gorky Park, sal jy nooit sonder dinge om te doen in Moskou opraak nie.</p>"
+                "content": "<p>Moskou is 'n lewendige, 24/7 stad wat eindelose geleenthede vir verkenning en pret bied. As student sal jy 'n verwelkomende gemeenskap en 'n wye verskeidenheid aktiwiteite vind om buite die klaskamer te geniet.</p><h2>Om Rond te Kom:</h2><p>Die Moskouse Metro is een van die doeltreffendste en mooiste moltreinstelsels ter wêreld. 'n Studentereiskaart bied afslagtariewe, wat dit die gerieflikste manier maak om die stad te navigeer.</p><h2>Akkommodasie:</h2><p>Die meeste universiteite bied studentekoshuise aan, wat 'n bekostigbare en wonderlike manier is om ander studente te ontmoet. Alternatiewelik kan jy 'n privaat woonstel huur, hoewel dit 'n duurder opsie is.</p><p>Van wêreldklas-museums soos die The State Tretyakov Gallery tot uitgestrekte parke soos Gorky Park, sal jy nooit sonder dinge om te doen in Moskou opraak nie.</p>"
             },
             "preparing-your-documents-for-russian-university-admission": {
                 "title": "Berei Jou Dokumente voor vir Russiese Universiteitstoelating",
@@ -272,6 +272,8 @@
         "description": "Vul die vorm hieronder in om jou aansoek te begin. Ons span sal jou dokumente met behulp van KI verifieer."
     },
     "applicationForm": {
+        "next": "Volgende",
+        "previous": "Vorige",
         "submit": "Dien Aansoek in",
         "submitting": "Verifieer & Dien in...",
         "personalInfo": {
@@ -279,7 +281,7 @@
             "firstName": "Voornaam",
             "firstNamePlaceholder": "Jou voornaam",
             "middleName": "Middelnaam",
-            "middleNamePlaceholder": "Opsioneel",
+            "middleNamePlaceholder": "Jou middelnaam",
             "lastName": "Van",
             "lastNamePlaceholder": "Jou van",
             "citizenship": "Burgerskap",
@@ -323,6 +325,11 @@
             "educationalDegreeTooltip": "Laai jou hoërskooldiploma, baccalaureusgraad, of enige relevante akademiese sertifikate op.",
             "uploadFile": "Laai 'n lêer op"
         },
+        "finalStep": {
+            "title": "Dien in",
+            "consentText": "Ek bevestig my toestemming tot die oordrag en verwerking van my persoonlike data in ooreenstemming met die ",
+            "privacyPolicyLink": "Privaatheidsbeleid"
+        },
         "results": {
             "success": {
                 "title": "Sukses!",
@@ -356,5 +363,67 @@
                 "unexpected": "'n Onverwagte bedienerfout het voorgekom. Probeer asseblief weer."
             }
         }
+    },
+    "privacyPolicy": {
+        "title": "Privaatheidsbeleid",
+        "lastUpdated": "Laas opgedateer: 21 Augustus 2024",
+        "sections": [
+            {
+                "title": "1. Inleiding",
+                "content": [
+                    "Welkom by Study In Russia 200. Ons is daartoe verbind om jou privaatheid te beskerm en jou persoonlike data op 'n oop en deursigtige manier te hanteer. Hierdie privaatheidsbeleid sit uiteen hoe ons die persoonlike inligting wat jy aan ons verskaf, insamel, gebruik en beskerm."
+                ]
+            },
+            {
+                "title": "2. Inligting wat ons insamel",
+                "content": [
+                    "Ons mag die volgende persoonlike data oor jou insamel en verwerk:",
+                    "- Persoonlike identifikasie-inligting (Naam, geboortedatum, burgerskap, ens.)",
+                    "- Kontakinligting (E-posadres, telefoonnommer, ens.)",
+                    "- Opvoedkundige agtergrondinligting (transkripsies, diplomas, ens.)",
+                    "- Dokumente wat vir universiteitstoelating en visumaansoek vereis word (paspoortskanderings, ens.)",
+                    "- Tegniese data (IP-adres, blaaieripe, ens.) wanneer jy met ons webwerf omgaan."
+                ]
+            },
+            {
+                "title": "3. Hoe ons jou inligting gebruik",
+                "content": [
+                    "Ons gebruik die inligting wat ons insamel vir die volgende doeleindes:",
+                    "- Om jou van ons dienste te voorsien, insluitend hulp met universiteitsaansoeke en visumondersteuning.",
+                    "- Om met jou te kommunikeer rakende jou aansoek en ons dienste.",
+                    "- Om jou aansoek by Russiese opvoedkundige instellings te verwerk.",
+                    "- Om aan wetlike en regulatoriese verpligtinge te voldoen.",
+                    "- Om ons webwerf en dienste te verbeter."
+                ]
+            },
+            {
+                "title": "4. Data-deling en -oordrag",
+                "content": [
+                    "Ons mag jou persoonlike data met derde partye in die volgende situasies deel:",
+                    "- Met Russiese universiteite en regeringsliggame (bv. Ministerie van Binnelandse Sake) met die doel om jou studie-uitnodiging en studentevisum te verseker.",
+                    "- Met ons betroubare vennote wat vertalings-, wettigings- en ander verwante dienste lewer.",
+                    "- Wanneer dit deur die wet vereis word of om op 'n regsproses te reageer.",
+                    "Jou data mag oorgedra word na, en gestoor word by, 'n bestemming buite jou land van verblyf, insluitend Rusland. Ons sal alle stappe neem wat redelikerwys nodig is om te verseker dat jou data veilig en in ooreenstemming met hierdie privaatheidsbeleid behandel word."
+                ]
+            },
+            {
+                "title": "5. Data Sekuriteit",
+                "content": [
+                    "Ons het gepaste sekuriteitsmaatreëls ingestel om te verhoed dat jou persoonlike data per ongeluk verlore gaan, gebruik word of op 'n ongemagtigde manier toegang daartoe verkry word. Ons beperk toegang tot jou persoonlike data tot daardie werknemers en derde partye wat 'n besigheidsbehoefte het om dit te weet."
+                ]
+            },
+            {
+                "title": "6. Jou Regte",
+                "content": [
+                    "Jy het die reg om toegang tot jou persoonlike inligting te verkry, dit reg te stel of te skrap. Jy kan ook beswaar maak teen die verwerking van jou persoonlike data. Om hierdie regte uit te oefen, kontak ons asseblief by studyinrussia200@gmail.com."
+                ]
+            },
+            {
+                "title": "7. Wysigings aan hierdie Beleid",
+                "content": [
+                    "Ons mag hierdie privaatheidsbeleid van tyd tot tyd bywerk. Ons sal jou in kennis stel van enige veranderinge deur die nuwe privaatheidsbeleid op hierdie bladsy te plaas. Jy word aangeraai om hierdie privaatheidsbeleid periodiek te hersien vir enige veranderinge."
+                ]
+            }
+        ]
     }
 }

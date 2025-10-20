@@ -272,6 +272,8 @@
         "description": "Başvurunuzu başlatmak için aşağıdaki formu doldurun. Ekibimiz belgelerinizi yapay zeka kullanarak doğrulayacaktır."
     },
     "applicationForm": {
+        "next": "Sonraki",
+        "previous": "Önceki",
         "submit": "Başvuruyu Gönder",
         "submitting": "Doğrulanıyor ve Gönderiliyor...",
         "personalInfo": {
@@ -323,6 +325,11 @@
             "educationalDegreeTooltip": "Lise diplomanızı, lisans derecenizi veya ilgili herhangi bir akademik sertifikayı yükleyin.",
             "uploadFile": "Bir dosya yükle"
         },
+        "finalStep": {
+            "title": "Gönder",
+            "consentText": "Kişisel verilerimin, ",
+            "privacyPolicyLink": "Gizlilik Politikası"
+        },
         "results": {
             "success": {
                 "title": "Başarılı!",
@@ -356,5 +363,67 @@
                 "unexpected": "Beklenmeyen bir sunucu hatası oluştu. Lütfen tekrar deneyin."
             }
         }
+    },
+    "privacyPolicy": {
+        "title": "Gizlilik Politikası",
+        "lastUpdated": "Son güncelleme: 21 Ağustos 2024",
+        "sections": [
+            {
+                "title": "1. Giriş",
+                "content": [
+                    "Study In Russia 200'e hoş geldiniz. Gizliliğinizi korumayı ve kişisel verilerinizi açık ve şeffaf bir şekilde işlemeyi taahhüt ediyoruz. Bu gizlilik politikası, bize sağladığınız kişisel bilgileri nasıl topladığımızı, kullandığımızı ve koruduğumuzu belirtir."
+                ]
+            },
+            {
+                "title": "2. Topladığımız Bilgiler",
+                "content": [
+                    "Sizinle ilgili aşağıdaki kişisel verileri toplayabilir ve işleyebiliriz:",
+                    "- Kişisel kimlik bilgileri (Ad, doğum tarihi, vatandaşlık vb.)",
+                    "- İletişim bilgileri (E-posta adresi, telefon numarası vb.)",
+                    "- Eğitim geçmişi bilgileri (transkriptler, diplomalar vb.)",
+                    "- Üniversiteye kabul ve vize başvurusu için gerekli belgeler (pasaport taramaları vb.)",
+                    "- Web sitemizle etkileşimde bulunduğunuzda teknik veriler (IP adresi, tarayıcı türü vb.)."
+                ]
+            },
+            {
+                "title": "3. Bilgilerinizi Nasıl Kullanıyoruz?",
+                "content": [
+                    "Topladığımız bilgileri aşağıdaki amaçlarla kullanıyoruz:",
+                    "- Üniversite başvuruları ve vize desteği dahil olmak üzere hizmetlerimizi size sunmak.",
+                    "- Başvurunuz ve hizmetlerimizle ilgili olarak sizinle iletişim kurmak.",
+                    "- Başvurunuzu Rus eğitim kurumları nezdinde işleme koymak.",
+                    "- Yasal ve düzenleyici yükümlülüklere uymak.",
+                    "- Web sitemizi ve hizmetlerimizi geliştirmek."
+                ]
+            },
+            {
+                "title": "4. Veri Paylaşımı ve Aktarımı",
+                "content": [
+                    "Kişisel verilerinizi aşağıdaki durumlarda üçüncü taraflarla paylaşabiliriz:",
+                    "- Eğitim davetiyenizi ve öğrenci vizenizi güvence altına almak amacıyla Rus üniversiteleri ve devlet kurumları (örneğin, İçişleri Bakanlığı) ile.",
+                    "- Çeviri, yasallaştırma ve diğer ilgili hizmetleri sağlayan güvenilir ortaklarımızla.",
+                    "- Yasaların gerektirdiği durumlarda veya yasal sürece yanıt vermek için.",
+                    "Verileriniz, Rusya dahil olmak üzere ikamet ettiğiniz ülkenin dışındaki bir hedefe aktarılabilir ve orada saklanabilir. Verilerinizin güvenli bir şekilde ve bu gizlilik politikasına uygun olarak işlenmesini sağlamak için makul olarak gerekli tüm adımları atacağız."
+                ]
+            },
+            {
+                "title": "5. Veri Güvenliği",
+                "content": [
+                    "Kişisel verilerinizin kazara kaybolmasını, kullanılmasını veya yetkisiz bir şekilde erişilmesini önlemek için uygun güvenlik önlemleri aldık. Kişisel verilerinize erişimi, iş gereği bilmesi gereken çalışanlar ve üçüncü taraflarla sınırlıyoruz."
+                ]
+            },
+            {
+                "title": "6. Haklarınız",
+                "content": [
+                    "Kişisel bilgilerinize erişme, bunları düzeltme veya silme hakkına sahipsiniz. Ayrıca kişisel verilerinizin işlenmesine itiraz edebilirsiniz. Bu hakları kullanmak için lütfen studyinrussia200@gmail.com adresinden bizimle iletişime geçin."
+                ]
+            },
+            {
+                "title": "7. Bu Politikadaki Değişiklikler",
+                "content": [
+                    "Bu gizlilik politikasını zaman zaman güncelleyebiliriz. Bu sayfada yeni gizlilik politikasını yayınlayarak herhangi bir değişiklik hakkında sizi bilgilendireceğiz. Herhangi bir değişiklik için bu gizlilik politikasını periyodik olarak gözden geçirmeniz tavsiye edilir."
+                ]
+            }
+        ]
     }
 }
