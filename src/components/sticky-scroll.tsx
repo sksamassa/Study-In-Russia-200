@@ -3,7 +3,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import React, { useRef } from "react";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, File, Mail, Plane } from "lucide-react";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { Button } from "./ui/button";
 import Link from "next/link";
@@ -13,54 +13,54 @@ import { usePathname } from "next/navigation";
 const StickyCard = ({
   i,
   title,
-  steps,
-  stepNumber,
+  description,
+  icon,
   progress,
   range,
   targetScale,
 }: {
   i: number;
   title: string;
-  steps: string[];
-  stepNumber: number;
+  description: string;
+  icon: React.ReactNode;
   progress: any;
   range: [number, number];
   targetScale: number;
 }) => {
   const container = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ['start end', 'start start'],
+  });
 
   const scale = useTransform(progress, range, [1, targetScale]);
 
   return (
     <div
       ref={container}
-      className="sticky top-1/2 flex items-center justify-center"
+      className="sticky top-1/2 -translate-y-1/2 flex items-center justify-center"
       style={{
-        top: `calc(50% - ${(i * 20 + 250) / 2}px)`,
+        top: `calc(50% + ${i * 40}px)`,
       }}
     >
       <motion.div
         style={{
           scale,
-          top: `calc(-5vh + ${i * 20 + 250}px)`,
         }}
-        className="relative -top-1/4 flex h-auto max-h-[500px] w-[550px] origin-top flex-col overflow-hidden rounded-2xl bg-card p-8 shadow-2xl bg-card"
+        className="relative flex flex-col w-[550px] min-h-[250px] origin-center rounded-2xl bg-card p-8 shadow-xl"
       >
-        <div className="flex items-center gap-4 mb-6">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground text-xl font-bold">
-                {stepNumber}
-            </div>
-            <h3 className="text-2xl font-bold">{title}</h3>
+        <div className="flex justify-between items-start mb-4">
+          <div className="flex items-center gap-4">
+            <div className="text-primary">{icon}</div>
+            <h3 className="text-xl font-bold">{title}</h3>
+          </div>
+          <div className="text-5xl font-bold text-red-500 opacity-80">
+            0{i + 1}
+          </div>
         </div>
-        <ul className="space-y-4">
-            {steps.map((step, index) => (
-                <li key={index} className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
-                    <span className="text-muted-foreground">{step}</span>
-                </li>
-            ))}
-        </ul>
-
+        <p className="text-muted-foreground">
+            {description}
+        </p>
       </motion.div>
     </div>
   );
@@ -73,8 +73,30 @@ export const StickyScroll = ({ dictionary }: { dictionary: Awaited<ReturnType<ty
     offset: ["start start", "end end"],
   });
 
-  const projects = Object.values(dictionary?.steps || {});
   const lang = usePathname().split('/')[1];
+
+  const content = [
+    {
+      title: dictionary.steps.step1.title,
+      description: dictionary.steps.step1.steps.join(' '),
+      icon: <File className="w-10 h-10" />
+    },
+    {
+      title: dictionary.steps.step2.title,
+      description: dictionary.steps.step2.steps.join(' '),
+      icon: <Mail className="w-10 h-10" />
+    },
+    {
+      title: dictionary.steps.step3.title,
+      description: dictionary.steps.step3.steps.join(' '),
+      icon: <CheckCircle className="w-10 h-10" />
+    },
+    {
+      title: dictionary.steps.step4.title,
+      description: dictionary.steps.step4.steps.join(' '),
+      icon: <Plane className="w-10 h-10" />
+    },
+  ];
 
   return (
       <section
@@ -82,26 +104,23 @@ export const StickyScroll = ({ dictionary }: { dictionary: Awaited<ReturnType<ty
         className="relative w-full py-20 bg-background mb-[50vh]"
       >
         <div className="container grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            <div className="lg:sticky top-1/4 space-y-6">
-                <h2 className="text-3xl md:text-4xl font-bold">{dictionary?.title || ''}</h2>
+            <div className="lg:sticky top-32 space-y-6">
+                <h2 className="text-4xl md:text-5xl font-bold">{dictionary?.title || ''}</h2>
                 <p className="text-muted-foreground text-lg">{dictionary?.leftColumn.description || ''}</p>
-                <Button asChild size="lg">
+                <Button asChild size="lg" className="text-lg px-10 py-7">
                     <Link href={`/${lang}/application`}>{dictionary?.leftColumn.cta || ''}</Link>
                 </Button>
             </div>
             <div className="relative h-[250vh]">
-                {projects.map((project, i) => {
-                    const targetScale = Math.max(
-                        0.5,
-                        1 - (projects.length - i - 1) * 0.1,
-                    );
+                {content.map((project, i) => {
+                    const targetScale = 1 - (content.length - 1 - i) * 0.05;
                     return (
                         <StickyCard
                         key={`p_${i}`}
                         i={i}
                         {...project}
                         progress={scrollYProgress}
-                        range={[i * 0.25, 1]}
+                        range={[i * (1 / content.length), 1]}
                         targetScale={targetScale}
                         />
                     );
