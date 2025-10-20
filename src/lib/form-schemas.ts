@@ -15,7 +15,7 @@ const fileSchema = z.instanceof(File)
 // Page 1: Personal Information
 export const personalInfoSchema = z.object({
   firstName: z.string().min(1, "Please enter your first name"),
-  middleName: z.string().min(1, "Please enter your middle name"),
+  middleName: z.string().optional(),
   lastName: z.string().min(1, "Please enter your last name"),
   citizenship: z.string().min(1, "Please select your country of citizenship"),
   dateOfBirth: z.string().min(1, "Please select your date of birth").refine((val) => {

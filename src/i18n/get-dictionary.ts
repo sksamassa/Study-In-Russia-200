@@ -14,7 +14,16 @@ const dictionaries = {
   af: () => import('./dictionaries/af.json').then(module => module.default),
 };
 
+// In-memory cache for dictionaries
+const dictionaryCache: { [key: string]: any } = {};
+
 export const getDictionary = async (locale: Locale) => {
+  if (dictionaryCache[locale]) {
+    return dictionaryCache[locale];
+  }
+
   const loader = dictionaries[locale] || dictionaries.en;
-  return loader();
+  const dictionary = await loader();
+  dictionaryCache[locale] = dictionary; // Cache the loaded dictionary
+  return dictionary;
 };

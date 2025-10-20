@@ -1,4 +1,4 @@
-# **App Name**: Global Pathways Hub
+# **App Name**: Study In Russia 200
 
 ## Core Features:
 

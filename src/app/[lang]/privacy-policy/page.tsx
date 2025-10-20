@@ -1,7 +1,9 @@
 import { getDictionary } from "@/i18n/get-dictionary";
 import { Locale } from "@/i18n/i18n-config";
 
-export default async function PrivacyPolicyPage({ params: { lang } }: { params: { lang: Locale } }) {
+export default async function PrivacyPolicyPage({ params }: { params: { lang: Locale } }) {
+  const resolvedParams = await params;
+  const { lang } = resolvedParams;
   const dictionary = await getDictionary(lang);
   const { title, sections, lastUpdated } = dictionary.privacyPolicy;
 

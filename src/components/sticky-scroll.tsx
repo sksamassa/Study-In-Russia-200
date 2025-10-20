@@ -58,15 +58,15 @@ const StickyCard = ({
             0{i + 1}
           </div>
         </div>
-        <p className="text-muted-foreground">
+        <div className="text-muted-foreground">
             {description}
-        </p>
+        </div>
       </motion.div>
     </div>
   );
 };
 
-export const StickyScroll = ({ dictionary }: { dictionary: Awaited<ReturnType<typeof getDictionary>>['stickyScroll']}) => {
+export const StickyScroll = ({ content = [] }: { content?: { title: string; description: React.ReactNode; icon: React.ReactNode; }[] }) => {
   const container = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: container,
@@ -75,40 +75,17 @@ export const StickyScroll = ({ dictionary }: { dictionary: Awaited<ReturnType<ty
 
   const lang = usePathname().split('/')[1];
 
-  const content = [
-    {
-      title: dictionary.steps.step1.title,
-      description: dictionary.steps.step1.steps.join(' '),
-      icon: <File className="w-10 h-10" />
-    },
-    {
-      title: dictionary.steps.step2.title,
-      description: dictionary.steps.step2.steps.join(' '),
-      icon: <Mail className="w-10 h-10" />
-    },
-    {
-      title: dictionary.steps.step3.title,
-      description: dictionary.steps.step3.steps.join(' '),
-      icon: <CheckCircle className="w-10 h-10" />
-    },
-    {
-      title: dictionary.steps.step4.title,
-      description: dictionary.steps.step4.steps.join(' '),
-      icon: <Plane className="w-10 h-10" />
-    },
-  ];
-
   return (
       <section
         ref={container}
-        className="relative px-4 md:px-16 w-full bg-background"
+        className="relative px-4 md:px-16 w-full bg-background my-20"
       >
         <div className="container grid grid-cols-1 lg:grid-cols-2 gap-16 py-16 items-start">
             <div className="lg:sticky top-32 mb-10 space-y-6">
-                <h2 className="text-4xl md:text-5xl font-bold">{dictionary?.title || ''}</h2>
-                <p className="text-muted-foreground text-lg">{dictionary?.leftColumn.description || ''}</p>
+                <h2 className="text-4xl md:text-5xl font-bold">How to Apply</h2>
+                <p className="text-muted-foreground text-lg">Our streamlined application process ensures a smooth journey from your initial inquiry to your arrival in Russia. Follow these simple steps to begin your academic adventure.</p>
                 <Button asChild size="lg" className="text-lg px-10 py-7">
-                    <Link href={`/${lang}/application`}>{dictionary?.leftColumn.cta || ''}</Link>
+                    <Link href={`/${lang}/application`}>Start Your Application</Link>
                 </Button>
             </div>
             <div className="relative h-[200vh] space-y-6 border-6">

@@ -1,10 +1,9 @@
-
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from 'next/link';
+import Link from "next/link";
 import ReCAPTCHA from "react-google-recaptcha";
 
 import {
@@ -29,34 +28,69 @@ import Page4_LanguageProficiency from "./form-pages/Page4_LanguageProficiency";
 import Page5_Documents from "./form-pages/Page5_Documents";
 import { StepProgress } from "./ui/step-progress";
 import { getDictionary } from "@/i18n/get-dictionary";
-import { FormField, FormItem, FormControl, FormLabel, FormMessage } from "./ui/form";
+import {
+  FormField,
+  FormItem,
+  FormControl,
+  FormLabel,
+  FormMessage,
+} from "./ui/form";
 import { Checkbox } from "./ui/checkbox";
 import { usePathname } from "next/navigation";
 
-
-const LOCAL_STORAGE_KEY = 'multi-page-form-data';
+const LOCAL_STORAGE_KEY = "multi-page-form-data";
 
 type MultiPageApplicationFormProps = {
   dictionary: Awaited<ReturnType<typeof getDictionary>>;
-}
+};
 
-export default function MultiPageApplicationForm({ dictionary }: MultiPageApplicationFormProps) {
+export default function MultiPageApplicationForm({
+  dictionary,
+}: MultiPageApplicationFormProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
-  const lang = usePathname().split('/')[1] || 'en';
+  const lang = usePathname().split("/")[1] || "en";
   const recaptchaRef = React.createRef<ReCAPTCHA>();
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
-
-
   const steps = [
-    { id: "personalInfo", name: dictionary.applicationForm.personalInfo.title, schema: personalInfoSchema, component: Page1_PersonalInformation },
-    { id: "contactInfo", name: dictionary.applicationForm.contactInfo.title, schema: contactInfoSchema, component: Page2_ContactInformation },
-    { id: "educationProgram", name: dictionary.applicationForm.educationProgram.title, schema: educationProgramSchema, component: Page3_EducationProgram },
-    { id: "languageProficiency", name: dictionary.applicationForm.languageProficiency.title, schema: languageProficiencySchema, component: Page4_LanguageProficiency },
-    { id: "documents", name: dictionary.applicationForm.documents.title, schema: documentsSchema, component: Page5_Documents },
-    { id: "finalStep", name: dictionary.applicationForm.finalStep.title, schema: finalStepSchema, component: () => <></> },
+    {
+      id: "personalInfo",
+      name: dictionary.applicationForm.personalInfo.title,
+      schema: personalInfoSchema,
+      component: Page1_PersonalInformation,
+    },
+    {
+      id: "contactInfo",
+      name: dictionary.applicationForm.contactInfo.title,
+      schema: contactInfoSchema,
+      component: Page2_ContactInformation,
+    },
+    {
+      id: "educationProgram",
+      name: dictionary.applicationForm.educationProgram.title,
+      schema: educationProgramSchema,
+      component: Page3_EducationProgram,
+    },
+    {
+      id: "languageProficiency",
+      name: dictionary.applicationForm.languageProficiency.title,
+      schema: languageProficiencySchema,
+      component: Page4_LanguageProficiency,
+    },
+    {
+      id: "documents",
+      name: dictionary.applicationForm.documents.title,
+      schema: documentsSchema,
+      component: Page5_Documents,
+    },
+    {
+      id: "finalStep",
+      name: dictionary.applicationForm.finalStep.title,
+      schema: finalStepSchema,
+      component: () => <></>,
+    },
   ];
 
   const methods = useForm<MultiPageFormData>({
@@ -86,39 +120,41 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
 
   useEffect(() => {
     try {
-        const savedState = localStorage.getItem(LOCAL_STORAGE_KEY);
-        if (savedState) {
-            const { step, formData } = JSON.parse(savedState);
-            const restoredData = {
-                ...formData,
-                passport: [],
-                educationalDegree: [],
-                privacyPolicyConsent: false,
-            };
-            reset(restoredData);
-            if (typeof step === 'number') {
-                setCurrentStep(step);
-            }
+      const savedState = localStorage.getItem(LOCAL_STORAGE_KEY);
+      if (savedState) {
+        const { step, formData } = JSON.parse(savedState);
+        const restoredData = {
+          ...formData,
+          passport: [],
+          educationalDegree: [],
+          privacyPolicyConsent: false,
+        };
+        reset(restoredData);
+        if (typeof step === "number") {
+          setCurrentStep(step);
         }
+      }
     } catch (error) {
-        console.error("Failed to load form state from localStorage", error);
+      console.error("Failed to load form state from localStorage", error);
     }
   }, [reset]);
 
   useEffect(() => {
     try {
-        const stateToSave = {
-            step: currentStep,
-            formData: watchedData,
-        };
-        delete (stateToSave.formData as Partial<MultiPageFormData>).passport;
-        delete (stateToSave.formData as Partial<MultiPageFormData>).educationalDegree;
-        delete (stateToSave.formData as Partial<MultiPageFormData>).privacyPolicyConsent;
-        delete (stateToSave.formData as Partial<MultiPageFormData>).recaptcha;
+      const stateToSave = {
+        step: currentStep,
+        formData: watchedData,
+      };
+      delete (stateToSave.formData as Partial<MultiPageFormData>).passport;
+      delete (stateToSave.formData as Partial<MultiPageFormData>)
+        .educationalDegree;
+      delete (stateToSave.formData as Partial<MultiPageFormData>)
+        .privacyPolicyConsent;
+      delete (stateToSave.formData as Partial<MultiPageFormData>).recaptcha;
 
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(stateToSave));
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(stateToSave));
     } catch (error) {
-        console.error("Failed to save form state to localStorage", error);
+      console.error("Failed to save form state to localStorage", error);
     }
   }, [watchedData, currentStep]);
 
@@ -127,30 +163,34 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
       title: dictionary.applicationForm.results.success.title,
       description: dictionary.applicationForm.results.success.description,
     });
-    
-    submitApplication(data).then(result => {
-      if (!result.success) {
-        console.error("Background submission failed:", result.message);
+
+    submitApplication(data)
+      .then((result) => {
+        if (!result.success) {
+          console.error("Background submission failed:", result.message);
+          toast({
+            title: dictionary.applicationForm.results.error.title,
+            description:
+              result.message ||
+              dictionary.applicationForm.results.error.unexpected,
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: dictionary.applicationForm.results.success.title,
+            description: "Your application has been successfully submitted.",
+          });
+          localStorage.removeItem(LOCAL_STORAGE_KEY);
+        }
+      })
+      .catch((error) => {
+        console.error("Error in background processing:", error);
         toast({
           title: dictionary.applicationForm.results.error.title,
-          description: result.message || dictionary.applicationForm.results.error.unexpected,
+          description: dictionary.applicationForm.results.error.unexpected,
           variant: "destructive",
         });
-      } else {
-        toast({
-          title: dictionary.applicationForm.results.success.title,
-          description: "Your application has been successfully submitted.",
-        });
-        localStorage.removeItem(LOCAL_STORAGE_KEY);
-      }
-    }).catch(error => {
-      console.error("Error in background processing:", error);
-      toast({
-        title: dictionary.applicationForm.results.error.title,
-        description: dictionary.applicationForm.results.error.unexpected,
-        variant: "destructive",
       });
-    });
   };
 
   const onSubmit = (data: MultiPageFormData) => {
@@ -163,7 +203,9 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
 
   const handleNext = async () => {
     const currentStepSchema = steps[currentStep].schema;
-    const fieldsToValidate = Object.keys(currentStepSchema.shape) as (keyof MultiPageFormData)[];
+    const fieldsToValidate = Object.keys(
+      currentStepSchema.shape
+    ) as (keyof MultiPageFormData)[];
     const isValid = await trigger(fieldsToValidate);
 
     if (isValid) {
@@ -187,7 +229,6 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
     }
   };
 
-
   const CurrentPageComponent = steps[currentStep].component;
 
   return (
@@ -197,56 +238,71 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
       </div>
 
       <FormProvider {...methods}>
-        <form onSubmit={handleHookFormSubmit(onSubmit)} className="space-y-6 max-w-2xl mx-auto">
+        <form
+          onSubmit={handleHookFormSubmit(onSubmit)}
+          className="space-y-6 max-w-2xl mx-auto"
+        >
           {currentStep < steps.length - 1 ? (
-             <CurrentPageComponent dictionary={dictionary} />
+            <CurrentPageComponent dictionary={dictionary} />
           ) : (
             <div className="space-y-6">
-                <FormField
-                    control={methods.control}
+              <FormField
+                control={methods.control}
                     name="privacyPolicyConsent"
                     render={({ field }) => (
-                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                        <FormItem className="flex flex-row items-center space-x-3 space-y-0"> {/* Changed items-start to items-center */}
                             <FormControl>
                                 <Checkbox
                                     checked={field.value}
                                     onCheckedChange={field.onChange}
                                 />
                             </FormControl>
-                            <div className="space-y-1 leading-none">
-                                <FormLabel className="text-sm font-normal">
-                                    {dictionary.applicationForm.finalStep.consentText}
-                                    <Link href={`/${lang}/privacy-policy`} className="underline text-primary hover:text-primary/80" target="_blank">
-                                        {dictionary.applicationForm.finalStep.privacyPolicyLink}
-                                    </Link>.
-                                </FormLabel>
-                                <FormMessage />
-                            </div>
-                        </FormItem>
-                    )}
-                />
-                 {siteKey ? (
-                  <FormField
-                    control={methods.control}
-                    name="recaptcha"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormControl>
-                          <ReCAPTCHA
-                            ref={recaptchaRef}
-                            sitekey={siteKey}
-                            onChange={(value) => field.onChange(value || "")}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                ) : (
-                  <p className="text-sm text-destructive">
-                    reCAPTCHA is not configured. Please set NEXT_PUBLIC_RECAPTCHA_SITE_KEY.
-                  </p>
+                    <div className="space-y-1 leading-none">
+                      <FormLabel className="text-sm font-normal">
+                        {dictionary.applicationForm.finalStep.consentText}
+                        <Link
+                          href={`/${lang}/privacy-policy`}
+                          className="underline text-primary hover:text-primary/80"
+                          target="_blank"
+                        >
+                          {
+                            dictionary.applicationForm.finalStep
+                              .privacyPolicyLink
+                          }
+                        </Link>
+                        .
+                      </FormLabel>
+                      <FormMessage />
+                    </div>
+                  </FormItem>
                 )}
+              />
+              <h4 className="text-lg font-semibold mb-0"> {/* Removed mt-4 */}
+                Protection from automated form filling
+              </h4>
+              {siteKey ? (
+                <FormField
+                  control={methods.control}
+                  name="recaptcha"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <ReCAPTCHA
+                          ref={recaptchaRef}
+                          sitekey={siteKey}
+                          onChange={(value) => field.onChange(value || "")}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              ) : (
+                <p className="text-sm text-destructive">
+                  reCAPTCHA is not configured. Please set
+                  NEXT_PUBLIC_RECAPTCHA_SITE_KEY.
+                </p>
+              )}
             </div>
           )}
 
@@ -259,12 +315,12 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
             >
               {dictionary.applicationForm.previous}
             </Button>
-            <Button
-              type="button"
-              onClick={handleNext}
-              disabled={isLoading}
-            >
-              {currentStep === steps.length - 1 ? (isLoading ? dictionary.applicationForm.submitting : dictionary.applicationForm.submit) : dictionary.applicationForm.next}
+            <Button type="button" onClick={handleNext} disabled={isLoading}>
+              {currentStep === steps.length - 1
+                ? isLoading
+                  ? dictionary.applicationForm.submitting
+                  : dictionary.applicationForm.submit
+                : dictionary.applicationForm.next}
             </Button>
           </div>
         </form>
