@@ -24,6 +24,8 @@ export function Header({ dictionary }: { dictionary: Awaited<ReturnType<typeof g
     { href: `/${lang}/contact`, label: dictionary.contact },
   ];
   
+  const showApplyButton = !pathname.startsWith(`/${lang}/application`);
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4">
       <div className="container flex h-16 items-center">
@@ -76,9 +78,11 @@ export function Header({ dictionary }: { dictionary: Awaited<ReturnType<typeof g
           <div className="flex items-center">
             <LanguageSwitcher />
             <ThemeToggle />
-             <Button asChild className="ml-4">
-                <Link href={`/${lang}/application`}>{dictionary.applyNow}</Link>
-             </Button>
+            {showApplyButton && (
+                <Button asChild className="ml-4">
+                    <Link href={`/${lang}/application`}>{dictionary.applyNow}</Link>
+                </Button>
+            )}
           </div>
         </div>
       </div>
@@ -103,9 +107,11 @@ export function Header({ dictionary }: { dictionary: Awaited<ReturnType<typeof g
                   {link.label}
                 </Link>
               )})}
-              <Button asChild className="w-full">
-                <Link href={`/${lang}/application`} onClick={() => setIsMenuOpen(false)}>{dictionary.applyNow}</Link>
-              </Button>
+              {showApplyButton && (
+                <Button asChild className="w-full">
+                    <Link href={`/${lang}/application`} onClick={() => setIsMenuOpen(false)}>{dictionary.applyNow}</Link>
+                </Button>
+              )}
             </nav>
           </div>
         </div>
