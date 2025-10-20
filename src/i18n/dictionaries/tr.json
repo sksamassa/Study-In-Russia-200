@@ -282,25 +282,46 @@
             "middleNamePlaceholder": "İsteğe bağlı",
             "lastName": "Soyadı",
             "lastNamePlaceholder": "Soyadınız",
-            "citizenship": "Vatandaşlık"
+            "citizenship": "Vatandaşlık",
+            "dateOfBirth": "Doğum Tarihi"
         },
         "contactInfo": {
             "title": "İletişim Bilgileri",
             "email": "E-posta",
-            "phone": "Telegram/WhatsApp Numarası"
+            "emailPlaceholder": "ahmet.yılmaz@example.com",
+            "telegramWhatsAppNumber": "Telegram/WhatsApp Numarası",
+            "telegramWhatsAppNumberPlaceholder": "+905551234567"
+        },
+        "educationProgram": {
+            "title": "Eğitim Programı",
+            "educationLevel": "Eğitim Seviyesi",
+            "educationLevelPlaceholder": "Eğitim seviyenizi seçin",
+            "generalFieldOfStudy": "Genel Çalışma Alanı",
+            "generalFieldOfStudyPlaceholder": "Genel çalışma alanını seçin",
+            "fieldOfStudy": "Çalışma Alanı",
+            "fieldOfStudyPlaceholder": "Belirli çalışma alanını seçin"
+        },
+        "languageProficiency": {
+            "title": "Dil Yeterliliği",
+            "languageProficiency": "Dil Yeterliliği",
+            "languagePlaceholder": "Dil seçin",
+            "levelPlaceholder": "Seviye seçin",
+            "addLanguage": "Ekle",
+            "deleteLanguage": "Sil",
+            "preparatoryCourse": "Hazırlık Rusça kursuna katılmak istiyorum"
         },
         "documents": {
             "title": "Belgeler",
+            "supportedFormats": "Desteklenen dosya biçimleri: .jpeg, .jpg, .png, .pdf",
+            "maxFileSize": "Her dosyanın boyutu 5 MB'ı geçmemelidir",
+            "maxTotalSize": "Tüm dosyalar birlikte 50 MB'ı geçmemelidir",
             "passportLabel": "Pasaport (orijinal)*",
             "passportDescription": "Orijinal Belgenin Taranmış Kopyası",
-            "passportTooltip": "Lütfen pasaportunuzun biyometrik veri sayfasının net, tam sayfa renkli bir taramasını yükleyin.",
-            "educationLabel": "Eğitim derecesi (orijinal)*",
-            "educationDescription": "Orijinal Belge(ler)in Taranmış Kopyası",
-            "educationTooltip": "Lise diplomanızı, lisans derecenizi veya ilgili herhangi bir akademik sertifikayı yükleyin.",
-            "paymentNote": "Lütfen dikkat: eğitim davetiyeniz ödeme alındıktan sonra düzenlenip gönderilecektir."
-        },
-        "fileUpload": {
-            "upload": "Bir dosya yükle"
+            "passportTooltip": "Rusya'ya girmeyi planladığınız pasaportun bir kopyasını yükleyin. Pasaport, Rusya'ya varış tarihinizden itibaren en az 18 ay geçerli olmalıdır.",
+            "educationalDegreeLabel": "Eğitim derecesi (orijinal)*",
+            "educationalDegreeDescription": "Orijinal Belge(ler)in Taranmış Kopyası",
+            "educationalDegreeTooltip": "Lise diplomanızı, lisans derecenizi veya ilgili herhangi bir akademik sertifikayı yükleyin.",
+            "uploadFile": "Bir dosya yükle"
         },
         "results": {
             "success": {

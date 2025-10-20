@@ -19,11 +19,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { educationLevels, generalFieldsOfStudy, fieldsOfStudy } from "@/lib/education-data";
+import { getDictionary } from "@/i18n/get-dictionary";
 
-export default function Page3_EducationProgram() {
+type PageProps = {
+  dictionary: Awaited<ReturnType<typeof getDictionary>>;
+}
+
+export default function Page3_EducationProgram({ dictionary }: PageProps) {
   const { control, watch, setValue } = useFormContext<MultiPageFormData>();
   const generalField = watch("generalFieldOfStudy");
   const specificField = watch("fieldOfStudy");
+  const formDict = dictionary.applicationForm.educationProgram;
 
   const filteredFieldsOfStudy = useMemo(() => {
     if (!generalField) {
@@ -47,11 +53,11 @@ export default function Page3_EducationProgram() {
         name="educationLevel"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Education Level*</FormLabel>
+            <FormLabel>{formDict.educationLevel}*</FormLabel>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select your education level" />
+                  <SelectValue placeholder={formDict.educationLevelPlaceholder} />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
@@ -71,11 +77,11 @@ export default function Page3_EducationProgram() {
         name="generalFieldOfStudy"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>General Field of Study*</FormLabel>
+            <FormLabel>{formDict.generalFieldOfStudy}*</FormLabel>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select general field of study" />
+                  <SelectValue placeholder={formDict.generalFieldOfStudyPlaceholder} />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
@@ -95,11 +101,11 @@ export default function Page3_EducationProgram() {
         name="fieldOfStudy"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Field of Study*</FormLabel>
+            <FormLabel>{formDict.fieldOfStudy}*</FormLabel>
             <Select onValueChange={field.onChange} value={field.value} disabled={!generalField}>
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select specific field of study" />
+                  <SelectValue placeholder={formDict.fieldOfStudyPlaceholder} />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>

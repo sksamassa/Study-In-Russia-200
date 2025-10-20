@@ -12,10 +12,16 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { countryCodes } from "@/lib/country-codes";
+import { getDictionary } from "@/i18n/get-dictionary";
 
-export default function Page2_ContactInformation() {
+type PageProps = {
+  dictionary: Awaited<ReturnType<typeof getDictionary>>;
+}
+
+export default function Page2_ContactInformation({ dictionary }: PageProps) {
   const { control, watch, setValue, getValues } = useFormContext<MultiPageFormData>();
   const citizenship = watch("citizenship");
+  const formDict = dictionary.applicationForm.contactInfo;
 
   useEffect(() => {
     if (citizenship) {
@@ -36,9 +42,9 @@ export default function Page2_ContactInformation() {
         name="email"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Email*</FormLabel>
+            <FormLabel>{formDict.email}*</FormLabel>
             <FormControl>
-              <Input placeholder="john.doe@example.com" {...field} />
+              <Input placeholder={formDict.emailPlaceholder} {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -49,9 +55,9 @@ export default function Page2_ContactInformation() {
         name="telegramWhatsAppNumber"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Telegram/WhatsApp Number*</FormLabel>
+            <FormLabel>{formDict.telegramWhatsAppNumber}*</FormLabel>
             <FormControl>
-              <Input placeholder="+1234567890" {...field} />
+              <Input placeholder={formDict.telegramWhatsAppNumberPlaceholder} {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>

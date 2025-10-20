@@ -282,25 +282,46 @@
             "middleNamePlaceholder": "Opsioneel",
             "lastName": "Van",
             "lastNamePlaceholder": "Jou van",
-            "citizenship": "Burgerskap"
+            "citizenship": "Burgerskap",
+            "dateOfBirth": "Geboortedatum"
         },
         "contactInfo": {
             "title": "Kontakinligting",
             "email": "E-pos",
-            "phone": "Telegram/WhatsApp Nommer"
+            "emailPlaceholder": "jan.smith@example.com",
+            "telegramWhatsAppNumber": "Telegram/WhatsApp Nommer",
+            "telegramWhatsAppNumberPlaceholder": "+27123456789"
+        },
+        "educationProgram": {
+            "title": "Onderwysprogram",
+            "educationLevel": "Onderwysvlak",
+            "educationLevelPlaceholder": "Kies jou onderwysvlak",
+            "generalFieldOfStudy": "Algemene Studieveld",
+            "generalFieldOfStudyPlaceholder": "Kies algemene studieveld",
+            "fieldOfStudy": "Studieveld",
+            "fieldOfStudyPlaceholder": "Kies spesifieke studieveld"
+        },
+        "languageProficiency": {
+            "title": "Taalvaardigheid",
+            "languageProficiency": "Taalvaardigheid",
+            "languagePlaceholder": "Kies taal",
+            "levelPlaceholder": "Kies vlak",
+            "addLanguage": "Voeg by",
+            "deleteLanguage": "Verwyder",
+            "preparatoryCourse": "Ek wil graag 'n voorbereidende Russiese kursus bywoon"
         },
         "documents": {
             "title": "Dokumente",
+            "supportedFormats": "Ondersteunde lêerformate: .jpeg, .jpg, .png, .pdf",
+            "maxFileSize": "Die grootte van elke lêer mag nie 5 MB oorskry nie",
+            "maxTotalSize": "Alle lêers saam mag nie 50 MB oorskry nie",
             "passportLabel": "Paspoort (oorspronklik)*",
             "passportDescription": "Geskeduleerde kopie van die oorspronklike dokument",
-            "passportTooltip": "Laai asseblief 'n duidelike, volblad-kleurskandering van jou paspoort se bio-data-bladsy op.",
-            "educationLabel": "Opvoedkundige graad (oorspronklik)*",
-            "educationDescription": "Geskeduleerde kopie van die oorspronklike dokument(e)",
-            "educationTooltip": "Laai jou hoërskooldiploma, baccalaureusgraad, of enige relevante akademiese sertifikate op.",
-            "paymentNote": "Let wel: Jou studie-uitnodiging sal uitgereik en gestuur word by ontvangs van betaling."
-        },
-        "fileUpload": {
-            "upload": "Laai 'n lêer op"
+            "passportTooltip": "Laai 'n kopie van die paspoort op waarmee jy van plan is om Rusland binne te kom. Die paspoort moet vir ten minste 18 maande vanaf die datum van jou aankoms in Rusland geldig wees.",
+            "educationalDegreeLabel": "Opvoedkundige graad (oorspronklik)*",
+            "educationalDegreeDescription": "Geskeduleerde kopie van die oorspronklike dokument(e)",
+            "educationalDegreeTooltip": "Laai jou hoërskooldiploma, baccalaureusgraad, of enige relevante akademiese sertifikate op.",
+            "uploadFile": "Laai 'n lêer op"
         },
         "results": {
             "success": {

@@ -205,7 +205,7 @@
             },
             "aiDocumentAssistance": {
                 "title": "Assistência de Documentos com IA",
-                "description": "Garanta que seus documentos atendam aos rigorosos requisitos das universidades russas e autoridades de imigração. Nossa plataforma usa IA Generativa para verificar a autenticidade, legibilidade e conformidade de seus documentos enviados. Também auxiliamos com serviços profissionais de tradução e legalização.",
+                "description": "Garanta que seus documentos atendam aos rigorosos requisitos das universidades russas e autoridades de imigração. Nossa plataforma usa IA Generativa para verificar a autenticidade, legibilidade e conformidade de seus documentos enviados. Também auxiliamos com services profissionais de tradução e legalização.",
                 "details": [
                     "Verificação da qualidade e veracidade dos documentos por IA.",
                     "Extração de informações chave para sua inscrição.",
@@ -282,25 +282,46 @@
             "middleNamePlaceholder": "Opcional",
             "lastName": "Sobrenome",
             "lastNamePlaceholder": "Seu sobrenome",
-            "citizenship": "Cidadania"
+            "citizenship": "Cidadania",
+            "dateOfBirth": "Data de Nascimento"
         },
         "contactInfo": {
             "title": "Informações de Contato",
             "email": "E-mail",
-            "phone": "Número do Telegram/WhatsApp"
+            "emailPlaceholder": "joao.silva@example.com",
+            "telegramWhatsAppNumber": "Número do Telegram/WhatsApp",
+            "telegramWhatsAppNumberPlaceholder": "+5511987654321"
+        },
+        "educationProgram": {
+            "title": "Programa de Educação",
+            "educationLevel": "Nível de Educação",
+            "educationLevelPlaceholder": "Selecione seu nível de educação",
+            "generalFieldOfStudy": "Campo Geral de Estudo",
+            "generalFieldOfStudyPlaceholder": "Selecione o campo geral de estudo",
+            "fieldOfStudy": "Campo de Estudo",
+            "fieldOfStudyPlaceholder": "Selecione o campo específico de estudo"
+        },
+        "languageProficiency": {
+            "title": "Proficiência Linguística",
+            "languageProficiency": "Proficiência Linguística",
+            "languagePlaceholder": "Selecionar idioma",
+            "levelPlaceholder": "Selecionar nível",
+            "addLanguage": "Adicionar",
+            "deleteLanguage": "Excluir",
+            "preparatoryCourse": "Gostaria de frequentar um curso preparatório de russo"
         },
         "documents": {
             "title": "Documentos",
+            "supportedFormats": "Formatos de arquivo suportados: .jpeg, .jpg, .png, .pdf",
+            "maxFileSize": "O tamanho de cada arquivo não deve exceder 5 MB",
+            "maxTotalSize": "Todos os arquivos juntos não devem exceder 50 MB",
             "passportLabel": "Passaporte (original)*",
             "passportDescription": "Cópia digitalizada do documento original",
-            "passportTooltip": "Faça o upload de uma digitalização colorida, nítida e de página inteira da página de dados biográficos do seu passaporte.",
-            "educationLabel": "Diploma educacional (original)*",
-            "educationDescription": "Cópia digitalizada do(s) documento(s) original(is)",
-            "educationTooltip": "Faça o upload do seu diploma do ensino médio, diploma de bacharel ou quaisquer certificados acadêmicos relevantes.",
-            "paymentNote": "Atenção: o seu convite de estudo será emitido e enviado após a recepção do pagamento."
-        },
-        "fileUpload": {
-            "upload": "Carregar um arquivo"
+            "passportTooltip": "Faça o upload de uma cópia do passaporte com o qual você planeja entrar na Rússia. O passaporte deve ser válido por pelo menos 18 meses a partir da data de sua chegada à Rússia.",
+            "educationalDegreeLabel": "Diploma educacional (original)*",
+            "educationalDegreeDescription": "Cópia digitalizada do(s) documento(s) original(is)",
+            "educationalDegreeTooltip": "Faça o upload do seu diploma do ensino médio, diploma de bacharel ou quaisquer certificados acadêmicos relevantes.",
+            "uploadFile": "Carregar um arquivo"
         },
         "results": {
             "success": {

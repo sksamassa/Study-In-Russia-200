@@ -229,7 +229,7 @@
             "paymentMethods": "Méthodes de payement:",
             "bankTransfer": "Virement bancaire",
             "crypto": "Dépôt de crypto-monnaie",
-            "note": "Veuillez noter que votre invitation d'étude sera émise et envoyée dès réception du paiement."
+            "note": "Veuillez noter : votre invitation d'étude sera émise et envoyée dès réception du paiement."
         }
     },
     "blog": {
@@ -282,25 +282,46 @@
             "middleNamePlaceholder": "Optionnel",
             "lastName": "Nom de Famille",
             "lastNamePlaceholder": "Votre nom de famille",
-            "citizenship": "Citoyenneté"
+            "citizenship": "Citoyenneté",
+            "dateOfBirth": "Date de Naissance"
         },
         "contactInfo": {
             "title": "Coordonnées",
             "email": "Email",
-            "phone": "Numéro de Telegram/WhatsApp"
+            "emailPlaceholder": "jean.dupont@example.com",
+            "telegramWhatsAppNumber": "Numéro de Telegram/WhatsApp",
+            "telegramWhatsAppNumberPlaceholder": "+1234567890"
+        },
+        "educationProgram": {
+            "title": "Programme d'Éducation",
+            "educationLevel": "Niveau d'Éducation",
+            "educationLevelPlaceholder": "Sélectionnez votre niveau d'éducation",
+            "generalFieldOfStudy": "Domaine d'Études Général",
+            "generalFieldOfStudyPlaceholder": "Sélectionnez le domaine d'études général",
+            "fieldOfStudy": "Domaine d'Études",
+            "fieldOfStudyPlaceholder": "Sélectionnez le domaine d'études spécifique"
+        },
+        "languageProficiency": {
+            "title": "Compétence Linguistique",
+            "languageProficiency": "Compétence Linguistique",
+            "languagePlaceholder": "Sélectionner la langue",
+            "levelPlaceholder": "Sélectionner le niveau",
+            "addLanguage": "Ajouter",
+            "deleteLanguage": "Supprimer",
+            "preparatoryCourse": "Je souhaite suivre un cours préparatoire de russe"
         },
         "documents": {
             "title": "Documents",
+            "supportedFormats": "Formats de fichiers pris en charge : .jpeg, .jpg, .png, .pdf",
+            "maxFileSize": "La taille de chaque fichier ne doit pas dépasser 5 Mo",
+            "maxTotalSize": "L'ensemble des fichiers ne doit pas dépasser 50 Mo",
             "passportLabel": "Passeport (original)*",
             "passportDescription": "Copie numérisée du document original",
-            "passportTooltip": "Veuillez télécharger un scan couleur clair et pleine page de la page de données biographiques de votre passeport.",
-            "educationLabel": "Diplôme d'études (original)*",
-            "educationDescription": "Copie numérisée du ou des documents originaux",
-            "educationTooltip": "Téléchargez votre diplôme d'études secondaires, votre licence ou tout certificat académique pertinent.",
-            "paymentNote": "Veuillez noter : votre invitation d'étude sera émise et envoyée dès réception du paiement."
-        },
-        "fileUpload": {
-            "upload": "Télécharger un fichier"
+            "passportTooltip": "Téléchargez une copie du passeport avec lequel vous prévoyez d'entrer en Russie. Le passeport doit être valide pendant au moins 18 mois à compter de la date de votre arrivée en Russie.",
+            "educationalDegreeLabel": "Diplôme d'études (original)*",
+            "educationalDegreeDescription": "Copie numérisée du ou des documents originaux",
+            "educationalDegreeTooltip": "Téléchargez votre diplôme d'études secondaires, votre licence ou tout certificat académique pertinent.",
+            "uploadFile": "Télécharger un fichier"
         },
         "results": {
             "success": {

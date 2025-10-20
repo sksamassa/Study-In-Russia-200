@@ -19,6 +19,11 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
+import { getDictionary } from "@/i18n/get-dictionary";
+
+type PageProps = {
+  dictionary: Awaited<ReturnType<typeof getDictionary>>;
+}
 
 // This is a placeholder for a more complex file upload component
 const FileUpload = ({
@@ -27,12 +32,14 @@ const FileUpload = ({
   label,
   description,
   tooltipText,
+  dictionary
 }: {
   onChange: (files: File[]) => void;
   value: File[];
   label: string;
   description: string;
   tooltipText: string;
+  dictionary: Awaited<ReturnType<typeof getDictionary>>;
 }) => {
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -78,7 +85,7 @@ const FileUpload = ({
           onClick={handleUploadClick}
         >
           <Plus className="mr-2 h-4 w-4" />
-          Upload a file
+          {dictionary.applicationForm.documents.uploadFile}
         </Button>
         <input
           type="file"
@@ -121,20 +128,21 @@ const FileUpload = ({
 };
 
 
-export default function Page5_Documents() {
+export default function Page5_Documents({ dictionary }: PageProps) {
   const { control } = useFormContext<MultiPageFormData>();
+  const formDict = dictionary.applicationForm.documents;
 
   return (
     <div className="space-y-6">
       <div className="rounded-lg bg-secondary/50 p-4 space-y-1">
         <p className="text-sm text-muted-foreground">
-          <span className="font-semibold text-foreground">Supported file formats:</span> .jpeg, .jpg, .png, .pdf
+          <span className="font-semibold text-foreground">{formDict.supportedFormats}</span>
         </p>
         <p className="text-sm text-muted-foreground">
-          <span className="font-semibold text-foreground">The size of each file should not exceed 5 MB</span>
+          <span className="font-semibold text-foreground">{formDict.maxFileSize}</span>
         </p>
         <p className="text-sm text-muted-foreground">
-          <span className="font-semibold text-foreground">All files together may not exceed 50 MB</span>
+          <span className="font-semibold text-foreground">{formDict.maxTotalSize}</span>
         </p>
       </div>
 
@@ -145,11 +153,12 @@ export default function Page5_Documents() {
           <FormItem>
             <FormControl>
               <FileUpload
-                label="Passport (original)*"
-                description="Scanned Copy of the Original Document"
-                tooltipText="Please upload a clear, full-page color scan of your passport's bio-data page. The passport should be valid for at least 18 months from the date of your arrival in Russia."
+                label={formDict.passportLabel}
+                description={formDict.passportDescription}
+                tooltipText={formDict.passportTooltip}
                 onChange={field.onChange}
                 value={field.value}
+                dictionary={dictionary}
               />
             </FormControl>
             <FormMessage />
@@ -164,11 +173,12 @@ export default function Page5_Documents() {
           <FormItem>
             <FormControl>
               <FileUpload
-                label="Educational degree (original)*"
-                description="Scanned Copy of the Original Document(s)"
-                tooltipText="Upload your high school diploma, bachelor's degree, or any relevant academic certificates."
+                label={formDict.educationalDegreeLabel}
+                description={formDict.educationalDegreeDescription}
+                tooltipText={formDict.educationalDegreeTooltip}
                 onChange={field.onChange}
                 value={field.value}
+                dictionary={dictionary}
               />
             </FormControl>
             <FormMessage />

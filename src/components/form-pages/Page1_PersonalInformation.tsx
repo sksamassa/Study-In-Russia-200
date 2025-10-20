@@ -31,10 +31,16 @@ import { countries } from "@/lib/countries";
 import { DateOfBirthPicker } from "../ui/date-picker";
 import { format } from "date-fns";
 import { Input } from "@/components/ui/input";
+import { getDictionary } from "@/i18n/get-dictionary";
 
-export default function Page1_PersonalInformation() {
+type PageProps = {
+  dictionary: Awaited<ReturnType<typeof getDictionary>>;
+}
+
+export default function Page1_PersonalInformation({ dictionary }: PageProps) {
   const { control, setValue } = useFormContext<MultiPageFormData>();
   const [popoverOpen, setPopoverOpen] = useState(false);
+  const formDict = dictionary.applicationForm.personalInfo;
 
   return (
     <div className="space-y-4">
@@ -43,9 +49,9 @@ export default function Page1_PersonalInformation() {
         name="firstName"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>First Name*</FormLabel>
+            <FormLabel>{formDict.firstName}*</FormLabel>
             <FormControl>
-              <Input placeholder="John" {...field} />
+              <Input placeholder={formDict.firstNamePlaceholder} {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -56,9 +62,9 @@ export default function Page1_PersonalInformation() {
         name="middleName"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Middle Name*</FormLabel>
+            <FormLabel>{formDict.middleName}*</FormLabel>
             <FormControl>
-              <Input placeholder="Doe" {...field} />
+              <Input placeholder={formDict.middleNamePlaceholder} {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -69,9 +75,9 @@ export default function Page1_PersonalInformation() {
         name="lastName"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Last Name*</FormLabel>
+            <FormLabel>{formDict.lastName}*</FormLabel>
             <FormControl>
-              <Input placeholder="Smith" {...field} />
+              <Input placeholder={formDict.lastNamePlaceholder} {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -82,7 +88,7 @@ export default function Page1_PersonalInformation() {
         name="citizenship"
         render={({ field }) => (
           <FormItem className="flex flex-col">
-            <FormLabel>Citizenship*</FormLabel>
+            <FormLabel>{formDict.citizenship}*</FormLabel>
             <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
               <PopoverTrigger asChild>
                 <FormControl>
@@ -144,7 +150,7 @@ export default function Page1_PersonalInformation() {
         name="dateOfBirth"
         render={({ field }) => (
           <FormItem className="flex flex-col">
-            <FormLabel>Date of birth*</FormLabel>
+            <FormLabel>{formDict.dateOfBirth}*</FormLabel>
             <FormControl>
               <DateOfBirthPicker
                 date={field.value ? new Date(field.value) : undefined}

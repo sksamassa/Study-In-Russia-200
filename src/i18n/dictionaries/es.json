@@ -282,25 +282,46 @@
             "middleNamePlaceholder": "Opcional",
             "lastName": "Apellido",
             "lastNamePlaceholder": "Tu apellido",
-            "citizenship": "Ciudadanía"
+            "citizenship": "Ciudadanía",
+            "dateOfBirth": "Fecha de Nacimiento"
         },
         "contactInfo": {
             "title": "Información de Contacto",
             "email": "Correo Electrónico",
-            "phone": "Número de Telegram/WhatsApp"
+            "emailPlaceholder": "juan.perez@example.com",
+            "telegramWhatsAppNumber": "Número de Telegram/WhatsApp",
+            "telegramWhatsAppNumberPlaceholder": "+1234567890"
+        },
+        "educationProgram": {
+            "title": "Programa de Educación",
+            "educationLevel": "Nivel de Educación",
+            "educationLevelPlaceholder": "Selecciona tu nivel de educación",
+            "generalFieldOfStudy": "Campo General de Estudio",
+            "generalFieldOfStudyPlaceholder": "Selecciona el campo general de estudio",
+            "fieldOfStudy": "Campo de Estudio",
+            "fieldOfStudyPlaceholder": "Selecciona el campo específico de estudio"
+        },
+        "languageProficiency": {
+            "title": "Competencia Lingüística",
+            "languageProficiency": "Competencia Lingüística",
+            "languagePlaceholder": "Seleccionar idioma",
+            "levelPlaceholder": "Seleccionar nivel",
+            "addLanguage": "Añadir",
+            "deleteLanguage": "Eliminar",
+            "preparatoryCourse": "Me gustaría asistir a un curso preparatorio de ruso"
         },
         "documents": {
             "title": "Documentos",
+            "supportedFormats": "Formatos de archivo compatibles: .jpeg, .jpg, .png, .pdf",
+            "maxFileSize": "El tamaño de cada archivo no debe exceder los 5 MB",
+            "maxTotalSize": "Todos los archivos juntos no deben exceder los 50 MB",
             "passportLabel": "Pasaporte (original)*",
             "passportDescription": "Copia escaneada del documento original",
-            "passportTooltip": "Por favor, sube un escaneo a color claro y de página completa de la página de datos biográficos de tu pasaporte.",
-            "educationLabel": "Título educativo (original)*",
-            "educationDescription": "Copia escaneada del (de los) documento(s) original(es)",
-            "educationTooltip": "Sube tu diploma de bachillerato, título de licenciatura o cualquier certificado académico relevante.",
-            "paymentNote": "Ten en cuenta: tu invitación de estudio se emitirá y enviará al recibir el pago."
-        },
-        "fileUpload": {
-            "upload": "Subir un archivo"
+            "passportTooltip": "Sube una copia del pasaporte con el que planeas entrar a Rusia. El pasaporte debe ser válido por al menos 18 meses a partir de la fecha de tu llegada a Rusia.",
+            "educationalDegreeLabel": "Título educativo (original)*",
+            "educationalDegreeDescription": "Copia escaneada del (de los) documento(s) original(es)",
+            "educationalDegreeTooltip": "Sube tu diploma de bachillerato, título de licenciatura o cualquier certificado académico relevante.",
+            "uploadFile": "Subir un archivo"
         },
         "results": {
             "success": {

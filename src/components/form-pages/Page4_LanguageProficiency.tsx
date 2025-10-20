@@ -27,18 +27,24 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { getDictionary } from "@/i18n/get-dictionary";
 
-export default function Page4_LanguageProficiency() {
+type PageProps = {
+  dictionary: Awaited<ReturnType<typeof getDictionary>>;
+}
+
+export default function Page4_LanguageProficiency({ dictionary }: PageProps) {
   const { control } = useFormContext<MultiPageFormData>();
   const { fields, append, remove } = useFieldArray({
     control,
     name: "languages",
   });
+  const formDict = dictionary.applicationForm.languageProficiency;
 
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-2">
-        <FormLabel>Language proficiency</FormLabel>
+        <FormLabel>{formDict.languageProficiency}</FormLabel>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -62,7 +68,7 @@ export default function Page4_LanguageProficiency() {
                 <Select onValueChange={languageField.onChange} defaultValue={languageField.value}>
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select language" />
+                      <SelectValue placeholder={formDict.languagePlaceholder} />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -86,7 +92,7 @@ export default function Page4_LanguageProficiency() {
                 <Select onValueChange={levelField.onChange} defaultValue={levelField.value}>
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select level" />
+                      <SelectValue placeholder={formDict.levelPlaceholder} />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -110,7 +116,7 @@ export default function Page4_LanguageProficiency() {
             className={fields.length === 1 ? "opacity-50 cursor-not-allowed" : ""}
           >
             <MinusCircle className="h-4 w-4 text-red-500" />
-            <span className="sr-only">Remove language</span>
+            <span className="sr-only">{formDict.deleteLanguage}</span>
           </Button>
         </div>
       ))}
@@ -122,7 +128,7 @@ export default function Page4_LanguageProficiency() {
         onClick={() => append({ language: "", level: "" })}
         className="mt-4"
       >
-        <PlusCircle className="mr-2 h-4 w-4" /> Add
+        <PlusCircle className="mr-2 h-4 w-4" /> {formDict.addLanguage}
       </Button>
 
       <FormField
@@ -138,7 +144,7 @@ export default function Page4_LanguageProficiency() {
             </FormControl>
             <div className="space-y-1 leading-none">
               <FormLabel>
-                I would like to attend a preparatory Russian course
+                {formDict.preparatoryCourse}
               </FormLabel>
             </div>
           </FormItem>

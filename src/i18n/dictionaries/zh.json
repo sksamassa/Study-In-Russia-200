@@ -282,25 +282,46 @@
             "middleNamePlaceholder": "可选",
             "lastName": "姓",
             "lastNamePlaceholder": "您的姓氏",
-            "citizenship": "国籍"
+            "citizenship": "国籍",
+            "dateOfBirth": "出生日期"
         },
         "contactInfo": {
             "title": "联系信息",
             "email": "电子邮件",
-            "phone": "Telegram/WhatsApp 号码"
+            "emailPlaceholder": "zhang.wei@example.com",
+            "telegramWhatsAppNumber": "Telegram/WhatsApp 号码",
+            "telegramWhatsAppNumberPlaceholder": "+8613812345678"
+        },
+        "educationProgram": {
+            "title": "教育项目",
+            "educationLevel": "教育水平",
+            "educationLevelPlaceholder": "选择您的教育水平",
+            "generalFieldOfStudy": "一般研究领域",
+            "generalFieldOfStudyPlaceholder": "选择一般研究领域",
+            "fieldOfStudy": "研究领域",
+            "fieldOfStudyPlaceholder": "选择具体研究领域"
+        },
+        "languageProficiency": {
+            "title": "语言能力",
+            "languageProficiency": "语言能力",
+            "languagePlaceholder": "选择语言",
+            "levelPlaceholder": "选择水平",
+            "addLanguage": "添加",
+            "deleteLanguage": "删除",
+            "preparatoryCourse": "我希望参加俄语预科课程"
         },
         "documents": {
             "title": "文件",
+            "supportedFormats": "支持的文件格式：.jpeg, .jpg, .png, .pdf",
+            "maxFileSize": "每个文件的大小不应超过 5 MB",
+            "maxTotalSize": "所有文件总和不应超过 50 MB",
             "passportLabel": "护照（原件）*",
             "passportDescription": "原始文件的扫描副本",
-            "passportTooltip": "请上传您护照个人资料页的清晰、全页彩色扫描件。",
-            "educationLabel": "学历证书（原件）*",
-            "educationDescription": "原始文件的扫描副本",
-            "educationTooltip": "上传您的高中毕业证书、学士学位证书或任何相关的学术证书。",
-            "paymentNote": "请注意：您的学习邀请函将在收到付款后签发并寄出。"
-        },
-        "fileUpload": {
-            "upload": "上传文件"
+            "passportTooltip": "上传您计划进入俄罗斯所用护照的副本。护照有效期应自您抵达俄罗斯之日起至少18个月。",
+            "educationalDegreeLabel": "学历证书（原件）*",
+            "educationalDegreeDescription": "原始文件的扫描副本",
+            "educationalDegreeTooltip": "上传您的高中毕业证书、学士学位证书或任何相关的学术证书。",
+            "uploadFile": "上传文件"
         },
         "results": {
             "success": {

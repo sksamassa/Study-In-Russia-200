@@ -282,25 +282,46 @@
             "middleNamePlaceholder": "वैकल्पिक",
             "lastName": "अंतिम नाम",
             "lastNamePlaceholder": "आपका अंतिम नाम",
-            "citizenship": "नागरिकता"
+            "citizenship": "नागरिकता",
+            "dateOfBirth": "जन्म तिथि"
         },
         "contactInfo": {
             "title": "संपर्क जानकारी",
             "email": "ईमेल",
-            "phone": "टेलीग्राम/व्हाट्सएप नंबर"
+            "emailPlaceholder": "ram.kumar@example.com",
+            "telegramWhatsAppNumber": "टेलीग्राम/व्हाट्सएप नंबर",
+            "telegramWhatsAppNumberPlaceholder": "+919876543210"
+        },
+        "educationProgram": {
+            "title": "शिक्षा कार्यक्रम",
+            "educationLevel": "शिक्षा स्तर",
+            "educationLevelPlaceholder": "अपना शिक्षा स्तर चुनें",
+            "generalFieldOfStudy": "सामान्य अध्ययन क्षेत्र",
+            "generalFieldOfStudyPlaceholder": "सामान्य अध्ययन क्षेत्र चुनें",
+            "fieldOfStudy": "अध्ययन क्षेत्र",
+            "fieldOfStudyPlaceholder": "विशिष्ट अध्ययन क्षेत्र चुनें"
+        },
+        "languageProficiency": {
+            "title": "भाषा प्रवीणता",
+            "languageProficiency": "भाषा प्रवीणता",
+            "languagePlaceholder": "भाषा चुनें",
+            "levelPlaceholder": "स्तर चुनें",
+            "addLanguage": "जोड़ें",
+            "deleteLanguage": "हटाएं",
+            "preparatoryCourse": "मैं एक प्रारंभिक रूसी पाठ्यक्रम में भाग लेना चाहूंगा"
         },
         "documents": {
             "title": "दस्तावेज़",
+            "supportedFormats": "समर्थित फ़ाइल स्वरूप: .jpeg, .jpg, .png, .pdf",
+            "maxFileSize": "प्रत्येक फ़ाइल का आकार 5 एमबी से अधिक नहीं होना चाहिए",
+            "maxTotalSize": "सभी फाइलें मिलकर 50 एमबी से अधिक नहीं होनी चाहिए",
             "passportLabel": "पासपोर्ट (मूल)*",
             "passportDescription": "मूल दस्तावेज़ की स्कैन की गई प्रति",
-            "passportTooltip": "कृपया अपने पासपोर्ट के बायो-डेटा पृष्ठ का एक स्पष्ट, पूर्ण-पृष्ठ रंगीन स्कैन अपलोड करें।",
-            "educationLabel": "शैक्षिक डिग्री (मूल)*",
-            "educationDescription": "मूल दस्तावेज़ (दस्तावेज़ों) की स्कैन की गई प्रति",
-            "educationTooltip": "अपना हाई स्कूल डिप्लोमा, बैचलर डिग्री, या कोई प्रासंगिक अकादमिक प्रमाण पत्र अपलोड करें।",
-            "paymentNote": "कृपया ध्यान दें: भुगतान प्राप्त होने पर आपका अध्ययन निमंत्रण जारी और भेजा जाएगा।"
-        },
-        "fileUpload": {
-            "upload": "एक फ़ाइल अपलोड करें"
+            "passportTooltip": "जिस पासपोर्ट से आप रूस में प्रवेश करने की योजना बना रहे हैं, उसकी एक प्रति अपलोड करें। पासपोर्ट आपके रूस आगमन की तारीख से कम से कम 18 महीने के लिए वैध होना चाहिए।",
+            "educationalDegreeLabel": "शैक्षिक डिग्री (मूल)*",
+            "educationalDegreeDescription": "मूल दस्तावेज़ (दस्तावेज़ों) की स्कैन की गई प्रति",
+            "educationalDegreeTooltip": "अपना हाई स्कूल डिप्लोमा, बैचलर डिग्री, या कोई प्रासंगिक अकादमिक प्रमाण पत्र अपलोड करें।",
+            "uploadFile": "एक फ़ाइल अपलोड करें"
         },
         "results": {
             "success": {

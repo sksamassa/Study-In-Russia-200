@@ -24,22 +24,26 @@ import Page3_EducationProgram from "./form-pages/Page3_EducationProgram";
 import Page4_LanguageProficiency from "./form-pages/Page4_LanguageProficiency";
 import Page5_Documents from "./form-pages/Page5_Documents";
 import { StepProgress } from "./ui/step-progress";
-
-const steps = [
-  { id: "personalInfo", name: "Personal Information", schema: personalInfoSchema, component: Page1_PersonalInformation },
-  { id: "contactInfo", name: "Contact Information", schema: contactInfoSchema, component: Page2_ContactInformation },
-  { id: "educationProgram", name: "Education Program", schema: educationProgramSchema, component: Page3_EducationProgram },
-  { id: "languageProficiency", name: "Language Proficiency", schema: languageProficiencySchema, component: Page4_LanguageProficiency },
-  { id: "documents", name: "Documents", schema: documentsSchema, component: Page5_Documents },
-];
+import { getDictionary } from "@/i18n/get-dictionary";
 
 const LOCAL_STORAGE_KEY = 'multi-page-form-data';
 
+type MultiPageApplicationFormProps = {
+  dictionary: Awaited<ReturnType<typeof getDictionary>>;
+}
 
-export default function MultiPageApplicationForm() {
+export default function MultiPageApplicationForm({ dictionary }: MultiPageApplicationFormProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+
+  const steps = [
+    { id: "personalInfo", name: dictionary.applicationForm.personalInfo.title, schema: personalInfoSchema, component: Page1_PersonalInformation },
+    { id: "contactInfo", name: dictionary.applicationForm.contactInfo.title, schema: contactInfoSchema, component: Page2_ContactInformation },
+    { id: "educationProgram", name: dictionary.applicationForm.educationProgram.title, schema: educationProgramSchema, component: Page3_EducationProgram },
+    { id: "languageProficiency", name: dictionary.applicationForm.languageProficiency.title, schema: languageProficiencySchema, component: Page4_LanguageProficiency },
+    { id: "documents", name: dictionary.applicationForm.documents.title, schema: documentsSchema, component: Page5_Documents },
+  ];
 
   const methods = useForm<MultiPageFormData>({
     resolver: zodResolver(multiPageFormSchema),
@@ -103,21 +107,21 @@ export default function MultiPageApplicationForm() {
 
   const processForm = (data: MultiPageFormData) => {
     toast({
-      title: "Application Received",
-      description: "We've received your application and will start processing it. You'll get a final confirmation soon.",
+      title: dictionary.applicationForm.results.success.title,
+      description: dictionary.applicationForm.results.success.description,
     });
     
     submitApplication(data).then(result => {
       if (!result.success) {
         console.error("Background submission failed:", result.message);
         toast({
-          title: "Submission Error",
-          description: "There was a problem with your application. Please try again later.",
+          title: dictionary.applicationForm.results.error.title,
+          description: result.message || dictionary.applicationForm.results.error.unexpected,
           variant: "destructive",
         });
       } else {
         toast({
-          title: "Application Submitted!",
+          title: dictionary.applicationForm.results.success.title,
           description: "Your application has been successfully submitted.",
         });
         localStorage.removeItem(LOCAL_STORAGE_KEY);
@@ -125,8 +129,8 @@ export default function MultiPageApplicationForm() {
     }).catch(error => {
       console.error("Error in background processing:", error);
       toast({
-        title: "Submission Error",
-        description: "An unexpected error occurred. Please try again later.",
+        title: dictionary.applicationForm.results.error.title,
+        description: dictionary.applicationForm.results.error.unexpected,
         variant: "destructive",
       });
     });
@@ -177,7 +181,7 @@ export default function MultiPageApplicationForm() {
 
       <FormProvider {...methods}>
         <form className="space-y-6 max-w-2xl mx-auto">
-          <CurrentPageComponent />
+          <CurrentPageComponent dictionary={dictionary} />
 
           <div className="flex justify-between mt-8">
             <Button
@@ -193,7 +197,7 @@ export default function MultiPageApplicationForm() {
               onClick={handleNext}
               disabled={isLoading}
             >
-              {currentStep === steps.length - 1 ? (isLoading ? "Submitting..." : "Submit") : "Next"}
+              {currentStep === steps.length - 1 ? (isLoading ? dictionary.applicationForm.submitting : dictionary.applicationForm.submit) : "Next"}
             </Button>
           </div>
         </form>
