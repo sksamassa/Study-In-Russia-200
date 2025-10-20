@@ -20,7 +20,7 @@ const metrics = [
   },
   {
     icon: Building,
-    value: '50',
+    value: '200',
     suffix: '+',
     labelKey: 'partnerUniversities',
   },
