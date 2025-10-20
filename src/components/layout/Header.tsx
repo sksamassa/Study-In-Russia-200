@@ -56,20 +56,22 @@ export function Header({ dictionary }: { dictionary: Awaited<ReturnType<typeof g
 
         <div className="flex flex-1 items-center justify-end space-x-2">
           <nav className="hidden items-center space-x-6 text-lg font-medium md:flex">
-            {navLinks.map((link) => (
+            {navLinks.map((link) => {
+              const isActive = link.href.includes('/blog') ? pathname.startsWith(link.href) : pathname === link.href;
+              return (
               <Link
                 key={link.href}
                 href={link.href}
                 className={cn(
                   'transition-colors hover:text-primary',
-                  pathname === link.href
+                  isActive
                     ? 'text-foreground font-semibold'
                     : 'text-muted-foreground'
                 )}
               >
                 {link.label}
               </Link>
-            ))}
+            )})}
           </nav>
           <div className="flex items-center">
             <LanguageSwitcher />
@@ -84,21 +86,23 @@ export function Header({ dictionary }: { dictionary: Awaited<ReturnType<typeof g
         <div className="md:hidden">
           <div className="container py-4">
             <nav className="grid gap-4">
-              {navLinks.map((link) => (
+              {navLinks.map((link) => {
+                 const isActive = link.href.includes('/blog') ? pathname.startsWith(link.href) : pathname === link.href;
+                return (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsMenuOpen(false)}
                   className={cn(
                     'block rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground',
-                    pathname === link.href
+                    isActive
                       ? 'bg-accent text-accent-foreground'
                       : 'text-muted-foreground'
                   )}
                 >
                   {link.label}
                 </Link>
-              ))}
+              )})}
               {/* <Button asChild className="w-full">
                 <Link href={`/${lang}/application`} onClick={() => setIsMenuOpen(false)}>{dictionary.applyNow}</Link>
               </Button> */}
