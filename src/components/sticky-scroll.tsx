@@ -101,7 +101,7 @@ export const StickyScroll = ({ dictionary }: { dictionary: Awaited<ReturnType<ty
   return (
       <section
         ref={container}
-        className="relative w-full py-20 bg-background mb-[50vh]"
+        className="relative w-full py-20 bg-background"
       >
         <div className="container grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             <div className="lg:sticky top-32 space-y-6">
@@ -111,7 +111,7 @@ export const StickyScroll = ({ dictionary }: { dictionary: Awaited<ReturnType<ty
                     <Link href={`/${lang}/application`}>{dictionary?.leftColumn.cta || ''}</Link>
                 </Button>
             </div>
-            <div className="relative h-[250vh]">
+            <div className="relative h-[200vh]">
                 {content.map((project, i) => {
                     const targetScale = 1 - (content.length - 1 - i) * 0.05;
                     return (
