@@ -46,6 +46,7 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
   const { toast } = useToast();
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const lang = usePathname().split('/')[1] || 'en';
+  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
   const steps = [
     { id: "personalInfo", name: dictionary.applicationForm.personalInfo.title, schema: personalInfoSchema, component: Page1_PersonalInformation },
@@ -206,11 +207,15 @@ export default function MultiPageApplicationForm({ dictionary }: MultiPageApplic
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
-                                <ReCAPTCHA
-                                    ref={recaptchaRef}
-                                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
-                                    onChange={(value) => field.onChange(value || "")}
-                                />
+                                {siteKey ? (
+                                    <ReCAPTCHA
+                                        ref={recaptchaRef}
+                                        sitekey={siteKey}
+                                        onChange={(value) => field.onChange(value || "")}
+                                    />
+                                ) : (
+                                    <p className="text-sm text-destructive">reCAPTCHA is not configured. Please set NEXT_PUBLIC_RECAPTCHA_SITE_KEY.</p>
+                                )}
                             </FormControl>
                             <FormMessage />
                         </FormItem>
