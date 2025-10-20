@@ -14,16 +14,18 @@ export function Hero({ dictionary, lang }: { dictionary: Awaited<ReturnType<type
 
   return (
     <section className="relative h-screen w-full flex items-center justify-center text-white overflow-hidden">
-        {heroImage && (
-            <Image
-                src={heroImage.imageUrl}
-                alt="Background of Moscow"
-                fill
-                className="object-cover"
-                priority
-                data-ai-hint={heroImage.imageHint}
-            />
-        )}
+        <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        className="absolute top-0 left-0 w-full h-full object-cover"
+        key="hero-video"
+      >
+        <source src="/videos/St Basil Cathedral in Russia - Free Stock Video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
       <div className="absolute top-0 left-0 z-10 w-full h-full bg-black/60"></div>
       <motion.div 
         className="z-20 text-center px-4"
