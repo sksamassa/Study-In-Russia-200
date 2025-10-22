@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -10,10 +11,12 @@ interface Step {
 interface StepProgressProps extends React.HTMLAttributes<HTMLDivElement> {
   steps: Step[];
   currentStep: number;
+  onStepClick?: (stepIndex: number) => void;
+  highestCompletedStep?: number;
 }
 
 const StepProgress = React.forwardRef<HTMLDivElement, StepProgressProps>(
-  ({ className, steps, currentStep, ...props }, ref) => {
+  ({ className, steps, currentStep, onStepClick, highestCompletedStep = 0, ...props }, ref) => {
     return (
       <div ref={ref} className={cn("w-full", className)} {...props}>
         <div className="relative flex items-start justify-between">
@@ -34,13 +37,19 @@ const StepProgress = React.forwardRef<HTMLDivElement, StepProgressProps>(
           />
           {steps.map((step, index) => {
             const stepNumber = index + 1;
-            const isCompleted = stepNumber < currentStep;
+            const isCompleted = stepNumber <= highestCompletedStep && stepNumber < currentStep;
             const isCurrent = stepNumber === currentStep;
+            const isClickable = onStepClick && stepNumber <= highestCompletedStep + 1 && stepNumber < steps.length;
+
+
+            const StepWrapper = isClickable ? 'button' : 'div';
 
             return (
-              <div
+              <StepWrapper
                 key={step.name}
-                className="relative z-10 flex flex-col items-center gap-2"
+                onClick={isClickable ? () => onStepClick(index) : undefined}
+                className={cn("relative z-10 flex flex-col items-center gap-2", isClickable ? "cursor-pointer" : "cursor-default")}
+                disabled={!isClickable}
               >
                 <div
                   className={cn(
@@ -49,7 +58,8 @@ const StepProgress = React.forwardRef<HTMLDivElement, StepProgressProps>(
                       ? "border-primary bg-primary text-primary-foreground"
                       : isCurrent
                       ? "border-primary text-primary"
-                      : "border-muted-foreground/30 text-muted-foreground/50"
+                      : "border-muted-foreground/30 text-muted-foreground/50",
+                    isClickable && "hover:border-primary/70"
                   )}
                 >
                   {stepNumber}
@@ -64,7 +74,7 @@ const StepProgress = React.forwardRef<HTMLDivElement, StepProgressProps>(
                 >
                   {step.name}
                 </p>
-              </div>
+              </StepWrapper>
             );
           })}
         </div>

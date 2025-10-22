@@ -50,6 +50,7 @@ export default function MultiPageApplicationForm({
 }: MultiPageApplicationFormProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [highestCompletedStep, setHighestCompletedStep] = useState(0);
   const { toast } = useToast();
   const lang = usePathname().split("/")[1] || "en";
   const recaptchaRef = React.createRef<ReCAPTCHA>();
@@ -125,7 +126,7 @@ export default function MultiPageApplicationForm({
     try {
       const savedState = localStorage.getItem(LOCAL_STORAGE_KEY);
       if (savedState) {
-        const { step, formData } = JSON.parse(savedState);
+        const { step, formData, highestStep } = JSON.parse(savedState);
         const restoredData = {
           ...formData,
           passport: [],
@@ -135,6 +136,9 @@ export default function MultiPageApplicationForm({
         reset(restoredData);
         if (typeof step === "number") {
           setCurrentStep(step);
+        }
+        if (typeof highestStep === 'number') {
+            setHighestCompletedStep(highestStep);
         }
       }
     } catch (error) {
@@ -147,6 +151,7 @@ export default function MultiPageApplicationForm({
       const stateToSave = {
         step: currentStep,
         formData: watchedData,
+        highestStep: highestCompletedStep
       };
       delete (stateToSave.formData as Partial<MultiPageFormData>).passport;
       delete (stateToSave.formData as Partial<MultiPageFormData>)
@@ -159,7 +164,7 @@ export default function MultiPageApplicationForm({
     } catch (error) {
       console.error("Failed to save form state to localStorage", error);
     }
-  }, [watchedData, currentStep]);
+  }, [watchedData, currentStep, highestCompletedStep]);
 
   const processForm = async (data: MultiPageFormData) => {
     toast({
@@ -186,6 +191,7 @@ export default function MultiPageApplicationForm({
       localStorage.removeItem(LOCAL_STORAGE_KEY);
       methods.reset();
       setCurrentStep(0);
+      setHighestCompletedStep(0);
     }
   };
 
@@ -206,6 +212,7 @@ export default function MultiPageApplicationForm({
     const isValid = await trigger(fieldsToValidate);
 
     if (isValid) {
+      setHighestCompletedStep(prev => Math.max(prev, currentStep + 1));
       if (currentStep < steps.length - 1) {
         setCurrentStep((prev) => prev + 1);
       } else {
@@ -222,7 +229,28 @@ export default function MultiPageApplicationForm({
 
   const handlePrevious = () => {
     if (currentStep > 0) {
-      setCurrentStep((prev) => prev + 1);
+      setCurrentStep((prev) => prev - 1);
+    }
+  };
+
+  const handleStepClick = async (stepIndex: number) => {
+    if (stepIndex > highestCompletedStep) return;
+
+    if (stepIndex > currentStep) {
+        const currentStepSchema = steps[currentStep].schema;
+        const fieldsToValidate = Object.keys(currentStepSchema.shape) as (keyof MultiPageFormData)[];
+        const isValid = await trigger(fieldsToValidate);
+        if (isValid) {
+            setCurrentStep(stepIndex);
+        } else {
+            toast({
+                title: "Missing Information",
+                description: "Please fill out all required fields before proceeding.",
+                variant: "destructive",
+            });
+        }
+    } else {
+        setCurrentStep(stepIndex);
     }
   };
 
@@ -231,7 +259,12 @@ export default function MultiPageApplicationForm({
   return (
     <div className="bg-card shadow-lg rounded-xl p-8 max-w-4xl mx-auto">
       <div className="mb-12 px-4 md:px-8">
-        <StepProgress steps={steps} currentStep={currentStep + 1} />
+        <StepProgress 
+            steps={steps} 
+            currentStep={currentStep + 1}
+            onStepClick={handleStepClick}
+            highestCompletedStep={highestCompletedStep}
+        />
       </div>
 
       <FormProvider {...methods}>
@@ -247,7 +280,7 @@ export default function MultiPageApplicationForm({
                 control={methods.control}
                     name="privacyPolicyConsent"
                     render={({ field }) => (
-                        <FormItem className="flex flex-row items-center space-x-3 space-y-0"> {/* Changed items-start to items-center */}
+                        <FormItem className="flex flex-row items-center space-x-3 space-y-0">
                             <FormControl>
                                 <Checkbox
                                     checked={field.value}
@@ -274,7 +307,7 @@ export default function MultiPageApplicationForm({
                   </FormItem>
                 )}
               />
-              <h4 className="text-lg font-semibold mb-0"> {/* Removed mt-4 */}
+              <h4 className="text-lg font-semibold mb-0">
                 Protection from automated form filling
               </h4>
               {siteKey ? (
