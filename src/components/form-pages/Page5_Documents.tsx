@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from "react";
@@ -20,6 +21,7 @@ import {
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { getDictionary } from "@/i18n/get-dictionary";
+import { useFormField } from "../ui/form";
 
 type PageProps = {
   dictionary: Awaited<ReturnType<typeof getDictionary>>;
@@ -42,6 +44,7 @@ const FileUpload = ({
   dictionary: Awaited<ReturnType<typeof getDictionary>>;
 }) => {
   const fileInputRef = React.useRef<HTMLInputElement>(null);
+  const { error } = useFormField();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -122,6 +125,11 @@ const FileUpload = ({
             </Button>
           </div>
         ))}
+        {error && value?.length > 0 && (
+            <p className="text-sm font-medium text-destructive">
+                {String(error.message)}
+            </p>
+        )}
       </div>
     </div>
   );
