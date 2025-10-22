@@ -158,47 +158,41 @@ export default function MultiPageApplicationForm({
     }
   }, [watchedData, currentStep]);
 
-  const processForm = (data: MultiPageFormData) => {
+  const processForm = async (data: MultiPageFormData) => {
     toast({
       title: dictionary.applicationForm.results.success.title,
       description: dictionary.applicationForm.results.success.description,
     });
 
-    submitApplication(data)
-      .then((result) => {
-        if (!result.success) {
-          console.error("Background submission failed:", result.message);
-          toast({
-            title: dictionary.applicationForm.results.error.title,
-            description:
-              result.message ||
-              dictionary.applicationForm.results.error.unexpected,
-            variant: "destructive",
-          });
-        } else {
-          toast({
-            title: dictionary.applicationForm.results.success.title,
-            description: "Your application has been successfully submitted.",
-          });
-          localStorage.removeItem(LOCAL_STORAGE_KEY);
-        }
-      })
-      .catch((error) => {
-        console.error("Error in background processing:", error);
-        toast({
-          title: dictionary.applicationForm.results.error.title,
-          description: dictionary.applicationForm.results.error.unexpected,
-          variant: "destructive",
-        });
+    const result = await submitApplication(data);
+
+    if (!result.success) {
+      console.error("Background submission failed:", result.message);
+      toast({
+        title: dictionary.applicationForm.results.error.title,
+        description:
+          result.message ||
+          dictionary.applicationForm.results.error.unexpected,
+        variant: "destructive",
       });
+    } else {
+      toast({
+        title: dictionary.applicationForm.results.success.title,
+        description: "Your application has been successfully submitted.",
+      });
+      localStorage.removeItem(LOCAL_STORAGE_KEY);
+      methods.reset();
+      setCurrentStep(0);
+    }
   };
 
-  const onSubmit = (data: MultiPageFormData) => {
+  const onSubmit = async (data: MultiPageFormData) => {
     setIsLoading(true);
-    processForm(data);
-    methods.reset();
-    setCurrentStep(0);
-    setIsLoading(false);
+    try {
+      await processForm(data);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleNext = async () => {
@@ -315,13 +309,17 @@ export default function MultiPageApplicationForm({
             >
               {dictionary.applicationForm.previous}
             </Button>
-            <Button type="button" onClick={handleNext} disabled={isLoading}>
-              {currentStep === steps.length - 1
-                ? isLoading
+            {currentStep === steps.length - 1 ? (
+              <Button type="submit" disabled={isLoading}>
+                {isLoading
                   ? dictionary.applicationForm.submitting
-                  : dictionary.applicationForm.submit
-                : dictionary.applicationForm.next}
-            </Button>
+                  : dictionary.applicationForm.submit}
+              </Button>
+            ) : (
+              <Button type="button" onClick={handleNext} disabled={isLoading}>
+                {dictionary.applicationForm.next}
+              </Button>
+            )}
           </div>
         </form>
       </FormProvider>

@@ -23,7 +23,6 @@ export default function ClientLayoutWrapper({
   lang: Locale;
 }) {
   const pathname = usePathname();
-
   return (
     <SmoothScroll> {/* Re-added SmoothScroll */}
       <div className="flex min-h-screen flex-col">
