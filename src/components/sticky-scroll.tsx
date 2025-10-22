@@ -66,7 +66,7 @@ const StickyCard = ({
   );
 };
 
-export const StickyScroll = ({ content = [] }: { content?: { title: string; description: React.ReactNode; icon: React.ReactNode; }[] }) => {
+export const StickyScroll = ({ content = [], dictionary }: { content?: { title: string; description: React.ReactNode; icon: React.ReactNode; }[], dictionary: Awaited<ReturnType<typeof getDictionary>>['stickyScroll'] }) => {
   const container = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: container,
@@ -82,10 +82,10 @@ export const StickyScroll = ({ content = [] }: { content?: { title: string; desc
       >
         <div className="container grid grid-cols-1 lg:grid-cols-2 gap-16 py-16 items-start">
             <div className="lg:sticky top-32 mb-10 space-y-6">
-                <h2 className="text-4xl md:text-5xl font-bold">How to Apply</h2>
-                <p className="text-muted-foreground text-lg">Our streamlined application process ensures a smooth journey from your initial inquiry to your arrival in Russia. Follow these simple steps to begin your academic adventure.</p>
+                <h2 className="text-4xl md:text-5xl font-bold">{dictionary.leftColumn.title}</h2>
+                <p className="text-muted-foreground text-lg">{dictionary.leftColumn.description}</p>
                 <Button asChild size="lg" className="text-lg px-10 py-7">
-                    <Link href={`/${lang}/application`}>Start Your Application</Link>
+                    <Link href={`/${lang}/application`}>{dictionary.leftColumn.cta}</Link>
                 </Button>
             </div>
             <div className="relative h-[200vh] space-y-6 border-6">

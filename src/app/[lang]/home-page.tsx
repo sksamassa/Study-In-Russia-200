@@ -83,7 +83,7 @@ export default function HomePage({ dictionary, lang }: HomePageProps) {
         <SmoothScroll>
             <Hero dictionary={dictionary.hero} lang={lang} />
             <ServicesSection dictionary={dictionary.services} />
-            <StickyScroll content={stickyScrollContent} />
+            <StickyScroll content={stickyScrollContent} dictionary={dictionary.stickyScroll}/>
             <Metrics dictionary={dictionary.metrics} />
             <RussianCities dictionary={dictionary.cities} />
             <FAQ dictionary={dictionary.faq} />
