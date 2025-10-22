@@ -31,13 +31,13 @@ const StepProgress = React.forwardRef<HTMLDivElement, StepProgressProps>(
             style={{
               left: "16px",
               width: `calc(${
-                (currentStep - 1) / (steps.length - 1)
+                (highestCompletedStep) / (steps.length - 1)
               } * (100% - 32px))`,
             }}
           />
           {steps.map((step, index) => {
             const stepNumber = index + 1;
-            const isCompleted = stepNumber <= highestCompletedStep && stepNumber < currentStep;
+            const isCompleted = stepNumber <= highestCompletedStep;
             const isCurrent = stepNumber === currentStep;
             const isClickable = onStepClick && stepNumber <= highestCompletedStep + 1 && stepNumber < steps.length;
 
@@ -54,7 +54,7 @@ const StepProgress = React.forwardRef<HTMLDivElement, StepProgressProps>(
                 <div
                   className={cn(
                     "flex h-8 w-8 items-center justify-center rounded-full border-2 text-sm font-bold bg-background transition-colors duration-300",
-                    isCompleted
+                    isCompleted && !isCurrent
                       ? "border-primary bg-primary text-primary-foreground"
                       : isCurrent
                       ? "border-primary text-primary"
