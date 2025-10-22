@@ -34,7 +34,8 @@ const FileUpload = ({
   label,
   description,
   tooltipText,
-  dictionary
+  dictionary,
+  name
 }: {
   onChange: (files: File[]) => void;
   value: File[];
@@ -42,9 +43,11 @@ const FileUpload = ({
   description: string;
   tooltipText: string;
   dictionary: Awaited<ReturnType<typeof getDictionary>>;
+  name: keyof MultiPageFormData;
 }) => {
   const fileInputRef = React.useRef<HTMLInputElement>(null);
-  const { error } = useFormField();
+  const { getFieldState, formState } = useFormContext<MultiPageFormData>();
+  const { error } = getFieldState(name, formState);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -61,6 +64,16 @@ const FileUpload = ({
   const handleUploadClick = () => {
     fileInputRef.current?.click();
   };
+  
+  const getFileError = (index: number) => {
+    if (Array.isArray(error)) {
+        const fileError = error[index];
+        if (fileError && typeof fileError === 'object' && 'message' in fileError) {
+            return fileError.message as string;
+        }
+    }
+    return null;
+  }
 
   return (
     <div className="space-y-4 border-b pb-4">
@@ -101,35 +114,36 @@ const FileUpload = ({
       </div>
 
       <div className="space-y-2">
-        {(value || []).map((file, index) => (
-          <div
-            key={index}
-            className="flex items-center justify-between rounded-md bg-muted/50 p-2 text-sm"
-          >
-            <div className="flex items-center gap-2">
-              <FileIcon className="h-5 w-5 text-muted-foreground" />
-              <span className="font-medium text-foreground">{file.name}</span>
-              <span className="text-xs text-muted-foreground">
-                ({(file.size / 1024).toFixed(1)} KB)
-              </span>
+        {(value || []).map((file, index) => {
+           const fileError = getFileError(index);
+           return (
+            <div key={index}>
+              <div
+                className="flex items-center justify-between rounded-md bg-muted/50 p-2 text-sm"
+              >
+                <div className="flex items-center gap-2 overflow-hidden">
+                  <FileIcon className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+                  <span className="font-medium text-foreground truncate">{file.name}</span>
+                  <span className="text-xs text-muted-foreground whitespace-nowrap">
+                    ({(file.size / 1024).toFixed(1)} KB)
+                  </span>
+                </div>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  className="h-6 w-6 flex-shrink-0"
+                  onClick={() => handleDeleteFile(index)}
+                >
+                  <X className="h-4 w-4 text-destructive" />
+                  <span className="sr-only">Remove file</span>
+                </Button>
+              </div>
+              {fileError && <p className="text-sm font-medium text-destructive mt-1">{fileError}</p>}
             </div>
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon"
-              className="h-6 w-6"
-              onClick={() => handleDeleteFile(index)}
-            >
-              <X className="h-4 w-4 text-destructive" />
-              <span className="sr-only">Remove file</span>
-            </Button>
-          </div>
-        ))}
-        {error && value?.length > 0 && (
-            <p className="text-sm font-medium text-destructive">
-                {String(error.message)}
-            </p>
-        )}
+           )
+        })}
+        {typeof error?.message === 'string' && <p className="text-sm font-medium text-destructive">{error.message}</p>}
       </div>
     </div>
   );
@@ -161,6 +175,7 @@ export default function Page5_Documents({ dictionary }: PageProps) {
           <FormItem>
             <FormControl>
               <FileUpload
+                name="passport"
                 label={formDict.passportLabel}
                 description={formDict.passportDescription}
                 tooltipText={formDict.passportTooltip}
@@ -181,6 +196,7 @@ export default function Page5_Documents({ dictionary }: PageProps) {
           <FormItem>
             <FormControl>
               <FileUpload
+                name="educationalDegree"
                 label={formDict.educationalDegreeLabel}
                 description={formDict.educationalDegreeDescription}
                 tooltipText={formDict.educationalDegreeTooltip}
