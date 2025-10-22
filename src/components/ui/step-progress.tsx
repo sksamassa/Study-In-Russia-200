@@ -19,20 +19,20 @@ const StepProgress = React.forwardRef<HTMLDivElement, StepProgressProps>(
   ({ className, steps, currentStep, onStepClick, highestCompletedStep = 0, ...props }, ref) => {
     return (
       <div ref={ref} className={cn("w-full", className)} {...props}>
-        <div className="relative flex items-start justify-between">
+        <div className="relative flex items-start">
           {/* Background line */}
           <div
             className="absolute top-4 h-0.5 bg-muted-foreground/30"
-            style={{ left: "16px", width: "calc(100% - 32px)" }}
+            style={{ left: "calc(50% / 5)", width: "calc(100% - (100% / 6))" }}
           />
           {/* Progress line */}
           <div
             className="absolute top-4 h-0.5 bg-primary transition-all duration-300"
             style={{
-              left: "16px",
+              left: "calc(50% / 5)",
               width: `calc(${
                 (highestCompletedStep) / (steps.length - 1)
-              } * (100% - 32px))`,
+              } * (100% - (100% / 6)))`,
             }}
           />
           {steps.map((step, index) => {
@@ -48,7 +48,7 @@ const StepProgress = React.forwardRef<HTMLDivElement, StepProgressProps>(
               <StepWrapper
                 key={step.name}
                 onClick={isClickable ? () => onStepClick(index) : undefined}
-                className={cn("relative z-10 flex flex-col items-center gap-2", isClickable ? "cursor-pointer" : "cursor-default")}
+                className={cn("relative z-10 flex flex-col items-center gap-2 w-full", isClickable ? "cursor-pointer" : "cursor-default")}
                 disabled={!isClickable}
               >
                 <div
