@@ -24,12 +24,12 @@ export default function ClientLayoutWrapper({
 }) {
   const pathname = usePathname();
   return (
-    <SmoothScroll> {/* Re-added SmoothScroll */}
+    <SmoothScroll>
       <div className="flex min-h-screen flex-col">
         <Header dictionary={dictionary.header} />
         <AnimatePresence mode="wait">
           <motion.main
-            key={pathname} // Use pathname as key for AnimatePresence for page transitions
+            key={pathname}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
