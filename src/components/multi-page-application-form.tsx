@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
@@ -113,10 +114,12 @@ export default function MultiPageApplicationForm({
       privacyPolicyConsent: false,
       recaptcha: "",
     },
+    mode: "onChange",
   });
 
-  const { trigger, handleSubmit: handleHookFormSubmit, watch, reset } = methods;
+  const { trigger, handleSubmit: handleHookFormSubmit, watch, reset, formState } = methods;
   const watchedData = watch();
+  const isSubmitDisabled = !formState.isValid || isLoading;
 
   useEffect(() => {
     try {
@@ -219,7 +222,7 @@ export default function MultiPageApplicationForm({
 
   const handlePrevious = () => {
     if (currentStep > 0) {
-      setCurrentStep((prev) => prev - 1);
+      setCurrentStep((prev) => prev + 1);
     }
   };
 
@@ -310,7 +313,7 @@ export default function MultiPageApplicationForm({
               {dictionary.applicationForm.previous}
             </Button>
             {currentStep === steps.length - 1 ? (
-              <Button type="submit" disabled={isLoading}>
+              <Button type="submit" disabled={isSubmitDisabled}>
                 {isLoading
                   ? dictionary.applicationForm.submitting
                   : dictionary.applicationForm.submit}

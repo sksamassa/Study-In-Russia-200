@@ -15,7 +15,6 @@ import {
   Command,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
@@ -62,7 +61,7 @@ export default function Page1_PersonalInformation({ dictionary }: PageProps) {
         name="middleName"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{formDict.middleName}*</FormLabel>
+            <FormLabel>{formDict.middleName}</FormLabel>
             <FormControl>
               <Input placeholder={formDict.middleNamePlaceholder} {...field} />
             </FormControl>
