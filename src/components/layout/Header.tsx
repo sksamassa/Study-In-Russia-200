@@ -79,7 +79,7 @@ export function Header({ dictionary }: { dictionary: Awaited<ReturnType<typeof g
             <LanguageSwitcher />
             <ThemeToggle />
             {showApplyButton && (
-                <Button asChild className="ml-4">
+                <Button asChild className="ml-4" size="lg">
                     <Link href={`/${lang}/application`}>{dictionary.applyNow}</Link>
                 </Button>
             )}
@@ -108,7 +108,7 @@ export function Header({ dictionary }: { dictionary: Awaited<ReturnType<typeof g
                 </Link>
               )})}
               {showApplyButton && (
-                <Button asChild className="w-full">
+                <Button asChild className="w-full" size="lg">
                     <Link href={`/${lang}/application`} onClick={() => setIsMenuOpen(false)}>{dictionary.applyNow}</Link>
                 </Button>
               )}

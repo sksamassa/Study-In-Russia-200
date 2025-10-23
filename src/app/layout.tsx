@@ -1,19 +1,34 @@
+'use client';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
+import { usePathname } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
+import { SmoothScroll } from '@/components/smooth-scroll';
 import { getDictionary } from '@/i18n/get-dictionary';
-import { Locale } from '@/i18n/i18n-config';
-import ClientLayoutWrapper from '@/components/layout/ClientLayoutWrapper';
+import { Locale, i18n } from '@/i18n/i18n-config';
+import { useEffect, useState } from 'react';
+import { FreeConsultationButton } from '@/components/free-consultation-button';
 
-export default async function RootLayout({
+type Dictionary = Awaited<ReturnType<typeof getDictionary>>;
+
+export default function RootLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
   params: { lang: Locale };
 }) {
-  const dictionary = await getDictionary(params.lang);
+  const pathname = usePathname();
+  const [dictionary, setDictionary] = useState<Dictionary | null>(null);
+
+  useEffect(() => {
+    const lang = (pathname.split('/')[1] || i18n.defaultLocale) as Locale;
+    getDictionary(lang).then(setDictionary);
+  }, [pathname]);
 
   return (
     <html lang={params?.lang ?? 'en'} suppressHydrationWarning>
@@ -36,11 +51,29 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ClientLayoutWrapper dictionary={dictionary} lang={params.lang}>
-            {children}
-          </ClientLayoutWrapper>
+          <SmoothScroll>
+            <div className="flex min-h-screen flex-col">
+              {dictionary && <Header dictionary={dictionary.header} />}
+                <AnimatePresence mode="wait">
+                  <motion.main
+                    key={pathname}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.15 }}
+                    className="flex-1"
+                  >
+                    {children}
+                  </motion.main>
+                </AnimatePresence>
+              {dictionary && <Footer dictionary={dictionary.footer} />}
+            </div>
+            <Toaster />
+            {dictionary && <FreeConsultationButton dictionary={dictionary.footer} />}
+          </SmoothScroll>
         </ThemeProvider>
       </body>
     </html>
   );
 }
+
