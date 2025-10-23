@@ -21,7 +21,7 @@ const StickyCard = ({
 }: {
   i: number;
   title: string;
-  description: string;
+  description: React.ReactNode;
   icon: React.ReactNode;
   progress: any;
   range: [number, number];
@@ -75,20 +75,26 @@ export const StickyScroll = ({ content = [], dictionary }: { content?: { title: 
 
   const lang = usePathname().split('/')[1];
 
+  // Provide default empty strings for dictionary properties to prevent undefined errors
+  const leftColumnTitle = dictionary?.leftColumn?.title || '';
+  const leftColumnDescription = dictionary?.leftColumn?.description || '';
+  const leftColumnCta = dictionary?.leftColumn?.cta || '';
+
   return (
       <section
         ref={container}
         className="relative px-4 md:px-16 w-full bg-background my-20"
+        style={{ position: 'relative' }} // Explicitly set position to relative
       >
         <div className="container grid grid-cols-1 lg:grid-cols-2 gap-16 py-16 items-start">
             <div className="lg:sticky top-32 mb-10 space-y-6">
-                <h2 className="text-4xl md:text-5xl font-bold">{dictionary.leftColumn.title}</h2>
-                <p className="text-muted-foreground text-lg">{dictionary.leftColumn.description}</p>
+                <h2 className="text-4xl md:text-5xl font-bold">{leftColumnTitle}</h2>
+                <p className="text-muted-foreground text-lg">{leftColumnDescription}</p>
                 <Button asChild size="lg" className="text-lg px-10 py-7">
-                    <Link href={`/${lang}/application`}>{dictionary.leftColumn.cta}</Link>
+                    <Link href={`/${lang}/application`}>{leftColumnCta}</Link>
                 </Button>
             </div>
-            <div className="relative h-[200vh] space-y-6 border-6">
+            <div className="relative h-[200vh] space-y-6 border-6" style={{ position: 'relative' }}>
                 {content.map((project, i) => {
                     const targetScale = 1 - (content.length - 1 - i) * 0.05;
                     return (
