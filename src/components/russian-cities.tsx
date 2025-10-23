@@ -53,6 +53,7 @@ export function RussianCities({ dictionary }: { dictionary: Awaited<ReturnType<t
                         alt={`A view of ${city.name}`}
                         fill
                         className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 400px"
                         data-ai-hint={city.imageHint}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-4 flex flex-col justify-end">
@@ -74,6 +75,7 @@ export function RussianCities({ dictionary }: { dictionary: Awaited<ReturnType<t
                         alt={`A view of ${city.name}`}
                         fill
                         className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 400px"
                         data-ai-hint={city.imageHint}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-4 flex flex-col justify-end">

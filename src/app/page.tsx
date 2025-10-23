@@ -13,6 +13,9 @@ import { Step01Icon, Step02Icon, Step03Icon, Step04Icon } from '@/components/ico
 import { StickyScroll } from '@/components/sticky-scroll';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { getDictionary } from '@/i18n/get-dictionary';
+import { Locale } from '@/i18n/i18n-config';
+import { usePathname } from 'next/navigation';
 
 const services = [
   {
@@ -266,7 +269,10 @@ export default function Home() {
   const servicesInView = useInView(servicesRef, { once: true, amount: 0.2 });
   const metricsRef = useRef(null);
   const metricsInView = useInView(metricsRef, { once: true, amount: 0.5 });
-  
+  const pathname = usePathname();
+  const lang = pathname.split('/')[1] as Locale;
+  const dictionary = getDictionary(lang);
+
   return (
     <>
       {/* Hero Section */}
@@ -277,6 +283,7 @@ export default function Home() {
           fill
           className="object-cover"
           priority
+          sizes="100vw"
           data-ai-hint="moscow cathedral"
         />
         <div className="absolute top-0 left-0 z-10 w-full h-full bg-black/60"></div>
@@ -340,7 +347,7 @@ export default function Home() {
       </section>
 
       {/* Sticky Scroll Section */}
-      <StickyScroll content={content} />
+      <StickyScroll content={content} dictionary={dictionary} />
 
 
       {/* Success Metrics Section */}
