@@ -1,3 +1,4 @@
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getDictionary } from '@/i18n/get-dictionary';
@@ -32,8 +33,8 @@ const contactMethods = [
   {
     icon: WhatsAppIcon,
     name: 'WhatsApp',
-    value: '+7 (919) 126-77-67',
-    href: 'https://wa.me/79191267767',
+    value: '+7 (912) 083-75-71',
+    href: 'https://wa.me/79120837571',
     ctaKey: 'whatsappCta',
   },
   {

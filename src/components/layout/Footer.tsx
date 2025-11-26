@@ -19,8 +19,8 @@ const contactMethods = [
   },
   {
     icon: FaWhatsapp,
-    value: '+79191267767',
-    href: 'https://wa.me/79191267767',
+    value: '+79120837571',
+    href: 'https://wa.me/79120837571',
     hoverBg: 'group-hover:bg-[#25D366]', // WhatsApp green background
   },
   {
